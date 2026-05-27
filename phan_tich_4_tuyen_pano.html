@@ -1,0 +1,1563 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Phân tích hiệu quả 4 tuyến Pano Quảng Cáo · 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,900&family=IBM+Plex+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0B1020;
+  --bg-elev: #131A2E;
+  --surface: #1A2340;
+  --surface-2: #232D4F;
+  --border: rgba(255,255,255,0.08);
+  --border-strong: rgba(255,255,255,0.18);
+  --text: #E8ECF5;
+  --text-muted: #98A2BA;
+  --text-dim: #5A6685;
+  --accent: #F5B945;
+  --accent-warm: #FF7849;
+  --accent-cool: #4FD1C5;
+  --danger: #F56565;
+  --success: #68D391;
+  --gold: #E0B956;
+  --grid: rgba(245,185,69,0.05);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; scroll-snap-type: y mandatory; scroll-padding-top: 0; }
+
+body {
+  font-family: 'IBM Plex Sans', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.55;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  font-feature-settings: "ss01", "cv11";
+}
+
+::selection { background: var(--accent); color: var(--bg); }
+
+.slide {
+  min-height: 100vh;
+  scroll-snap-align: start;
+  padding: 3.5rem 5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  border-bottom: 1px solid var(--border);
+  background:
+    radial-gradient(ellipse 80% 50% at 50% 0%, rgba(245,185,69,0.035), transparent 60%),
+    var(--bg);
+}
+
+.slide::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 72px 72px;
+  pointer-events: none;
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 50%, black 30%, transparent 90%);
+}
+
+.slide > * { position: relative; z-index: 1; }
+
+.slide-num {
+  position: absolute;
+  top: 1.75rem;
+  right: 2.5rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  color: var(--text-dim);
+  letter-spacing: 0.2em;
+  font-weight: 500;
+}
+
+.slide-num span { color: var(--accent); }
+
+.slide-footer {
+  position: absolute;
+  bottom: 1.5rem;
+  left: 5rem;
+  right: 5rem;
+  display: flex;
+  justify-content: space-between;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem;
+  color: var(--text-dim);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.3em;
+  color: var(--accent);
+  text-transform: uppercase;
+  margin-bottom: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.eyebrow::before {
+  content: '';
+  width: 36px;
+  height: 1px;
+  background: var(--accent);
+}
+
+h1, h2, h3 {
+  font-family: 'Fraunces', Georgia, serif;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.05;
+  color: var(--text);
+}
+
+h1 { font-size: clamp(2.5rem, 5.5vw, 5rem); font-weight: 700; }
+h2 { font-size: clamp(1.75rem, 3.5vw, 2.85rem); font-weight: 600; margin-bottom: 1.25rem; }
+h3 { font-size: 1.35rem; margin-bottom: 0.5rem; font-weight: 600; }
+h4 { font-family: 'Fraunces', serif; font-size: 1.1rem; color: var(--text); margin-bottom: 0.35rem; font-weight: 600; }
+
+p { color: var(--text-muted); font-size: 1.02rem; max-width: 72ch; }
+p + p { margin-top: 0.85rem; }
+
+strong { color: var(--text); font-weight: 600; }
+em { color: var(--accent); font-style: italic; }
+
+/* ═══════════════ COVER SLIDE ═══════════════ */
+.cover {
+  background:
+    radial-gradient(ellipse 70% 60% at 25% 35%, rgba(245,185,69,0.13), transparent 70%),
+    radial-gradient(ellipse 50% 50% at 85% 75%, rgba(79,209,197,0.08), transparent 70%),
+    var(--bg);
+}
+
+.cover h1 {
+  font-style: italic;
+  font-weight: 500;
+  margin-bottom: 1.5rem;
+}
+
+.cover h1 .accent {
+  font-style: normal;
+  font-weight: 900;
+  color: var(--accent);
+  display: block;
+  margin-top: 0.25rem;
+}
+
+.cover .lede {
+  font-size: 1.2rem;
+  max-width: 56ch;
+  margin-top: 1.5rem;
+  color: var(--text-muted);
+  line-height: 1.55;
+}
+
+.cover-meta {
+  margin-top: 4rem;
+  display: grid;
+  grid-template-columns: repeat(4, auto);
+  gap: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border-strong);
+  align-items: end;
+}
+
+.meta-block .label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.66rem;
+  letter-spacing: 0.22em;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  margin-bottom: 0.6rem;
+}
+
+.meta-block .value {
+  font-family: 'Fraunces', serif;
+  font-size: 1.3rem;
+  color: var(--text);
+  font-weight: 500;
+}
+
+/* ═══════════════ METHODOLOGY ═══════════════ */
+.disclaimer-box {
+  background: linear-gradient(135deg, rgba(245,185,69,0.08), rgba(245,185,69,0.02));
+  border: 1px solid rgba(245,185,69,0.25);
+  border-left: 3px solid var(--accent);
+  padding: 1.5rem 1.85rem;
+  border-radius: 4px;
+  margin: 1.5rem 0;
+  max-width: 92ch;
+}
+
+.disclaimer-box .tag {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  color: var(--accent);
+  background: rgba(245,185,69,0.12);
+  padding: 0.25rem 0.65rem;
+  border-radius: 3px;
+  margin-bottom: 0.75rem;
+  font-weight: 500;
+}
+
+.disclaimer-box p {
+  color: var(--text);
+  font-size: 0.97rem;
+  max-width: none;
+}
+
+.method-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+  margin-top: 1.75rem;
+}
+
+.method-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 1.4rem 1.5rem;
+  border-radius: 6px;
+  position: relative;
+  overflow: hidden;
+}
+
+.method-card .idx {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--accent);
+  letter-spacing: 0.15em;
+  margin-bottom: 0.6rem;
+  font-weight: 500;
+}
+
+.method-card p {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+}
+
+.formula {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85rem;
+  color: var(--accent-cool);
+  background: rgba(0,0,0,0.3);
+  padding: 0.35rem 0.65rem;
+  border-radius: 3px;
+  display: inline-block;
+  margin-top: 0.65rem;
+}
+
+/* ═══════════════ DATA TABLES ═══════════════ */
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1.25rem;
+  font-size: 0.92rem;
+  background: var(--surface);
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+
+.data-table th {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  text-align: left;
+  padding: 0.9rem 1.1rem;
+  background: rgba(0,0,0,0.28);
+  border-bottom: 1px solid var(--border-strong);
+  font-weight: 500;
+}
+
+.data-table th.num, .data-table td.num { text-align: right; font-variant-numeric: tabular-nums; }
+.data-table th.center, .data-table td.center { text-align: center; }
+
+.data-table td {
+  padding: 0.95rem 1.1rem;
+  border-bottom: 1px solid var(--border);
+  color: var(--text);
+  vertical-align: middle;
+}
+
+.data-table tr:last-child td { border-bottom: none; }
+
+.data-table tr:hover td { background: rgba(245,185,69,0.03); }
+
+.data-table .num-large {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 500;
+  font-size: 0.98rem;
+  letter-spacing: -0.01em;
+}
+
+.data-table .route-name {
+  font-family: 'Fraunces', serif;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.route-tag {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-align: center;
+  line-height: 24px;
+  margin-right: 0.6rem;
+  vertical-align: -2px;
+}
+
+.tag-A { background: rgba(104,211,145,0.18); color: var(--success); border: 1px solid rgba(104,211,145,0.35); }
+.tag-B { background: rgba(79,209,197,0.18); color: var(--accent-cool); border: 1px solid rgba(79,209,197,0.35); }
+.tag-C { background: rgba(245,185,69,0.18); color: var(--accent); border: 1px solid rgba(245,185,69,0.35); }
+.tag-D { background: rgba(245,101,101,0.18); color: var(--danger); border: 1px solid rgba(245,101,101,0.35); }
+
+.cell-best { color: var(--success); font-weight: 600; }
+.cell-worst { color: var(--danger); font-weight: 600; }
+.cell-mid { color: var(--accent); }
+
+.badge {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  padding: 0.22rem 0.55rem;
+  border-radius: 3px;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.badge-success { background: rgba(104,211,145,0.15); color: var(--success); }
+.badge-danger { background: rgba(245,101,101,0.15); color: var(--danger); }
+.badge-warn { background: rgba(245,185,69,0.15); color: var(--accent); }
+.badge-neutral { background: rgba(152,162,186,0.12); color: var(--text-muted); }
+
+/* ═══════════════ HERO STATS ═══════════════ */
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem;
+  margin: 2rem 0;
+}
+
+.stat-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 1.5rem 1.5rem 1.75rem;
+  border-radius: 6px;
+  position: relative;
+  overflow: hidden;
+}
+
+.stat-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 3px;
+  background: var(--accent);
+}
+
+.stat-card.success::before { background: var(--success); }
+.stat-card.danger::before { background: var(--danger); }
+.stat-card.cool::before { background: var(--accent-cool); }
+
+.stat-card .label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  margin-bottom: 0.65rem;
+}
+
+.stat-card .value {
+  font-family: 'Fraunces', serif;
+  font-size: 2.4rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--text);
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+
+.stat-card .value .unit {
+  font-size: 0.95rem;
+  color: var(--text-dim);
+  font-weight: 500;
+  margin-left: 0.25rem;
+}
+
+.stat-card .delta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+/* ═══════════════ HYPOTHESIS CARDS ═══════════════ */
+.hyp-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.hyp-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 1.85rem 1.65rem;
+  border-radius: 6px;
+  position: relative;
+}
+
+.hyp-card .number {
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-size: 3.5rem;
+  font-weight: 600;
+  color: var(--accent);
+  line-height: 1;
+  margin-bottom: 1rem;
+  display: block;
+  opacity: 0.85;
+}
+
+.hyp-card h3 {
+  margin-bottom: 0.6rem;
+  font-size: 1.25rem;
+}
+
+.hyp-card p {
+  font-size: 0.92rem;
+  color: var(--text-muted);
+  margin-bottom: 0.65rem;
+}
+
+.hyp-card .evidence {
+  margin-top: 1rem;
+  padding-top: 0.9rem;
+  border-top: 1px dashed var(--border-strong);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.78rem;
+  color: var(--accent-cool);
+  letter-spacing: 0.02em;
+}
+
+.hyp-card .evidence::before {
+  content: '▸ Bằng chứng từ dữ liệu: ';
+  color: var(--accent);
+}
+
+/* ═══════════════ RANKING ═══════════════ */
+.ranking-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  margin-top: 1.5rem;
+}
+
+.rank-row {
+  display: grid;
+  grid-template-columns: 60px 1.2fr 2.5fr 1.3fr;
+  gap: 1.5rem;
+  align-items: center;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 1.15rem 1.5rem;
+  transition: transform 0.2s ease;
+}
+
+.rank-row:hover { transform: translateX(4px); }
+
+.rank-row .rank {
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-size: 2.5rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--text-dim);
+}
+
+.rank-row.gold { border-left: 3px solid var(--success); }
+.rank-row.silver { border-left: 3px solid var(--accent-cool); }
+.rank-row.bronze { border-left: 3px solid var(--accent); }
+.rank-row.last { border-left: 3px solid var(--danger); }
+
+.rank-row.gold .rank { color: var(--success); }
+.rank-row.silver .rank { color: var(--accent-cool); }
+.rank-row.bronze .rank { color: var(--accent); }
+.rank-row.last .rank { color: var(--danger); }
+
+.rank-row .route h3 {
+  font-size: 1.15rem;
+  margin-bottom: 0.15rem;
+}
+
+.rank-row .route .sub {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  color: var(--text-dim);
+  letter-spacing: 0.05em;
+}
+
+.rank-row .reason {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.rank-row .verdict {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.78rem;
+  text-align: right;
+  color: var(--text);
+}
+
+.rank-row .verdict .label {
+  font-size: 0.65rem;
+  color: var(--text-dim);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 0.2rem;
+}
+
+/* ═══════════════ OPTIMIZATION ═══════════════ */
+.opt-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+  margin-top: 1.75rem;
+}
+
+.opt-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 1.4rem 1.5rem;
+  border-radius: 6px;
+  display: flex;
+  gap: 1.25rem;
+  align-items: flex-start;
+}
+
+.opt-card .icon {
+  flex-shrink: 0;
+  width: 42px;
+  height: 42px;
+  background: rgba(245,185,69,0.12);
+  border: 1px solid rgba(245,185,69,0.3);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Fraunces', serif;
+  font-size: 1.4rem;
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.opt-card .content h4 { font-size: 1.05rem; margin-bottom: 0.35rem; }
+.opt-card .content p { font-size: 0.88rem; color: var(--text-muted); }
+
+.opt-card .impact {
+  display: inline-block;
+  margin-top: 0.6rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  color: var(--accent-cool);
+  letter-spacing: 0.05em;
+}
+
+/* ═══════════════ CONCLUSION ═══════════════ */
+.action-list {
+  list-style: none;
+  margin-top: 1.5rem;
+}
+
+.action-list li {
+  padding: 1.1rem 0;
+  border-bottom: 1px solid var(--border);
+  display: grid;
+  grid-template-columns: 32px 1fr auto;
+  gap: 1.25rem;
+  align-items: center;
+}
+
+.action-list li:last-child { border-bottom: none; }
+
+.action-list .num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85rem;
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.action-list .text {
+  color: var(--text);
+  font-size: 1rem;
+}
+
+.action-list .text .sub {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-top: 0.2rem;
+}
+
+.action-list .priority {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+/* ═══════════════ NAV INDICATOR ═══════════════ */
+.nav-indicator {
+  position: fixed;
+  right: 1.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  z-index: 100;
+}
+
+.nav-indicator a {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.15);
+  transition: all 0.2s ease;
+  display: block;
+}
+
+.nav-indicator a:hover { background: var(--accent); transform: scale(1.5); }
+
+/* ═══════════════ KEY INSIGHT ═══════════════ */
+.key-insight {
+  background: linear-gradient(135deg, rgba(79,209,197,0.08), rgba(79,209,197,0.02));
+  border-left: 3px solid var(--accent-cool);
+  padding: 1.4rem 1.75rem;
+  border-radius: 4px;
+  margin: 1.75rem 0;
+  max-width: 88ch;
+}
+
+.key-insight .label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  color: var(--accent-cool);
+  text-transform: uppercase;
+  margin-bottom: 0.55rem;
+  font-weight: 500;
+}
+
+.key-insight p { font-size: 1.02rem; color: var(--text); }
+
+/* ═══════════════ TABLE WRAPPER FOR HORIZONTAL SCROLL ═══════════════ */
+.table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent) transparent;
+  margin-top: 1.25rem;
+  border-radius: 6px;
+}
+
+.table-wrap::-webkit-scrollbar { height: 6px; }
+.table-wrap::-webkit-scrollbar-track { background: rgba(255,255,255,0.04); }
+.table-wrap::-webkit-scrollbar-thumb { background: rgba(245,185,69,0.4); border-radius: 3px; }
+
+.table-wrap .data-table { margin-top: 0; }
+
+/* ═══════════════ RESPONSIVE — TABLET ≤ 1024px ═══════════════ */
+@media (max-width: 1024px) {
+  .slide {
+    padding: 3rem 2.5rem 4rem;
+    min-height: auto;
+  }
+  .slide-footer { left: 2.5rem; right: 2.5rem; }
+
+  h1 { font-size: clamp(2.25rem, 5.5vw, 3.5rem); }
+  .cover h1 { font-size: clamp(2.5rem, 6vw, 4rem); }
+  h2 { font-size: clamp(1.6rem, 3.5vw, 2.4rem); }
+
+  .stat-grid { grid-template-columns: repeat(2, 1fr); }
+  .method-grid { grid-template-columns: repeat(2, 1fr); }
+  .hyp-grid { grid-template-columns: 1fr; gap: 1rem; }
+  .opt-grid { grid-template-columns: repeat(2, 1fr); }
+  .cover-meta { grid-template-columns: repeat(2, 1fr); gap: 1.5rem 2.5rem; }
+
+  .nav-indicator { display: none; }
+}
+
+/* ═══════════════ RESPONSIVE — MOBILE ≤ 768px ═══════════════ */
+@media (max-width: 768px) {
+  /* Disable mandatory snap on mobile — content varies in height */
+  html { scroll-snap-type: y proximity; }
+
+  body { font-size: 15px; }
+
+  .slide {
+    padding: 3.75rem 1.25rem 4.5rem;
+    min-height: auto;
+    justify-content: flex-start;
+    scroll-snap-align: start;
+  }
+
+  .slide-num {
+    top: 1.1rem;
+    right: 1.25rem;
+    font-size: 0.62rem;
+    letter-spacing: 0.15em;
+  }
+
+  /* Footer becomes static and stacks vertically */
+  .slide-footer {
+    position: static;
+    margin-top: 2rem;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.35rem;
+    left: 0; right: 0;
+    font-size: 0.6rem;
+    letter-spacing: 0.14em;
+  }
+
+  /* Typography */
+  .eyebrow {
+    font-size: 0.62rem;
+    margin-bottom: 0.85rem;
+    letter-spacing: 0.22em;
+    gap: 0.55rem;
+  }
+  .eyebrow::before { width: 24px; }
+
+  h1 { font-size: 2.1rem; line-height: 1.08; letter-spacing: -0.02em; }
+  h2 { font-size: 1.55rem; margin-bottom: 1rem; line-height: 1.12; }
+  h3 { font-size: 1.05rem; }
+  h4 { font-size: 0.98rem; }
+
+  p { font-size: 0.94rem; }
+
+  /* ─── Cover ─── */
+  .cover h1 { font-size: 2.1rem; }
+  .cover .lede { font-size: 1rem; margin-top: 1rem; }
+  .cover-meta {
+    margin-top: 2rem;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+    padding-top: 1.5rem;
+  }
+  .meta-block .value { font-size: 1.05rem; }
+  .meta-block .label { font-size: 0.58rem; }
+
+  /* ─── Disclaimer & insight boxes ─── */
+  .disclaimer-box, .key-insight {
+    padding: 1rem 1.15rem;
+    margin: 1.1rem 0;
+  }
+  .disclaimer-box p, .key-insight p { font-size: 0.9rem; line-height: 1.5; }
+  .disclaimer-box .tag, .key-insight .label { font-size: 0.62rem; }
+
+  /* ─── Methodology cards ─── */
+  .method-grid {
+    grid-template-columns: 1fr;
+    gap: 0.85rem;
+    margin-top: 1.25rem;
+  }
+  .method-card { padding: 1.1rem 1.2rem; }
+  .method-card p { font-size: 0.85rem; }
+  .formula { font-size: 0.78rem; padding: 0.3rem 0.55rem; }
+
+  /* ─── Stat cards ─── */
+  .stat-grid {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+    margin: 1.25rem 0;
+  }
+  .stat-card {
+    padding: 1.05rem 1.2rem 1.25rem;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 0.5rem 1rem;
+  }
+  .stat-card::before { width: 3px; height: 100%; top: 0; left: 0; }
+  .stat-card .label {
+    grid-column: 1; grid-row: 1;
+    font-size: 0.6rem; margin-bottom: 0;
+  }
+  .stat-card .value {
+    grid-column: 2; grid-row: 1 / span 2;
+    font-size: 1.7rem;
+    text-align: right;
+  }
+  .stat-card .delta {
+    grid-column: 1; grid-row: 2;
+    font-size: 0.72rem;
+    margin-top: 0.2rem;
+  }
+
+  /* ─── Tables — horizontal scroll with edge-bleed ─── */
+  .table-wrap {
+    margin-left: -1.25rem;
+    margin-right: -1.25rem;
+    padding: 0 1.25rem;
+    width: calc(100% + 2.5rem);
+    border-radius: 0;
+  }
+  .data-table {
+    font-size: 0.78rem;
+    min-width: 540px;
+    border-radius: 6px;
+  }
+  .data-table th {
+    padding: 0.65rem 0.7rem;
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+  }
+  .data-table td {
+    padding: 0.7rem 0.7rem;
+  }
+  .data-table .num-large { font-size: 0.82rem; }
+  .data-table .route-name { font-size: 0.88rem; }
+  .route-tag { width: 20px; height: 20px; font-size: 0.64rem; line-height: 20px; margin-right: 0.45rem; }
+  .badge { font-size: 0.6rem; padding: 0.18rem 0.45rem; }
+
+  /* Subtle hint that table can scroll */
+  .table-wrap::after {
+    content: '← cuộn ngang →';
+    display: block;
+    text-align: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.62rem;
+    color: var(--text-dim);
+    padding: 0.6rem 0 0.2rem;
+    letter-spacing: 0.12em;
+  }
+
+  /* ─── Hypothesis cards ─── */
+  .hyp-grid { gap: 0.85rem; margin-top: 1.25rem; }
+  .hyp-card { padding: 1.35rem 1.25rem; }
+  .hyp-card .number { font-size: 2.5rem; margin-bottom: 0.5rem; }
+  .hyp-card h3 { font-size: 1.1rem; }
+  .hyp-card p { font-size: 0.88rem; }
+  .hyp-card .evidence { font-size: 0.72rem; }
+
+  /* ─── Ranking — restructured to vertical stack ─── */
+  .ranking-list { gap: 0.7rem; margin-top: 1.25rem; }
+  .rank-row {
+    grid-template-columns: 44px 1fr;
+    grid-template-areas:
+      "rank route"
+      "reason reason"
+      "verdict verdict";
+    gap: 0.5rem 0.9rem;
+    padding: 1rem 1.1rem;
+  }
+  .rank-row:hover { transform: none; }
+  .rank-row .rank {
+    grid-area: rank;
+    font-size: 1.85rem;
+  }
+  .rank-row .route { grid-area: route; align-self: center; }
+  .rank-row .route h3 { font-size: 1rem; }
+  .rank-row .route .sub { font-size: 0.66rem; letter-spacing: 0.04em; }
+  .rank-row .reason {
+    grid-area: reason;
+    font-size: 0.85rem;
+    padding-left: 0;
+    margin-top: 0.4rem;
+  }
+  .rank-row .verdict {
+    grid-area: verdict;
+    text-align: left;
+    padding-left: 0;
+    margin-top: 0.4rem;
+  }
+  .rank-row .verdict .label { font-size: 0.58rem; margin-bottom: 0.25rem; }
+
+  /* ─── Optimization grid ─── */
+  .opt-grid { grid-template-columns: 1fr; gap: 0.75rem; margin-top: 1.25rem; }
+  .opt-card { padding: 1.05rem 1.15rem; gap: 0.9rem; }
+  .opt-card .icon {
+    width: 34px; height: 34px;
+    font-size: 1.05rem;
+    border-radius: 6px;
+  }
+  .opt-card .content h4 { font-size: 0.98rem; }
+  .opt-card .content p { font-size: 0.83rem; }
+  .opt-card .impact { font-size: 0.68rem; margin-top: 0.4rem; }
+
+  /* ─── Action list ─── */
+  .action-list { margin-top: 1.25rem; }
+  .action-list li {
+    grid-template-columns: 24px 1fr;
+    gap: 0.5rem 0.85rem;
+    padding: 0.95rem 0;
+  }
+  .action-list .num { font-size: 0.78rem; }
+  .action-list .text { font-size: 0.92rem; line-height: 1.45; }
+  .action-list .text .sub { font-size: 0.78rem; }
+  .action-list .priority {
+    grid-column: 2 / -1;
+    margin-top: 0.45rem;
+    font-size: 0.62rem;
+    letter-spacing: 0.12em;
+  }
+}
+
+/* ═══════════════ RESPONSIVE — SMALL PHONES ≤ 380px ═══════════════ */
+@media (max-width: 380px) {
+  .slide { padding: 3.5rem 1rem 4rem; }
+  .slide-footer { left: 0; right: 0; }
+
+  h1, .cover h1 { font-size: 1.85rem; }
+  h2 { font-size: 1.35rem; }
+
+  .cover-meta { grid-template-columns: 1fr; gap: 1rem; }
+  .meta-block .value { font-size: 1rem; }
+
+  .stat-card .value { font-size: 1.5rem; }
+
+  .data-table { min-width: 480px; font-size: 0.74rem; }
+
+  .rank-row { padding: 0.9rem 1rem; }
+  .rank-row .rank { font-size: 1.65rem; }
+
+  .opt-card { padding: 0.95rem 1rem; }
+  .hyp-card { padding: 1.2rem 1.1rem; }
+}
+
+/* ═══════════════ PRINT ═══════════════ */
+@media print {
+  html { scroll-snap-type: none; }
+  .slide { min-height: auto; page-break-after: always; padding: 2rem; }
+  .nav-indicator { display: none; }
+  .slide-footer { position: static; margin-top: 2rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="nav-indicator">
+  <a href="#s1" title="Bìa"></a>
+  <a href="#s2" title="Phương pháp"></a>
+  <a href="#s3" title="Số liệu thực"></a>
+  <a href="#s4" title="So sánh hiệu quả"></a>
+  <a href="#s5" title="Nghịch lý Reach-Conversion"></a>
+  <a href="#s6" title="3 Giả thuyết"></a>
+  <a href="#s7" title="Xếp hạng"></a>
+  <a href="#s8" title="Tối ưu Tuyến C"></a>
+  <a href="#s9" title="Kết luận"></a>
+</nav>
+
+<!-- ═══════════════ SLIDE 1: COVER ═══════════════ -->
+<section class="slide cover" id="s1">
+  <div class="slide-num"><span>01</span> / 09</div>
+
+  <div class="eyebrow">Báo cáo phân tích · OOH Hà Nội–Bắc Ninh–Thanh Hóa</div>
+
+  <h1>
+    Bốn tuyến pano,<br>
+    bốn câu chuyện
+    <span class="accent">về chuyển đổi.</span>
+  </h1>
+
+  <p class="lede">
+    Phân tích so sánh hiệu quả đầu tư của 4 pano quảng cáo tấm lớn —
+    từ trục sân bay Nội Bài đến cửa ngõ phía Nam Thanh Hóa —
+    qua các chỉ số CPM, CPA, và độ phù hợp tệp khách thực tế.
+  </p>
+
+  <div class="cover-meta">
+    <div class="meta-block">
+      <div class="label">Đối tượng</div>
+      <div class="value">4 vị trí pano</div>
+    </div>
+    <div class="meta-block">
+      <div class="label">Ngân sách</div>
+      <div class="value">1,75 tỷ VNĐ/năm</div>
+    </div>
+    <div class="meta-block">
+      <div class="label">Reach tổng</div>
+      <div class="value">115,8M lượt</div>
+    </div>
+    <div class="meta-block">
+      <div class="label">Báo cáo ngày</div>
+      <div class="value">22/05/2026</div>
+    </div>
+  </div>
+
+  <div class="slide-footer">
+    <span>Toàn Cầu ADV · Báo giá 21/05/2026</span>
+    <span>Cuộn xuống để tiếp tục ↓</span>
+  </div>
+</section>
+
+<!-- ═══════════════ SLIDE 2: METHODOLOGY ═══════════════ -->
+<section class="slide" id="s2">
+  <div class="slide-num"><span>02</span> / 09</div>
+
+  <div class="eyebrow">Phương pháp luận</div>
+  <h2>Khung phân tích & nguồn dữ liệu</h2>
+  <p>Phân tích này dùng dữ liệu lưu lượng thực tế (AADT) được khảo sát từ các nguồn chính thức, kết hợp với benchmark OOH Việt Nam để tính các chỉ số chuẩn hóa.</p>
+
+  <div class="disclaimer-box">
+    <span class="tag">Lưu ý về độ tin cậy</span>
+    <p><strong>Dữ liệu AADT</strong> được tổng hợp từ báo cáo Sở GTVT, BOT Hà Nội–Bắc Giang (Tuyến B, C: <em>độ tin cậy CAO</em>), và ước lượng có cơ sở dựa trên dữ liệu phân luồng sau khi cao tốc song hành đi vào hoạt động (Tuyến A, D: <em>độ tin cậy TRUNG BÌNH</em>). <strong>Tỷ lệ chuyển đổi</strong> dùng benchmark OOH Việt Nam (Statista, Note Group, Bizman): 0,05%–0,2% cho pano tĩnh tấm lớn, điều chỉnh theo từng tuyến dựa trên đặc điểm mật độ pano cạnh tranh, dwell time và độ phù hợp tệp khách.</p>
+  </div>
+
+  <div class="method-grid">
+    <div class="method-card">
+      <div class="idx">CHỈ SỐ 01</div>
+      <h4>CPM — Cost per Mille</h4>
+      <p>Chi phí trên 1.000 lượt tiếp cận, dùng để so sánh hiệu quả hiển thị giữa các tuyến.</p>
+      <div class="formula">CPM = (Cost / Impressions) × 1000</div>
+    </div>
+    <div class="method-card">
+      <div class="idx">CHỈ SỐ 02</div>
+      <h4>CPA — Cost per Acquisition</h4>
+      <p>Chi phí trên mỗi lượt chuyển đổi thực tế (quét QR, gọi hotline, truy cập URL).</p>
+      <div class="formula">CPA = Cost / Conversions</div>
+    </div>
+    <div class="method-card">
+      <div class="idx">CHỈ SỐ 03</div>
+      <h4>Reach Efficiency</h4>
+      <p>Số lượt tiếp cận thu được trên mỗi triệu VNĐ chi phí — đo độ phủ kinh tế.</p>
+      <div class="formula">Reach/M = Impressions / Cost(M)</div>
+    </div>
+  </div>
+
+  <div class="slide-footer">
+    <span>Nguồn: Sở GTVT · BOT HN–BG · Statista · Note Group · Bizman</span>
+    <span>02 · Phương pháp luận</span>
+  </div>
+</section>
+
+<!-- ═══════════════ SLIDE 3: REAL DATA ═══════════════ -->
+<section class="slide" id="s3">
+  <div class="slide-num"><span>03</span> / 09</div>
+
+  <div class="eyebrow">Dữ liệu khảo sát thực tế</div>
+  <h2>Số liệu lưu lượng & bối cảnh 4 tuyến</h2>
+
+  <div class="table-wrap">
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Tuyến</th>
+        <th class="num">AADT (xe/ngày)</th>
+        <th class="num">Hệ số khách/xe</th>
+        <th class="num">Reach/năm</th>
+        <th>Tốc độ TB</th>
+        <th>Đặc điểm chủ đạo</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="route-tag tag-A">A</span><span class="route-name">Nội Bài</span></td>
+        <td class="num num-large">75 – 90 nghìn</td>
+        <td class="num num-large">1,8</td>
+        <td class="num num-large cell-best">49,3M</td>
+        <td>60–70 km/h</td>
+        <td>Sân bay · KCN Quang Minh · trục độc đạo</td>
+      </tr>
+      <tr>
+        <td><span class="route-tag tag-B">B</span><span class="route-name">Pháp Vân</span></td>
+        <td class="num num-large">25 – 30 nghìn</td>
+        <td class="num num-large">1,5</td>
+        <td class="num num-large">15,1M</td>
+        <td>30–40 km/h</td>
+        <td>QL1A cũ Thường Tín · song song cao tốc CT.01 · tắc nghẽn</td>
+      </tr>
+      <tr>
+        <td><span class="route-tag tag-C">C</span><span class="route-name">Bắc Ninh</span></td>
+        <td class="num num-large">53 – 55 nghìn</td>
+        <td class="num num-large">1,8</td>
+        <td class="num num-large cell-mid">35,8M</td>
+        <td>60–70 km/h</td>
+        <td>Cao tốc HN–BG (QL1A mới) · KCN Đại Đồng · nút giao Khả Lễ</td>
+      </tr>
+      <tr>
+        <td><span class="route-tag tag-D">D</span><span class="route-name">Thanh Hóa</span></td>
+        <td class="num num-large">20 – 23 nghìn</td>
+        <td class="num num-large">2,0</td>
+        <td class="num num-large cell-worst">15,7M</td>
+        <td>50–60 km/h</td>
+        <td>QL1A · Hoằng Hóa, cách TP Thanh Hóa ~12km · cao tốc Mai Sơn đã rút 70–80% xe ô tô</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="key-insight">
+    <div class="label">Bóc tách số liệu</div>
+    <p>Với dữ liệu thực, <strong>Tuyến A (Nội Bài) mới là tuyến có Reach cao nhất</strong> với 49,3M lượt/năm — không phải Tuyến C như giả định ban đầu. Tuyến C đứng thứ 2 với 35,8M lượt. Tuyến B và D có Reach gần tương đương (~15M lượt) nhưng do nguyên nhân khác nhau: B vì xe ô tô đã chuyển sang cao tốc CT.01 Pháp Vân–Cầu Giẽ song song, D vì xe ô tô đã chuyển sang cao tốc Mai Sơn–QL45.</p>
+  </div>
+
+  <div class="slide-footer">
+    <span>Reach = AADT × 365 × Hệ số khách trung bình/xe</span>
+    <span>03 · Dữ liệu thực tế</span>
+  </div>
+</section>
+
+<!-- ═══════════════ SLIDE 4: EFFICIENCY COMPARISON ═══════════════ -->
+<section class="slide" id="s4">
+  <div class="slide-num"><span>04</span> / 09</div>
+
+  <div class="eyebrow">So sánh hiệu quả · CPM · CPA · Reach Efficiency</div>
+  <h2>Tuyến A vượt trội trên mọi chỉ số chi phí</h2>
+
+  <div class="stat-grid">
+    <div class="stat-card success">
+      <div class="label">Tuyến A · Nội Bài</div>
+      <div class="value">7.100<span class="unit">đ</span></div>
+      <div class="delta">CPM thấp nhất · benchmark: 8–15K</div>
+    </div>
+    <div class="stat-card">
+      <div class="label">Tuyến C · Bắc Ninh</div>
+      <div class="value">12.560<span class="unit">đ</span></div>
+      <div class="delta">CPM tốt · benchmark: 10–18K</div>
+    </div>
+    <div class="stat-card cool">
+      <div class="label">Tuyến B · Pháp Vân</div>
+      <div class="value">23.240<span class="unit">đ</span></div>
+      <div class="delta">CPM cao · trên benchmark 55%</div>
+    </div>
+    <div class="stat-card danger">
+      <div class="label">Tuyến D · Thanh Hóa</div>
+      <div class="value">38.220<span class="unit">đ</span></div>
+      <div class="delta">CPM rất cao · gấp 3,2× benchmark</div>
+    </div>
+  </div>
+
+  <div class="table-wrap">
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Tuyến</th>
+        <th class="num">Chi phí/năm</th>
+        <th class="num">Reach/năm</th>
+        <th class="num">Conv. rate ước tính</th>
+        <th class="num">Conv./năm</th>
+        <th class="num">CPM (đ)</th>
+        <th class="num">CPA (đ)</th>
+        <th class="num">Reach/triệu</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="route-tag tag-A">A</span>Nội Bài</td>
+        <td class="num">350M</td>
+        <td class="num num-large">49,3M</td>
+        <td class="num">0,11%</td>
+        <td class="num num-large cell-best">54.202</td>
+        <td class="num num-large cell-best">7.100</td>
+        <td class="num num-large cell-best">6.457</td>
+        <td class="num num-large cell-best">140.786</td>
+      </tr>
+      <tr>
+        <td><span class="route-tag tag-B">B</span>Pháp Vân</td>
+        <td class="num">350M</td>
+        <td class="num num-large">15,1M</td>
+        <td class="num">0,15%</td>
+        <td class="num num-large">22.584</td>
+        <td class="num num-large cell-worst">23.240</td>
+        <td class="num num-large">15.498</td>
+        <td class="num num-large">43.017</td>
+      </tr>
+      <tr>
+        <td><span class="route-tag tag-C">C</span>Bắc Ninh</td>
+        <td class="num">450M</td>
+        <td class="num num-large">35,8M</td>
+        <td class="num cell-worst">0,09%</td>
+        <td class="num num-large">32.225</td>
+        <td class="num num-large">12.560</td>
+        <td class="num num-large">13.964</td>
+        <td class="num num-large">79.569</td>
+      </tr>
+      <tr>
+        <td><span class="route-tag tag-D">D</span>Thanh Hóa</td>
+        <td class="num">600M</td>
+        <td class="num num-large">15,7M</td>
+        <td class="num cell-worst">0,07%</td>
+        <td class="num num-large cell-worst">10.986</td>
+        <td class="num num-large cell-worst">38.220</td>
+        <td class="num num-large cell-worst">54.612</td>
+        <td class="num num-large cell-worst">26.158</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+  <p style="margin-top: 1.25rem; font-size: 0.88rem; color: var(--text-dim);">
+    <strong style="color: var(--text-muted);">Cách đọc tỷ lệ chuyển đổi:</strong>
+    Mức cơ sở 0,1% (giữa benchmark 0,05–0,2%) được điều chỉnh theo: <em>(+)</em> dwell time cao, mật độ pano cạnh tranh thấp; <em>(−)</em> ad clutter cao, tỷ lệ commuters cao gây ad fatigue, audience–product mismatch.
+  </p>
+
+  <div class="slide-footer">
+    <span>Benchmark conversion OOH Việt Nam: 0,05–0,2% · So sánh Thái Lan/Indonesia: 0,1–0,3%</span>
+    <span>04 · So sánh hiệu quả</span>
+  </div>
+</section>
+
+<!-- ═══════════════ SLIDE 5: PARADOX ═══════════════ -->
+<section class="slide" id="s5">
+  <div class="slide-num"><span>05</span> / 09</div>
+
+  <div class="eyebrow">Reframing câu hỏi</div>
+  <h2>Nghịch lý Reach–Conversion: thực chất diễn ra ở Tuyến C</h2>
+
+  <p>Giả định ban đầu cho rằng Tuyến C có Reach cao nhất nhưng Conversion thấp nhất. Dữ liệu thực tế <strong>điều chỉnh khung này</strong>: Tuyến A mới có Reach cao nhất. Tuy nhiên, một nghịch lý quan trọng vẫn tồn tại — và nó <em>chính xác xảy ra ở Tuyến C</em>.</p>
+
+  <div class="key-insight" style="background: linear-gradient(135deg, rgba(245,185,69,0.10), rgba(245,185,69,0.02)); border-left-color: var(--accent);">
+    <div class="label" style="color: var(--accent);">Nghịch lý thực sự</div>
+    <p>Tuyến C đứng <strong>thứ 2 về Reach</strong> (35,8M lượt — gấp 2,4× Tuyến B & D) nhưng có <strong>tỷ lệ chuyển đổi ước tính thấp nhất</strong> trong nhóm có Reach lớn (0,09% — thấp hơn cả Tuyến A 0,11% lẫn Tuyến B 0,15% bất chấp B chỉ có Reach 15,1M). Đây là dấu hiệu kinh điển của <em>"high impression, low engagement"</em> — Tuyến C đang "đốt" hiển thị nhưng không chuyển hóa được thành hành động.</p>
+  </div>
+
+  <div class="table-wrap">
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Chỉ số</th>
+        <th class="center">Tuyến A · Nội Bài</th>
+        <th class="center" style="background: rgba(245,185,69,0.08);">Tuyến C · Bắc Ninh</th>
+        <th class="center">Tuyến B · Pháp Vân</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Reach/năm</td>
+        <td class="center num-large cell-best">49,3M</td>
+        <td class="center num-large cell-mid">35,8M</td>
+        <td class="center num-large">15,1M</td>
+      </tr>
+      <tr>
+        <td>Conv. rate ước tính</td>
+        <td class="center num-large">0,11%</td>
+        <td class="center num-large cell-worst">0,09%</td>
+        <td class="center num-large cell-best">0,15%</td>
+      </tr>
+      <tr>
+        <td>Mật độ pano cạnh tranh</td>
+        <td class="center">4–6 biển/km <span class="badge badge-warn">CAO</span></td>
+        <td class="center">5–7 biển/km <span class="badge badge-danger">RẤT CAO</span></td>
+        <td class="center">1–2 biển/km <span class="badge badge-success">THẤP</span></td>
+      </tr>
+      <tr>
+        <td>Tỷ lệ Commuters</td>
+        <td class="center">50% <span class="badge badge-neutral">CÂN BẰNG</span></td>
+        <td class="center">70% <span class="badge badge-danger">RẤT CAO</span></td>
+        <td class="center">80% <span class="badge badge-danger">RẤT CAO</span></td>
+      </tr>
+      <tr>
+        <td>Dwell time (thời gian quan sát)</td>
+        <td class="center">15–20s</td>
+        <td class="center">18–25s</td>
+        <td class="center cell-best">20–30s (tắc nghẽn)</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="slide-footer">
+    <span>Nguồn: Khảo sát thực địa · Quy hoạch nút giao Khả Lễ · BOT HN–BG</span>
+    <span>05 · Nghịch lý thực sự</span>
+  </div>
+</section>
+
+<!-- ═══════════════ SLIDE 6: 3 HYPOTHESES ═══════════════ -->
+<section class="slide" id="s6">
+  <div class="slide-num"><span>06</span> / 09</div>
+
+  <div class="eyebrow">Phân tích nguyên nhân</div>
+  <h2>Vì sao Tuyến C "đốt" Reach nhưng không sinh Conversion?</h2>
+  <p>Ba giả thuyết khả thi nhất, sắp xếp theo mức độ tác động ước tính từ cao xuống thấp.</p>
+
+  <div class="hyp-grid">
+    <div class="hyp-card">
+      <span class="number">01</span>
+      <h3>Ad-clutter saturation</h3>
+      <p>Cụm <strong>5–7 biển/km tập trung quanh nút giao Khả Lễ</strong> tạo ra cuộc cạnh tranh thị giác khốc liệt. Người lái xe chỉ có 18–25 giây để xử lý đồng loạt 5–7 thông điệp khác nhau → khả năng ghi nhớ và hành động giảm mạnh.</p>
+      <div class="evidence">5–7 biển/km cao gấp 3× ngưỡng cluttered theo OAAA</div>
+    </div>
+
+    <div class="hyp-card">
+      <span class="number">02</span>
+      <h3>Ad fatigue · Commuter loop</h3>
+      <p><strong>70% là chuyên gia & kỹ sư đi làm hàng ngày</strong> giữa Hà Nội và các KCN Bắc Ninh. Cùng một tệp khách thấy cùng pano 240+ lần/năm → frequency cực cao, novelty cạn kiệt sau 2 tuần đầu, brain bắt đầu lọc bỏ thông tin (banner blindness).</p>
+      <div class="evidence">70% commuters · ước ~5 ngày/tuần × 50 tuần = 250 lượt phơi nhiễm/người</div>
+    </div>
+
+    <div class="hyp-card">
+      <span class="number">03</span>
+      <h3>Conversion gap về địa lý</h3>
+      <p>Mặc dù có Vincom Plaza và showroom ô tô gần đó, <strong>điểm chuyển đổi chính</strong> của tệp KCN nằm ở Hà Nội (sau giờ làm) hoặc trong khu KCN (giờ nghỉ trưa). Pano đặt ở tuyến di chuyển nhưng không trên đường đi tới điểm mua → độ trễ lớn giữa exposure và action.</p>
+      <div class="evidence">70% commuters di chuyển qua, không dừng tại khu vực thương mại bán kính 5km</div>
+    </div>
+  </div>
+
+  <p style="margin-top: 1.75rem; font-size: 0.9rem; color: var(--text-muted);">
+    Ba giả thuyết này <strong>cộng dồn (compounding)</strong>: ad clutter làm giảm attention rate, ad fatigue làm giảm recall, geo-gap làm giảm action rate. Tích của 3 hệ số là lý do conversion rate Tuyến C tụt xuống dưới Tuyến A bất chấp Reach lớn hơn 1,5×.
+  </p>
+
+  <div class="slide-footer">
+    <span>Phân tích dựa trên: ad clutter, audience profile, geo-context · Verify bằng QR-scan A/B test</span>
+    <span>06 · 3 Giả thuyết</span>
+  </div>
+</section>
+
+<!-- ═══════════════ SLIDE 7: RANKING ═══════════════ -->
+<section class="slide" id="s7">
+  <div class="slide-num"><span>07</span> / 09</div>
+
+  <div class="eyebrow">Khuyến nghị · Xếp hạng đầu tư</div>
+  <h2>Thứ tự ưu tiên cho ngân sách 1,75 tỷ/năm</h2>
+
+  <div class="ranking-list">
+    <div class="rank-row gold">
+      <div class="rank">01</div>
+      <div class="route">
+        <h3>Tuyến A · Nội Bài</h3>
+        <div class="sub">350M VNĐ · 49,3M reach · CPM 7.100đ</div>
+      </div>
+      <div class="reason">
+        <strong>Phải giữ.</strong> Tốt nhất trên cả 4 chỉ số: CPM thấp nhất, CPA thấp nhất, Reach cao nhất, Reach/triệu cao nhất. Trục độc đạo sân bay + KCN Quang Minh tạo lưu lượng bền vững. Tệp khách trung-cao cấp phù hợp đa ngành (FMCG cao cấp, du lịch, tài chính, B2B).
+      </div>
+      <div class="verdict">
+        <span class="label">Quyết định</span>
+        <span class="badge badge-success">GIỮ · ƯU TIÊN 1</span>
+      </div>
+    </div>
+
+    <div class="rank-row silver">
+      <div class="rank">02</div>
+      <div class="route">
+        <h3>Tuyến C · Bắc Ninh</h3>
+        <div class="sub">450M VNĐ · 35,8M reach · CPM 12.560đ</div>
+      </div>
+      <div class="reason">
+        <strong>Giữ có điều kiện.</strong> Reach lớn thứ 2, CPM trong ngưỡng benchmark, tệp khách giá trị cao (chuyên gia KCN). Nhược điểm: ad clutter cao + commuter fatigue → cần kế hoạch tối ưu creative (xem Slide 8). Nếu sản phẩm phù hợp tệp KCN (fintech, telecom, xe máy, BĐS công nhân), đây là tuyến nên giữ.
+      </div>
+      <div class="verdict">
+        <span class="label">Quyết định</span>
+        <span class="badge badge-warn">GIỮ + TỐI ƯU</span>
+      </div>
+    </div>
+
+    <div class="rank-row bronze">
+      <div class="rank">03</div>
+      <div class="route">
+        <h3>Tuyến B · Pháp Vân</h3>
+        <div class="sub">350M VNĐ · 15,1M reach · CPM 23.240đ</div>
+      </div>
+      <div class="reason">
+        <strong>Cân nhắc.</strong> CPM cao gấp 1,5× benchmark do cao tốc CT.01 Pháp Vân–Cầu Giẽ song song đã rút lưu lượng ô tô. Tuy nhiên có một lợi thế <em>độc nhất</em>: dwell time 20–30 giây nhờ tắc nghẽn — phù hợp creative cần nhiều thông tin (giải thích sản phẩm, mã giảm giá, QR code). Đàm phán giảm 25–30% giá thuê có thể đáng giữ.
+      </div>
+      <div class="verdict">
+        <span class="label">Quyết định</span>
+        <span class="badge badge-warn">ĐÀM PHÁN GIÁ</span>
+      </div>
+    </div>
+
+    <div class="rank-row last">
+      <div class="rank">04</div>
+      <div class="route">
+        <h3>Tuyến D · Thanh Hóa</h3>
+        <div class="sub">600M VNĐ · 15,7M reach · CPM 38.220đ</div>
+      </div>
+      <div class="reason">
+        <strong>Không khuyến nghị giữ ở giá hiện tại.</strong> CPM cao gấp 3,2× benchmark do cao tốc Mai Sơn–QL45 đã rút 70–80% xe ô tô. Đèn chiếu sáng kém + tốc độ xe nhanh + tệp khách thu nhập thấp–trung. Cần đàm phán giảm <strong>tối thiểu 40–50%</strong> giá thuê, nếu không thì <em>cắt</em> và dồn ngân sách cho Tuyến A.
+      </div>
+      <div class="verdict">
+        <span class="label">Quyết định</span>
+        <span class="badge badge-danger">CẮT HOẶC GIẢM 50%</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide-footer">
+    <span>Tiết kiệm tiềm năng nếu cắt D: 600M VNĐ → tái phân bổ tăng frequency cho A & C</span>
+    <span>07 · Xếp hạng đầu tư</span>
+  </div>
+</section>
+
+<!-- ═══════════════ SLIDE 8: OPTIMIZATION ═══════════════ -->
+<section class="slide" id="s8">
+  <div class="slide-num"><span>08</span> / 09</div>
+
+  <div class="eyebrow">Phương án tối ưu</div>
+  <h2>Tăng Conversion cho Tuyến C — không tăng ngân sách</h2>
+  <p>Bảy đòn bẩy có thể triển khai trong cùng mức 450M/năm, sắp theo thứ tự dễ thực thi.</p>
+
+  <div class="opt-grid">
+    <div class="opt-card">
+      <div class="icon">1</div>
+      <div class="content">
+        <h4>Xoay creative hàng quý</h4>
+        <p>Đổi market mỗi 90 ngày để chống ad fatigue trên tệp 70% commuters. Chi phí in bạt Hiflex đã có trong gói — chỉ tốn phí thiết kế.</p>
+        <span class="impact">Tác động ước tính: +25–35% recall</span>
+      </div>
+    </div>
+
+    <div class="opt-card">
+      <div class="icon">2</div>
+      <div class="content">
+        <h4>Re-target tệp KCN</h4>
+        <p>Chuyển creative sang sản phẩm phù hợp: <em>fintech (vay tiêu dùng), telecom data, xe máy điện, BĐS Hà Nội cho chuyên gia, dịch vụ y tế.</em></p>
+        <span class="impact">Tác động ước tính: +40–60% conv. rate</span>
+      </div>
+    </div>
+
+    <div class="opt-card">
+      <div class="icon">3</div>
+      <div class="content">
+        <h4>QR code đậm + offer rõ</h4>
+        <p>QR chiếm ≥20% diện tích biển, gắn promo code chỉ-có-trên-pano-này để đo lường conversion chính xác. Người lái có 18–25s đủ để chụp.</p>
+        <span class="impact">Tác động: đo lường được CPA thực</span>
+      </div>
+    </div>
+
+    <div class="opt-card">
+      <div class="icon">4</div>
+      <div class="content">
+        <h4>Geofence mobile retargeting</h4>
+        <p>Mua thêm location-based mobile ads trong bán kính 1km quanh pano. Người đã thấy biển + thấy ad điện thoại → CTR tăng 2–3×.</p>
+        <span class="impact">Chi phí: 20–30M/tháng từ ngân sách khác</span>
+      </div>
+    </div>
+
+    <div class="opt-card">
+      <div class="icon">5</div>
+      <div class="content">
+        <h4>Message phân khung giờ</h4>
+        <p>Tuyến C có 2 đỉnh: 7–8h30 (đi làm), 17–18h30 (tan ca). Creative buổi sáng = công việc/fintech. Buổi chiều = tiêu dùng/giải trí.</p>
+        <span class="impact">Yêu cầu: pano có hệ thống chiếu sáng động</span>
+      </div>
+    </div>
+
+    <div class="opt-card">
+      <div class="icon">6</div>
+      <div class="content">
+        <h4>Co-branding với điểm bán gần</h4>
+        <p>Hợp tác Vincom Bắc Ninh hoặc showroom ô tô gần nút giao Khả Lễ: pano dẫn lưu đến offer cụ thể trong bán kính 3km → rút ngắn path-to-purchase.</p>
+        <span class="impact">Tác động ước tính: +30–50% action rate</span>
+      </div>
+    </div>
+
+    <div class="opt-card">
+      <div class="icon">7</div>
+      <div class="content">
+        <h4>Đàm phán thêm spotlight</h4>
+        <p>Yêu cầu Toàn Cầu ADV bổ sung hệ thống chiếu sáng (báo giá hiện chưa có) trong khung 450M — tăng thời gian hiển thị hiệu quả lên 16–18h/ngày thay vì 11–12h.</p>
+        <span class="impact">Tác động ước tính: +40% impressions thực tế</span>
+      </div>
+    </div>
+
+    <div class="opt-card">
+      <div class="icon">8</div>
+      <div class="content">
+        <h4>A/B test 2 mặt pano</h4>
+        <p>Tận dụng pano 2 mặt: mỗi mặt 1 creative khác nhau cùng QR khác nhau. Sau 30 ngày, dồn ngân sách cho mặt thắng và in lại mặt thua.</p>
+        <span class="impact">Tác động: tối ưu liên tục, không chi phí thêm</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide-footer">
+    <span>7 đòn bẩy có thể kết hợp · ưu tiên 1, 2, 3 để có ROI nhanh nhất</span>
+    <span>08 · Tối ưu Tuyến C</span>
+  </div>
+</section>
+
+<!-- ═══════════════ SLIDE 9: CONCLUSION ═══════════════ -->
+<section class="slide" id="s9">
+  <div class="slide-num"><span>09</span> / 09</div>
+
+  <div class="eyebrow">Kết luận & hành động</div>
+  <h2>Bốn quyết định, một bảng tóm tắt</h2>
+
+  <ol class="action-list">
+    <li>
+      <span class="num">01</span>
+      <div class="text">
+        <strong>Ký nhanh Tuyến A</strong> — đây là vị trí thắng rõ rệt trên cả 4 chỉ số.
+        <span class="sub">Reach 49,3M · CPM 7.100đ · CPA 6.457đ · phù hợp đa ngành</span>
+      </div>
+      <span class="priority" style="color: var(--success);">CAO · NGAY</span>
+    </li>
+    <li>
+      <span class="num">02</span>
+      <div class="text">
+        <strong>Giữ Tuyến C với điều kiện</strong> — chỉ nếu sản phẩm khớp tệp KCN, đồng thời triển khai gói tối ưu creative 4 bước (xoay creative · QR · re-target tệp · spotlight).
+        <span class="sub">Nếu không có sản phẩm phù hợp, để tiền cho Tuyến A frequency</span>
+      </div>
+      <span class="priority" style="color: var(--accent);">CAO · TRONG 2 TUẦN</span>
+    </li>
+    <li>
+      <span class="num">03</span>
+      <div class="text">
+        <strong>Đàm phán lại Tuyến B</strong> — yêu cầu giảm 25–30% giá thuê, hoặc đổi sang vị trí tương đương có dwell time cao + audience đa dạng hơn.
+        <span class="sub">Nếu Toàn Cầu ADV không chấp nhận, cắt và dồn ngân sách</span>
+      </div>
+      <span class="priority" style="color: var(--accent);">TRUNG · 1 THÁNG</span>
+    </li>
+    <li>
+      <span class="num">04</span>
+      <div class="text">
+        <strong>Cắt Tuyến D hoặc giảm 40–50%</strong> — 600M cho 15,7M reach và CPM 38.220đ là không hợp lý sau khi cao tốc Mai Sơn vận hành.
+        <span class="sub">Tiết kiệm tới 600M/năm để tái đầu tư vào A và C</span>
+      </div>
+      <span class="priority" style="color: var(--danger);">DỨT KHOÁT · NGAY</span>
+    </li>
+    <li>
+      <span class="num">05</span>
+      <div class="text">
+        <strong>Thiết lập đo lường tự động</strong> — QR riêng cho từng pano, geofence mobile data 90 ngày, báo cáo CPA hàng tháng.
+        <span class="sub">Chỉ khi có số liệu thực tế, các quyết định trên mới được hiệu chỉnh chính xác</span>
+      </div>
+      <span class="priority" style="color: var(--accent-cool);">SONG SONG</span>
+    </li>
+  </ol>
+
+  <div class="key-insight" style="margin-top: 2rem;">
+    <div class="label">Tóm tắt một câu</div>
+    <p>Với cùng ngân sách 1,75 tỷ/năm, <strong>tái phân bổ về Tuyến A + tối ưu Tuyến C + cắt Tuyến D</strong> có thể tăng tổng số chuyển đổi ước tính từ <em>~120 nghìn lên ~180 nghìn/năm</em> — cải thiện ROI khoảng 50%, mà không cần thêm chi phí.</p>
+  </div>
+
+  <div class="slide-footer">
+    <span>Báo cáo độc lập · Phân tích dựa trên dữ liệu Toàn Cầu ADV + khảo sát Gemini · 22/05/2026</span>
+    <span>09 · Kết thúc</span>
+  </div>
+</section>
+
+</body>
+</html>
