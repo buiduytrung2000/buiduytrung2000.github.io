@@ -1,523 +1,1853 @@
 <!doctype html>
 <html lang="vi">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Toàn Cầu ADV × VNPost — Khai thác tài sản dôi dư</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-<style>
-:root{
-  --navy:#16284b; --navy2:#1f3864; --blue:#2e63b8; --sky:#4f8df7;
-  --gold:#f2b441; --green:#28b67a; --red:#e05a4d;
-  --ink:#13243f; --muted:#5b6b86; --paper:#f4f7fc; --line:#e3eaf5;
-  --card:#ffffff; --radius:18px;
-  --shadow:0 18px 40px -18px rgba(20,40,75,.35);
-  font-family:"Be Vietnam Pro",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
-}
-*{box-sizing:border-box;margin:0;padding:0}
-html,body{height:100%}
-body{background:#0c1730;color:var(--ink);overflow:hidden;
-  display:flex;flex-direction:column;
-  background:radial-gradient(1200px 700px at 50% -10%,#1d335c 0%,#0c1730 60%);}
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Toàn Cầu ADV × VNPost — Khai thác tài sản dôi dư</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --navy: #16284b;
+        --navy2: #1f3864;
+        --blue: #2e63b8;
+        --sky: #4f8df7;
+        --gold: #f2b441;
+        --green: #28b67a;
+        --red: #e05a4d;
+        --ink: #13243f;
+        --muted: #5b6b86;
+        --paper: #f4f7fc;
+        --line: #e3eaf5;
+        --card: #ffffff;
+        --radius: 18px;
+        --shadow: 0 18px 40px -18px rgba(20, 40, 75, 0.35);
+        font-family:
+          "Be Vietnam Pro",
+          system-ui,
+          -apple-system,
+          "Segoe UI",
+          Roboto,
+          Arial,
+          sans-serif;
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html,
+      body {
+        height: 100%;
+      }
+      body {
+        background: #0c1730;
+        color: var(--ink);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        background: radial-gradient(
+          1200px 700px at 50% -10%,
+          #1d335c 0%,
+          #0c1730 60%
+        );
+      }
 
-/* ---------- stage / scaling ---------- */
-#viewport{position:relative;flex:1 1 auto;width:100%;min-height:0;overflow:hidden}
-#stage{position:absolute;top:0;left:0;width:1280px;height:720px;transform-origin:top left;}
-.slide{position:absolute;inset:0;display:flex;flex-direction:column;
-  padding:64px 72px;background:var(--paper);overflow:hidden;
-  opacity:0;visibility:hidden;transform:translateY(14px) scale(.992);
-  transition:opacity .5s ease,transform .5s ease,visibility .5s;}
-.slide.active{opacity:1;visibility:visible;transform:none;}
-.slide.dark{background:linear-gradient(135deg,#1c3257 0%,#16284b 55%,#101f3c 100%);color:#fff;}
-.slide.dark .muted{color:#a9bbd9}
-/* image panel slides */
-.haspic{padding-right:600px}
-.haspic>:not(.pic){position:relative;z-index:2}
-.pic{position:absolute;top:0;right:0;bottom:0;width:46%;z-index:0;overflow:hidden;
-  background-color:#eef3fb;background-repeat:no-repeat;background-position:center;background-size:cover}
-.pic::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
-  background:linear-gradient(90deg,#f4f7fc 0%,rgba(244,247,252,0) 26%)}
-.pic.navy{background-color:#15243f}
-.pic.navy::before{background:linear-gradient(90deg,#15243f 0%,rgba(21,36,63,0) 26%)}
-.pic.nofade::before{display:none}
-.billband{flex:1 1 auto;min-height:0;margin-top:16px;background-size:contain;background-position:center;background-repeat:no-repeat}
-@media print{*{-webkit-print-color-adjust:exact !important;print-color-adjust:exact !important}body{display:block !important;height:auto !important;overflow:visible !important;background:#fff !important}#bar,#ui,.hint{display:none !important}#viewport{position:static !important;overflow:visible !important;min-height:0 !important}#stage{position:static !important;transform:none !important;width:1280px !important;height:auto !important}.slide{position:relative !important;inset:auto !important;width:1280px !important;height:720px !important;opacity:1 !important;visibility:visible !important;transform:none !important;display:flex !important;break-after:page;page-break-after:always}.slide:last-child{break-after:auto !important;page-break-after:auto !important}.fade{opacity:1 !important;transform:none !important}}
-@page{size:1280px 724px;margin:0}
+      /* ---------- stage / scaling ---------- */
+      #viewport {
+        position: relative;
+        flex: 1 1 auto;
+        width: 100%;
+        min-height: 0;
+        overflow: hidden;
+      }
+      #stage {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 1280px;
+        height: 720px;
+        transform-origin: top left;
+      }
+      .slide {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        padding: 64px 72px;
+        background: var(--paper);
+        overflow: hidden;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(14px) scale(0.992);
+        transition:
+          opacity 0.5s ease,
+          transform 0.5s ease,
+          visibility 0.5s;
+      }
+      .slide.active {
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+      }
+      .slide.dark {
+        background: linear-gradient(
+          135deg,
+          #1c3257 0%,
+          #16284b 55%,
+          #101f3c 100%
+        );
+        color: #fff;
+      }
+      .slide.dark .muted {
+        color: #a9bbd9;
+      }
+      /* image panel slides */
+      .haspic {
+        padding-right: 600px;
+      }
+      .haspic > :not(.pic) {
+        position: relative;
+        z-index: 2;
+      }
+      .pic {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        width: 46%;
+        z-index: 0;
+        overflow: hidden;
+        background-color: #eef3fb;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+      }
+      .pic::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        pointer-events: none;
+        background: linear-gradient(
+          90deg,
+          #f4f7fc 0%,
+          rgba(244, 247, 252, 0) 26%
+        );
+      }
+      .pic.navy {
+        background-color: #15243f;
+      }
+      .pic.navy::before {
+        background: linear-gradient(90deg, #15243f 0%, rgba(21, 36, 63, 0) 26%);
+      }
+      .pic.nofade::before {
+        display: none;
+      }
+      .billband {
+        flex: 1 1 auto;
+        min-height: 0;
+        margin-top: 16px;
+        background-size: contain;
+        background-position: center;
+        background-repeat: no-repeat;
+      }
+      @media print {
+        * {
+          -webkit-print-color-adjust: exact !important;
+          print-color-adjust: exact !important;
+        }
+        body {
+          display: block !important;
+          height: auto !important;
+          overflow: visible !important;
+          background: #fff !important;
+        }
+        #bar,
+        #ui,
+        .hint {
+          display: none !important;
+        }
+        #viewport {
+          position: static !important;
+          overflow: visible !important;
+          min-height: 0 !important;
+        }
+        #stage {
+          position: static !important;
+          transform: none !important;
+          width: 1280px !important;
+          height: auto !important;
+        }
+        .slide {
+          position: relative !important;
+          inset: auto !important;
+          width: 1280px !important;
+          height: 720px !important;
+          opacity: 1 !important;
+          visibility: visible !important;
+          transform: none !important;
+          display: flex !important;
+          break-after: page;
+          page-break-after: always;
+        }
+        .slide:last-child {
+          break-after: auto !important;
+          page-break-after: auto !important;
+        }
+        .fade {
+          opacity: 1 !important;
+          transform: none !important;
+        }
+      }
+      @page {
+        size: 1280px 724px;
+        margin: 0;
+      }
 
-/* ---------- shared atoms ---------- */
-.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:700;
-  letter-spacing:.16em;text-transform:uppercase;color:var(--blue);}
-.dark .eyebrow{color:var(--gold)}
-.eyebrow::before{content:"";width:26px;height:3px;border-radius:3px;background:currentColor}
-h1{font-size:54px;line-height:1.06;font-weight:800;letter-spacing:-.01em}
-h2{font-size:40px;line-height:1.1;font-weight:800;letter-spacing:-.01em}
-.lead{font-size:21px;line-height:1.5;color:var(--muted);font-weight:500;max-width:62ch}
-.dark .lead{color:#cdd9f0}
-.muted{color:var(--muted)}
-.spacer{flex:1}
-.kicker{font-size:15px;font-weight:600;color:var(--muted)}
-.pageno{position:absolute;right:30px;bottom:22px;font-size:13px;font-weight:600;color:var(--muted)}
-.dark .pageno{color:#8fa4c8}
-.badge{display:inline-flex;align-items:center;gap:7px;background:#eef3fb;color:var(--navy2);
-  border:1px solid var(--line);padding:7px 13px;border-radius:999px;font-size:14px;font-weight:600}
-.dark .badge{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.16);color:#dce6f8}
-.grid{display:grid;gap:18px}
-.fade{opacity:0;transform:translateY(16px);transition:opacity .55s ease,transform .55s ease}
-.active .fade{opacity:1;transform:none}
-.active .fade.d1{transition-delay:.08s}.active .fade.d2{transition-delay:.18s}
-.active .fade.d3{transition-delay:.28s}.active .fade.d4{transition-delay:.38s}
-.active .fade.d5{transition-delay:.48s}.active .fade.d6{transition-delay:.58s}
+      /* ---------- shared atoms ---------- */
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 14px;
+        font-weight: 700;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--blue);
+      }
+      .dark .eyebrow {
+        color: var(--gold);
+      }
+      .eyebrow::before {
+        content: "";
+        width: 26px;
+        height: 3px;
+        border-radius: 3px;
+        background: currentColor;
+      }
+      h1 {
+        font-size: 54px;
+        line-height: 1.06;
+        font-weight: 800;
+        letter-spacing: -0.01em;
+      }
+      h2 {
+        font-size: 40px;
+        line-height: 1.1;
+        font-weight: 800;
+        letter-spacing: -0.01em;
+      }
+      .lead {
+        font-size: 21px;
+        line-height: 1.5;
+        color: var(--muted);
+        font-weight: 500;
+        max-width: 62ch;
+      }
+      .dark .lead {
+        color: #cdd9f0;
+      }
+      .muted {
+        color: var(--muted);
+      }
+      .spacer {
+        flex: 1;
+      }
+      .kicker {
+        font-size: 15px;
+        font-weight: 600;
+        color: var(--muted);
+      }
+      .pageno {
+        position: absolute;
+        right: 30px;
+        bottom: 22px;
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--muted);
+      }
+      .dark .pageno {
+        color: #8fa4c8;
+      }
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        background: #eef3fb;
+        color: var(--navy2);
+        border: 1px solid var(--line);
+        padding: 7px 13px;
+        border-radius: 999px;
+        font-size: 14px;
+        font-weight: 600;
+      }
+      .dark .badge {
+        background: rgba(255, 255, 255, 0.08);
+        border-color: rgba(255, 255, 255, 0.16);
+        color: #dce6f8;
+      }
+      .grid {
+        display: grid;
+        gap: 18px;
+      }
+      .fade {
+        opacity: 0;
+        transform: translateY(16px);
+        transition:
+          opacity 0.55s ease,
+          transform 0.55s ease;
+      }
+      .active .fade {
+        opacity: 1;
+        transform: none;
+      }
+      .active .fade.d1 {
+        transition-delay: 0.08s;
+      }
+      .active .fade.d2 {
+        transition-delay: 0.18s;
+      }
+      .active .fade.d3 {
+        transition-delay: 0.28s;
+      }
+      .active .fade.d4 {
+        transition-delay: 0.38s;
+      }
+      .active .fade.d5 {
+        transition-delay: 0.48s;
+      }
+      .active .fade.d6 {
+        transition-delay: 0.58s;
+      }
 
-/* card */
-.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
-  padding:24px;box-shadow:var(--shadow);transition:transform .25s ease,box-shadow .25s ease}
-.card:hover{transform:translateY(-6px);box-shadow:0 26px 50px -20px rgba(20,40,75,.45)}
-.dark .card{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.14);box-shadow:none;color:#fff}
-.ico{width:46px;height:46px;border-radius:12px;display:grid;place-items:center;
-  background:linear-gradient(135deg,var(--blue),var(--sky));color:#fff;margin-bottom:14px}
-.ico svg{width:24px;height:24px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-.card h3{font-size:19px;font-weight:700;margin-bottom:6px}
-.card p{font-size:15px;line-height:1.5;color:var(--muted)}
-.dark .card p{color:#c4d2ec}
-.tag{font-size:12.5px;font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:.06em}
+      /* card */
+      .card {
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        padding: 24px;
+        box-shadow: var(--shadow);
+        transition:
+          transform 0.25s ease,
+          box-shadow 0.25s ease;
+      }
+      .card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 26px 50px -20px rgba(20, 40, 75, 0.45);
+      }
+      .dark .card {
+        background: rgba(255, 255, 255, 0.06);
+        border-color: rgba(255, 255, 255, 0.14);
+        box-shadow: none;
+        color: #fff;
+      }
+      .ico {
+        width: 46px;
+        height: 46px;
+        border-radius: 12px;
+        display: grid;
+        place-items: center;
+        background: linear-gradient(135deg, var(--blue), var(--sky));
+        color: #fff;
+        margin-bottom: 14px;
+      }
+      .ico svg {
+        width: 24px;
+        height: 24px;
+        stroke: #fff;
+        fill: none;
+        stroke-width: 2;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+      .card h3 {
+        font-size: 19px;
+        font-weight: 700;
+        margin-bottom: 6px;
+      }
+      .card p {
+        font-size: 15px;
+        line-height: 1.5;
+        color: var(--muted);
+      }
+      .dark .card p {
+        color: #c4d2ec;
+      }
+      .tag {
+        font-size: 12.5px;
+        font-weight: 700;
+        color: var(--blue);
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+      }
 
-/* stat */
-.statnum{font-size:46px;font-weight:800;line-height:1;letter-spacing:-.02em;
-  background:linear-gradient(135deg,var(--navy2),var(--sky));-webkit-background-clip:text;background-clip:text;color:transparent}
-.dark .statnum{background:linear-gradient(135deg,#fff,var(--gold));-webkit-background-clip:text;background-clip:text;color:transparent}
-.statlbl{font-size:14.5px;color:var(--muted);font-weight:600;margin-top:6px}
-.dark .statlbl{color:#bccbe8}
+      /* stat */
+      .statnum {
+        font-size: 46px;
+        font-weight: 800;
+        line-height: 1;
+        letter-spacing: -0.02em;
+        background: linear-gradient(135deg, var(--navy2), var(--sky));
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+      .dark .statnum {
+        background: linear-gradient(135deg, #fff, var(--gold));
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+      .statlbl {
+        font-size: 14.5px;
+        color: var(--muted);
+        font-weight: 600;
+        margin-top: 6px;
+      }
+      .dark .statlbl {
+        color: #bccbe8;
+      }
 
-/* pill model */
-.recommend{background:linear-gradient(135deg,var(--navy2),var(--blue));color:#fff}
-.recommend p,.recommend .tag{color:#dce6fb}
-.recommend .ico{background:rgba(255,255,255,.18)}
+      /* pill model */
+      .recommend {
+        background: linear-gradient(135deg, var(--navy2), var(--blue));
+        color: #fff;
+      }
+      .recommend p,
+      .recommend .tag {
+        color: #dce6fb;
+      }
+      .recommend .ico {
+        background: rgba(255, 255, 255, 0.18);
+      }
 
-/* benefit banner */
-.banner{display:flex;align-items:center;gap:14px;background:linear-gradient(135deg,#10303f,#103a33);
-  color:#fff;border-radius:14px;padding:16px 22px;font-weight:700;font-size:18px}
-.banner .chk{width:30px;height:30px;border-radius:50%;background:var(--green);display:grid;place-items:center;flex:none}
-.banner .chk svg{width:17px;height:17px;stroke:#fff;fill:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+      /* benefit banner */
+      .banner {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        background: linear-gradient(135deg, #10303f, #103a33);
+        color: #fff;
+        border-radius: 14px;
+        padding: 16px 22px;
+        font-weight: 700;
+        font-size: 18px;
+      }
+      .banner .chk {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background: var(--green);
+        display: grid;
+        place-items: center;
+        flex: none;
+      }
+      .banner .chk svg {
+        width: 17px;
+        height: 17px;
+        stroke: #fff;
+        fill: none;
+        stroke-width: 3;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
 
-/* bars (slide 8) */
-.bars{display:flex;flex-direction:column;gap:13px;width:100%}
-.barrow{display:grid;grid-template-columns:120px 1fr;align-items:center;gap:16px}
-.barrow .k{font-weight:700;font-size:15px}
-.barrow .k small{display:block;font-weight:600;color:var(--muted);font-size:12.5px}
-.track{position:relative;height:34px;background:#e9eff8;border-radius:9px;overflow:hidden}
-.fill{position:absolute;left:0;top:0;height:100%;width:0;border-radius:9px;
-  background:linear-gradient(90deg,var(--blue),var(--sky));transition:width 1s cubic-bezier(.2,.7,.2,1)}
-.active .fill{width:var(--w)}
-.fill span{position:absolute;right:12px;top:50%;transform:translateY(-50%);color:#fff;font-weight:700;font-size:14px;white-space:nowrap}
-.barnote{font-size:13px;color:var(--muted);padding-left:2px}
+      /* bars (slide 8) */
+      .bars {
+        display: flex;
+        flex-direction: column;
+        gap: 13px;
+        width: 100%;
+      }
+      .barrow {
+        display: grid;
+        grid-template-columns: 120px 1fr;
+        align-items: center;
+        gap: 16px;
+      }
+      .barrow .k {
+        font-weight: 700;
+        font-size: 15px;
+      }
+      .barrow .k small {
+        display: block;
+        font-weight: 600;
+        color: var(--muted);
+        font-size: 12.5px;
+      }
+      .track {
+        position: relative;
+        height: 34px;
+        background: #e9eff8;
+        border-radius: 9px;
+        overflow: hidden;
+      }
+      .fill {
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 0;
+        border-radius: 9px;
+        background: linear-gradient(90deg, var(--blue), var(--sky));
+        transition: width 1s cubic-bezier(0.2, 0.7, 0.2, 1);
+      }
+      .active .fill {
+        width: var(--w);
+      }
+      .fill span {
+        position: absolute;
+        right: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #fff;
+        font-weight: 700;
+        font-size: 14px;
+        white-space: nowrap;
+      }
+      .barnote {
+        font-size: 13px;
+        color: var(--muted);
+        padding-left: 2px;
+      }
 
-/* funnel / flow (slide 5,6) */
-.flow{display:flex;align-items:center;justify-content:center;gap:18px;flex-wrap:wrap}
-.node{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px 18px;
-  box-shadow:var(--shadow);min-width:150px;text-align:center;font-weight:700}
-.node small{display:block;color:var(--muted);font-weight:600;font-size:12.5px;margin-top:4px}
-.arrow{font-size:30px;color:var(--sky);font-weight:800}
-.target{background:linear-gradient(135deg,var(--navy2),var(--blue));color:#fff;border:none}
-.target small{color:#cfe0fb}
+      /* funnel / flow (slide 5,6) */
+      .flow {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 18px;
+        flex-wrap: wrap;
+      }
+      .node {
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 16px 18px;
+        box-shadow: var(--shadow);
+        min-width: 150px;
+        text-align: center;
+        font-weight: 700;
+      }
+      .node small {
+        display: block;
+        color: var(--muted);
+        font-weight: 600;
+        font-size: 12.5px;
+        margin-top: 4px;
+      }
+      .arrow {
+        font-size: 30px;
+        color: var(--sky);
+        font-weight: 800;
+      }
+      .target {
+        background: linear-gradient(135deg, var(--navy2), var(--blue));
+        color: #fff;
+        border: none;
+      }
+      .target small {
+        color: #cfe0fb;
+      }
 
-/* loop (slide6) */
-.loop{display:flex;align-items:center;gap:22px;justify-content:center}
-.loopitem{text-align:center;min-width:140px}
-.loopcirc{width:96px;height:96px;border-radius:50%;display:grid;place-items:center;margin:0 auto 10px;
-  background:#fff;border:2px solid var(--line);box-shadow:var(--shadow)}
-.loopcirc svg{width:40px;height:40px;stroke:var(--blue);fill:none;stroke-width:1.8}
-.loopitem b{font-size:16px}.loopitem small{display:block;color:var(--muted);font-size:12.5px}
+      /* loop (slide6) */
+      .loop {
+        display: flex;
+        align-items: center;
+        gap: 22px;
+        justify-content: center;
+      }
+      .loopitem {
+        text-align: center;
+        min-width: 140px;
+      }
+      .loopcirc {
+        width: 96px;
+        height: 96px;
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        margin: 0 auto 10px;
+        background: #fff;
+        border: 2px solid var(--line);
+        box-shadow: var(--shadow);
+      }
+      .loopcirc svg {
+        width: 40px;
+        height: 40px;
+        stroke: var(--blue);
+        fill: none;
+        stroke-width: 1.8;
+      }
+      .loopitem b {
+        font-size: 16px;
+      }
+      .loopitem small {
+        display: block;
+        color: var(--muted);
+        font-size: 12.5px;
+      }
 
-/* finance (slide10) */
-.fin{display:grid;grid-template-columns:1.05fr .95fr;gap:34px;align-items:center}
-.scenbtns{display:inline-flex;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);
-  border-radius:999px;padding:5px;gap:4px;margin:16px 0 6px}
-.scenbtns button{border:none;background:transparent;color:#cdd9f0;font:inherit;font-weight:700;
-  font-size:14.5px;padding:8px 18px;border-radius:999px;cursor:pointer;transition:.2s}
-.scenbtns button.on{background:var(--gold);color:#15233f}
-.chart{display:flex;align-items:flex-end;gap:42px;height:300px;padding:10px 6px 0;
-  border-bottom:2px solid rgba(255,255,255,.18)}
-.col{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%}
-.col .bar{width:84px;border-radius:12px 12px 0 0;height:0;
-  background:linear-gradient(180deg,var(--gold),#e08e2e);transition:height .8s cubic-bezier(.2,.7,.2,1);
-  display:flex;align-items:flex-start;justify-content:center;color:#15233f;font-weight:800;padding-top:8px;font-size:15px}
-.col .cl{margin-top:12px;font-weight:700;font-size:15px;color:#eaf1fd;text-align:center}
-.col .cl small{display:block;color:#9fb3d6;font-weight:600;font-size:12px}
-.bignum{font-size:64px;font-weight:900;line-height:1;letter-spacing:-.02em;
-  background:linear-gradient(135deg,#fff,var(--gold));-webkit-background-clip:text;background-clip:text;color:transparent}
+      /* finance (slide10) */
+      .fin {
+        display: grid;
+        grid-template-columns: 1.05fr 0.95fr;
+        gap: 34px;
+        align-items: center;
+      }
+      .scenbtns {
+        display: inline-flex;
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        border-radius: 999px;
+        padding: 5px;
+        gap: 4px;
+        margin: 16px 0 6px;
+      }
+      .scenbtns button {
+        border: none;
+        background: transparent;
+        color: #cdd9f0;
+        font: inherit;
+        font-weight: 700;
+        font-size: 14.5px;
+        padding: 8px 18px;
+        border-radius: 999px;
+        cursor: pointer;
+        transition: 0.2s;
+      }
+      .scenbtns button.on {
+        background: var(--gold);
+        color: #15233f;
+      }
+      .chart {
+        display: flex;
+        align-items: flex-end;
+        gap: 42px;
+        height: 300px;
+        padding: 10px 6px 0;
+        border-bottom: 2px solid rgba(255, 255, 255, 0.18);
+      }
+      .col {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-end;
+        height: 100%;
+      }
+      .col .bar {
+        width: 84px;
+        border-radius: 12px 12px 0 0;
+        height: 0;
+        background: linear-gradient(180deg, var(--gold), #e08e2e);
+        transition: height 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        color: #15233f;
+        font-weight: 800;
+        padding-top: 8px;
+        font-size: 15px;
+      }
+      .col .cl {
+        margin-top: 12px;
+        font-weight: 700;
+        font-size: 15px;
+        color: #eaf1fd;
+        text-align: center;
+      }
+      .col .cl small {
+        display: block;
+        color: #9fb3d6;
+        font-weight: 600;
+        font-size: 12px;
+      }
+      .bignum {
+        font-size: 64px;
+        font-weight: 900;
+        line-height: 1;
+        letter-spacing: -0.02em;
+        background: linear-gradient(135deg, #fff, var(--gold));
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
 
-/* timeline (slide 11) */
-.timeline{position:relative;margin-top:18px;padding-left:6px}
-.tl{display:grid;grid-template-columns:120px 1fr;gap:22px;position:relative;padding:14px 0 26px}
-.tl:not(:last-child)::before{content:"";position:absolute;left:13px;top:30px;bottom:-6px;width:2px;background:var(--line)}
-.tl .yr{font-weight:800;font-size:22px;color:var(--navy2);position:relative;padding-left:34px}
-.tl .yr::before{content:"";position:absolute;left:4px;top:5px;width:18px;height:18px;border-radius:50%;
-  background:var(--sky);box-shadow:0 0 0 5px #dce8fb}
-.tl .body b{font-size:17px}.tl .body p{color:var(--muted);font-size:14.5px;margin-top:2px}
+      /* timeline (slide 11) */
+      .timeline {
+        position: relative;
+        margin-top: 18px;
+        padding-left: 6px;
+      }
+      .tl {
+        display: grid;
+        grid-template-columns: 120px 1fr;
+        gap: 22px;
+        position: relative;
+        padding: 14px 0 26px;
+      }
+      .tl:not(:last-child)::before {
+        content: "";
+        position: absolute;
+        left: 13px;
+        top: 30px;
+        bottom: -6px;
+        width: 2px;
+        background: var(--line);
+      }
+      .tl .yr {
+        font-weight: 800;
+        font-size: 22px;
+        color: var(--navy2);
+        position: relative;
+        padding-left: 34px;
+      }
+      .tl .yr::before {
+        content: "";
+        position: absolute;
+        left: 4px;
+        top: 5px;
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background: var(--sky);
+        box-shadow: 0 0 0 5px #dce8fb;
+      }
+      .tl .body b {
+        font-size: 17px;
+      }
+      .tl .body p {
+        color: var(--muted);
+        font-size: 14.5px;
+        margin-top: 2px;
+      }
+      .tlc .tl {
+        padding: 8px 0 13px;
+      }
+      .tlc .tl:not(:last-child)::before {
+        top: 26px;
+      }
+      .tlc .tl .yr {
+        font-size: 18px;
+        white-space: nowrap;
+      }
+      .tlc .tl .body b {
+        font-size: 16px;
+      }
+      .tlc .tl .body p {
+        font-size: 13.5px;
+      }
 
-/* chips */
-.chips{display:flex;flex-wrap:wrap;gap:10px}
-.chip{background:#fff;border:1px solid var(--line);border-radius:10px;padding:9px 14px;font-weight:600;font-size:14.5px;
-  box-shadow:0 6px 16px -12px rgba(20,40,75,.5)}
-.dark .chip{background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.15);color:#e7eefb}
+      /* chips */
+      .chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      .chip {
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        padding: 9px 14px;
+        font-weight: 600;
+        font-size: 14.5px;
+        box-shadow: 0 6px 16px -12px rgba(20, 40, 75, 0.5);
+      }
+      .dark .chip {
+        background: rgba(255, 255, 255, 0.07);
+        border-color: rgba(255, 255, 255, 0.15);
+        color: #e7eefb;
+      }
 
-/* cover */
-.cover-art{position:absolute;right:-60px;top:-60px;width:640px;height:640px;border-radius:50%;
-  background:radial-gradient(circle at 35% 35%,rgba(79,141,247,.5),rgba(31,56,100,0) 62%);filter:blur(6px)}
-.ring{position:absolute;right:90px;top:120px;width:430px;height:430px;border-radius:50%;
-  border:1px solid rgba(255,255,255,.16)}
-.ring.b{width:300px;height:300px;right:155px;top:185px;border-color:rgba(255,255,255,.24)}
-.lp{position:absolute;border-radius:14px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);
-  backdrop-filter:blur(4px);display:grid;place-items:center;font-weight:800;color:#fff}
+      /* cover */
+      .cover-art {
+        position: absolute;
+        right: -60px;
+        top: -60px;
+        width: 640px;
+        height: 640px;
+        border-radius: 50%;
+        background: radial-gradient(
+          circle at 35% 35%,
+          rgba(79, 141, 247, 0.5),
+          rgba(31, 56, 100, 0) 62%
+        );
+        filter: blur(6px);
+      }
+      .ring {
+        position: absolute;
+        right: 90px;
+        top: 120px;
+        width: 430px;
+        height: 430px;
+        border-radius: 50%;
+        border: 1px solid rgba(255, 255, 255, 0.16);
+      }
+      .ring.b {
+        width: 300px;
+        height: 300px;
+        right: 155px;
+        top: 185px;
+        border-color: rgba(255, 255, 255, 0.24);
+      }
+      .lp {
+        position: absolute;
+        border-radius: 14px;
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        backdrop-filter: blur(4px);
+        display: grid;
+        place-items: center;
+        font-weight: 800;
+        color: #fff;
+      }
 
-/* ---------- controls ---------- */
-#ui{position:relative;flex:none;display:flex;align-items:center;gap:14px;
-  justify-content:center;padding:13px;z-index:30;pointer-events:none}
-#ui>*{pointer-events:auto}
-.nav{display:flex;align-items:center;gap:8px;background:rgba(13,24,46,.72);backdrop-filter:blur(8px);
-  border:1px solid rgba(255,255,255,.12);border-radius:999px;padding:7px 9px}
-.nav button{width:36px;height:36px;border-radius:50%;border:none;cursor:pointer;color:#fff;
-  background:rgba(255,255,255,.1);font-size:17px;display:grid;place-items:center;transition:.2s}
-.nav button:hover{background:var(--sky)}
-.count{color:#dbe6fb;font-weight:700;font-size:14px;min-width:62px;text-align:center;font-variant-numeric:tabular-nums}
-.dots{display:flex;gap:7px;background:rgba(13,24,46,.72);backdrop-filter:blur(8px);
-  border:1px solid rgba(255,255,255,.12);border-radius:999px;padding:9px 12px}
-.dot{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.32);cursor:pointer;transition:.25s}
-.dot.on{background:var(--gold);width:26px;border-radius:6px}
-#bar{position:fixed;left:0;top:0;height:3px;background:linear-gradient(90deg,var(--sky),var(--gold));z-index:40;transition:width .4s}
-.hint{position:fixed;left:16px;bottom:18px;color:#7d92b8;font-size:12.5px;z-index:30}
-@media(max-width:560px){.hint{display:none}}
-</style>
-</head>
-<body>
-<div id="bar"></div>
-<div id="viewport">
-<div id="stage">
+      /* ---------- controls ---------- */
+      #ui {
+        position: relative;
+        flex: none;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        justify-content: center;
+        padding: 13px;
+        z-index: 30;
+        pointer-events: none;
+      }
+      #ui > * {
+        pointer-events: auto;
+      }
+      .nav {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        background: rgba(13, 24, 46, 0.72);
+        backdrop-filter: blur(8px);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 999px;
+        padding: 7px 9px;
+      }
+      .nav button {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        border: none;
+        cursor: pointer;
+        color: #fff;
+        background: rgba(255, 255, 255, 0.1);
+        font-size: 17px;
+        display: grid;
+        place-items: center;
+        transition: 0.2s;
+      }
+      .nav button:hover {
+        background: var(--sky);
+      }
+      .count {
+        color: #dbe6fb;
+        font-weight: 700;
+        font-size: 14px;
+        min-width: 62px;
+        text-align: center;
+        font-variant-numeric: tabular-nums;
+      }
+      .dots {
+        display: flex;
+        gap: 7px;
+        background: rgba(13, 24, 46, 0.72);
+        backdrop-filter: blur(8px);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 999px;
+        padding: 9px 12px;
+      }
+      .dot {
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.32);
+        cursor: pointer;
+        transition: 0.25s;
+      }
+      .dot.on {
+        background: var(--gold);
+        width: 26px;
+        border-radius: 6px;
+      }
+      #bar {
+        position: fixed;
+        left: 0;
+        top: 0;
+        height: 3px;
+        background: linear-gradient(90deg, var(--sky), var(--gold));
+        z-index: 40;
+        transition: width 0.4s;
+      }
+      .hint {
+        position: fixed;
+        left: 16px;
+        bottom: 18px;
+        color: #7d92b8;
+        font-size: 12.5px;
+        z-index: 30;
+      }
+      @media (max-width: 560px) {
+        .hint {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="bar"></div>
+    <div id="viewport">
+      <div id="stage">
+        <!-- 1 COVER -->
+        <section class="slide dark haspic active">
+          <div
+            class="pic navy"
+            style="
+              background-image: url(&quot;deck-assets/1.png&quot;);
+              background-position: 48% center;
+            "
+          ></div>
+          <div class="eyebrow fade">Đề án hợp tác · Asset-light</div>
+          <h1 class="fade d1" style="margin-top: 18px; max-width: 17ch">
+            Biến tài sản <span style="color: var(--gold)">“ngủ”</span> của
+            VNPost thành dòng tiền
+          </h1>
+          <p class="lead fade d2" style="margin-top: 20px; color: #cdd9f0">
+            72.185&nbsp;m² mặt bằng đang trống → khai thác hiệu quả.<br /><b
+              style="color: #fff"
+              >VNPost giữ sở hữu · 0 đồng đầu tư · nhận dòng tiền ổn định.</b
+            >
+          </p>
+          <div class="spacer"></div>
+          <div
+            class="fade d3"
+            style="display: flex; gap: 12px; align-items: center"
+          >
+            <span class="badge">Toàn Cầu ADV × VNPost</span>
+          </div>
+        </section>
 
-  <!-- 1 COVER -->
-  <section class="slide dark haspic active">
-    <div class="pic navy" style="background-image:url('deck-assets/1.png');background-position:48% center"></div>
-    <div class="eyebrow fade">Đề án hợp tác · Asset-light</div>
-    <h1 class="fade d1" style="margin-top:18px;max-width:17ch">Biến tài sản <span style="color:var(--gold)">“ngủ”</span> của VNPost thành dòng tiền</h1>
-    <p class="lead fade d2" style="margin-top:20px;color:#cdd9f0">72.185&nbsp;m² mặt bằng đang trống → khai thác hiệu quả.<br><b style="color:#fff">VNPost giữ sở hữu · 0 đồng đầu tư · nhận dòng tiền ổn định.</b></p>
-    <div class="spacer"></div>
-    <div class="fade d3" style="display:flex;gap:12px;align-items:center">
-      <span class="badge">Toàn Cầu ADV × VNPost</span>
-      <span class="muted">— [Người trình bày · Chức vụ · Ngày]</span>
-    </div>
-  </section>
+        <!-- 2 PROBLEM -->
+        <section class="slide haspic">
+          <div
+            class="pic"
+            style="
+              background-image: url(&quot;deck-assets/2.png&quot;);
+              background-size: contain;
+            "
+          ></div>
+          <div class="eyebrow fade">Hiện trạng</div>
+          <h2 class="fade d1" style="margin-top: 12px">361 điểm đang “ngủ”</h2>
+          <p class="lead fade d2" style="margin-top: 12px">
+            Tài sản để trống gần như không sinh lời — mà vẫn tốn chi phí trông
+            coi và xuống cấp theo thời gian.
+          </p>
+          <div
+            class="grid fade d3"
+            style="grid-template-columns: repeat(2, 1fr); margin-top: 20px"
+          >
+            <div class="card">
+              <div class="statnum" data-count="361">0</div>
+              <div class="statlbl">mặt bằng trống</div>
+            </div>
+            <div class="card">
+              <div class="statnum" data-count="72185">0</div>
+              <div class="statlbl">m² tổng diện tích</div>
+            </div>
+            <div class="card">
+              <div class="statnum" data-count="33">0</div>
+              <div class="statlbl">tỉnh/thành (địa giới mới)</div>
+            </div>
+            <div class="card">
+              <div class="statnum"><span data-count="64">0</span></div>
+              <div class="statlbl">điểm lớn ≥300 m² ≈ 63% diện tích</div>
+            </div>
+          </div>
+          <div class="spacer"></div>
+          <div
+            class="fade d4"
+            style="display: flex; flex-wrap: wrap; gap: 12px"
+          >
+            <span class="badge">0 doanh thu khi để trống</span>
+            <span class="badge">Vẫn tốn phí bảo vệ · điện · bảo trì</span>
+            <span class="badge">115 mặt bằng tầng trệt/mặt phố giá trị</span>
+          </div>
+          <p class="kicker fade d5" style="margin-top: 10px; font-size: 12.5px">
+            Nguồn: Bảng phân loại mặt bằng trống VNPost, 4/2026.
+          </p>
+          <div style="display: none"></div>
+          <div class="pageno">02</div>
+        </section>
 
-  <!-- 2 PROBLEM -->
-  <section class="slide haspic">
-    <div class="pic" style="background-image:url('deck-assets/2.png');background-size:contain"></div>
-    <div class="eyebrow fade">Hiện trạng</div>
-    <h2 class="fade d1" style="margin-top:12px">361 điểm đang “ngủ”</h2>
-    <p class="lead fade d2" style="margin-top:12px">Tài sản để trống gần như không sinh lời — mà vẫn tốn chi phí trông coi và xuống cấp theo thời gian.</p>
-    <div class="grid fade d3" style="grid-template-columns:repeat(2,1fr);margin-top:20px">
-      <div class="card"><div class="statnum" data-count="361">0</div><div class="statlbl">mặt bằng trống</div></div>
-      <div class="card"><div class="statnum" data-count="72185">0</div><div class="statlbl">m² tổng diện tích</div></div>
-      <div class="card"><div class="statnum" data-count="33">0</div><div class="statlbl">tỉnh/thành (địa giới mới)</div></div>
-      <div class="card"><div class="statnum"><span data-count="64">0</span></div><div class="statlbl">điểm lớn ≥300 m² ≈ 63% diện tích</div></div>
-    </div>
-    <div class="spacer"></div>
-    <div class="fade d4" style="display:flex;flex-wrap:wrap;gap:12px">
-      <span class="badge">0 doanh thu khi để trống</span>
-      <span class="badge">Vẫn tốn phí bảo vệ · điện · bảo trì</span>
-      <span class="badge">115 mặt bằng tầng trệt/mặt phố giá trị</span>
-    </div>
-    <p class="kicker fade d5" style="margin-top:10px;font-size:12.5px">Nguồn: Bảng phân loại mặt bằng trống VNPost, 4/2026.</p>
-    <div style="display:none">
-    </div>
-    <div class="pageno">02</div>
-  </section>
+        <!-- 3 FLEXIBLE MODEL -->
+        <section class="slide">
+          <div class="eyebrow fade">Lời đề nghị</div>
+          <h2 class="fade d1" style="margin-top: 12px">
+            Mô hình hợp tác linh hoạt
+          </h2>
+          <p class="lead fade d2" style="margin-top: 10px">
+            VNPost giữ sở hữu, 0 vốn — chọn cách nhận tiền theo từng điểm.
+          </p>
+          <div
+            class="grid fade d3"
+            style="grid-template-columns: repeat(3, 1fr); margin-top: 26px"
+          >
+            <div class="card">
+              <div class="ico">
+                <svg viewBox="0 0 24 24">
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <path d="M8 12h8M8 16h5" />
+                </svg>
+              </div>
+              <div class="tag">Phương án 1</div>
+              <h3>Thuê cố định</h3>
+              <p>
+                Tiền thuê cố định hàng tháng — chắc chắn tuyệt đối. Hợp điểm dễ
+                định giá.
+              </p>
+            </div>
+            <div class="card">
+              <div class="ico">
+                <svg viewBox="0 0 24 24">
+                  <path d="M3 17l5-5 4 4 8-8" />
+                  <path d="M21 8v5h-5" />
+                </svg>
+              </div>
+              <div class="tag">Phương án 2</div>
+              <h3>Chia sẻ doanh thu</h3>
+              <p>
+                Hưởng % doanh thu/lợi nhuận — trọn tiềm năng ở điểm đắc địa.
+              </p>
+            </div>
+            <div class="card recommend">
+              <div class="ico">
+                <svg viewBox="0 0 24 24">
+                  <path d="M12 3v18M5 8h9a3 3 0 010 6H7" />
+                </svg>
+              </div>
+              <div class="tag">⭐ Khuyến nghị</div>
+              <h3>Hỗn hợp</h3>
+              <p>
+                Sàn cố định + chia sẻ phần vượt ngưỡng — vừa chắc, vừa có
+                upside.
+              </p>
+            </div>
+          </div>
+          <div class="spacer"></div>
+          <div class="banner fade d4">
+            <span class="chk"
+              ><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10" /></svg
+            ></span>
+            Điểm chung: VNPost giữ 100% sở hữu · 0 đồng CAPEX · quyền phê
+            duyệt/kiểm tra/dừng. Toàn Cầu chịu rủi ro đầu tư · tìm khách · vận
+            hành trong phạm vi hợp đồng.
+          </div>
+          <p class="kicker fade d5" style="margin-top: 12px">
+            Giai đoạn 1 chỉ khảo sát & lập phương án (chưa chuyển giao mặt
+            bằng). Hình thức khai thác (cho thuê / ủy thác / đấu giá quyền khai
+            thác) theo quy định hiện hành về quản lý tài sản, vốn nhà nước — do
+            VNPost phê duyệt sau rà soát pháp lý.
+          </p>
+          <div class="pageno">03</div>
+        </section>
 
-  <!-- 3 FLEXIBLE MODEL -->
-  <section class="slide">
-    <div class="eyebrow fade">Lời đề nghị</div>
-    <h2 class="fade d1" style="margin-top:12px">Mô hình hợp tác linh hoạt</h2>
-    <p class="lead fade d2" style="margin-top:10px">VNPost giữ sở hữu, 0 vốn — chọn cách nhận tiền theo từng điểm.</p>
-    <div class="grid fade d3" style="grid-template-columns:repeat(3,1fr);margin-top:26px">
-      <div class="card">
-        <div class="ico"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 12h8M8 16h5"/></svg></div>
-        <div class="tag">Phương án 1</div><h3>Thuê cố định</h3>
-        <p>Tiền thuê cố định hàng tháng — chắc chắn tuyệt đối. Hợp điểm dễ định giá.</p>
+        <!-- 4 WHO -->
+        <section class="slide dark">
+          <div class="eyebrow fade">
+            Năng lực · theo hồ sơ năng lực Toàn Cầu ADV
+          </div>
+          <h2 class="fade d1" style="margin-top: 8px">
+            Toàn Cầu ADV là ai — 20 năm khai thác tài sản quảng cáo
+          </h2>
+          <div
+            class="grid fade d2"
+            style="
+              grid-template-columns: repeat(5, 1fr);
+              gap: 16px;
+              margin-top: 16px;
+            "
+          >
+            <div>
+              <div class="statnum">2003</div>
+              <div class="statlbl">thành lập · hơn 20 năm</div>
+            </div>
+            <div>
+              <div class="statnum"><span data-count="400">0</span>+</div>
+              <div class="statlbl">thương hiệu</div>
+            </div>
+            <div>
+              <div class="statnum"><span data-count="89000">0</span></div>
+              <div class="statlbl">m² quảng cáo</div>
+            </div>
+            <div>
+              <div class="statnum"><span data-count="730">0</span>+</div>
+              <div class="statlbl">điểm sân bay</div>
+            </div>
+            <div>
+              <div class="statnum"><span data-count="14000">0</span></div>
+              <div class="statlbl">màn hình LCD</div>
+            </div>
+          </div>
+          <div
+            class="billband fade d3"
+            style="background-image: url(&quot;deck-assets/4grid.png&quot;)"
+          ></div>
+          <p
+            class="kicker fade d4"
+            style="color: #9fb3d6; margin-top: 12px; text-align: center"
+          >
+            Khách hàng tiêu biểu · phủ toàn quốc: SABECO · HABECO · Acecook ·
+            Petrolimex · Techcombank · MB Bank · Hòa Phát · Castrol · Miwon ·
+            Electrolux
+          </p>
+          <div class="pageno">04</div>
+        </section>
+
+        <!-- 5 WHY FILL -->
+        <section class="slide haspic">
+          <div
+            class="pic"
+            style="
+              background-image: url(&quot;deck-assets/5.png&quot;);
+              background-size: contain;
+            "
+          ></div>
+          <div class="eyebrow fade">Lợi thế Toàn Cầu</div>
+          <h2 class="fade d1" style="margin-top: 12px">
+            Lấp đầy bằng dòng khách có sẵn
+          </h2>
+          <p class="lead fade d2" style="margin-top: 10px">
+            Điểm trống thiếu <b style="color: var(--ink)">dòng khách</b> — không
+            thiếu mặt bằng. Toàn Cầu mang sẵn mạng đối tác & sức truyền thông để
+            tạo pipeline khách thuê.
+          </p>
+          <div class="spacer"></div>
+          <div class="flow fade d3">
+            <div class="node">
+              Mạng đối tác<small
+                >400+ thương hiệu · sàn TMĐT · vận chuyển</small
+              >
+            </div>
+            <div class="arrow">＋</div>
+            <div class="node">
+              Sức truyền thông<small>OOH · 14.000 màn hình · sự kiện</small>
+            </div>
+            <div class="arrow">→</div>
+            <div class="node target">
+              Điểm VNPost<small>pipeline khách thuê từ đầu</small>
+            </div>
+          </div>
+          <div class="spacer"></div>
+          <div
+            class="fade d4"
+            style="display: flex; flex-wrap: wrap; gap: 12px"
+          >
+            <span class="badge">Khách thuê & đối tác có sẵn</span>
+            <span class="badge">Mỗi điểm mở = một chiến dịch</span>
+            <span class="badge">Bộ máy vận hành đa điểm toàn quốc</span>
+          </div>
+          <div class="pageno">05</div>
+        </section>
+
+        <!-- 6 POSTMART -->
+        <section class="slide haspic">
+          <div
+            class="pic"
+            style="
+              background-image: url(&quot;deck-assets/6.webp&quot;);
+              background-size: 100% auto;
+            "
+          ></div>
+          <div class="eyebrow fade">Cộng hưởng</div>
+          <h2 class="fade d1" style="margin-top: 12px">
+            Cùng VNPost tăng doanh thu Postmart
+          </h2>
+          <p class="lead fade d2" style="margin-top: 10px">
+            Một mũi tên trúng hai đích — vừa khai thác mặt bằng, vừa đẩy doanh
+            thu Postmart/OCOP.
+          </p>
+          <div class="spacer"></div>
+          <div class="loop fade d3">
+            <div class="loopitem">
+              <div class="loopcirc">
+                <svg viewBox="0 0 24 24">
+                  <path d="M3 21V9l9-6 9 6v12" />
+                  <path d="M9 21v-6h6v6" />
+                </svg>
+              </div>
+              <b>Mặt bằng trống</b><small>VNPost</small>
+            </div>
+            <div class="arrow">→</div>
+            <div class="loopitem">
+              <div class="loopcirc">
+                <svg viewBox="0 0 24 24">
+                  <path
+                    d="M4 7h16l-1.5 12.5a1 1 0 01-1 .9H6.5a1 1 0 01-1-.9z"
+                  />
+                  <path d="M9 7a3 3 0 016 0" />
+                </svg>
+              </div>
+              <b>Hàng Postmart/OCOP</b><small>8.200+ SP OCOP*</small>
+            </div>
+            <div class="arrow">→</div>
+            <div class="loopitem">
+              <div class="loopcirc">
+                <svg viewBox="0 0 24 24">
+                  <path d="M15 10l4.5-2.5v9L15 14" />
+                  <rect x="3" y="7" width="12" height="10" rx="2" />
+                </svg>
+              </div>
+              <b>Livestream · bán lẻ</b><small>mạng thương hiệu Toàn Cầu</small>
+            </div>
+          </div>
+          <div class="spacer"></div>
+          <div
+            class="banner fade d4"
+            style="background: linear-gradient(135deg, #1f3864, #2e63b8)"
+          >
+            <span class="chk"
+              ><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10" /></svg
+            ></span>
+            VNPost vừa thu tiền khai thác mặt bằng, vừa tăng doanh thu Postmart
+            — cộng hưởng chuỗi Bách hóa Bưu điện.
+          </div>
+          <p class="kicker fade d5" style="margin-top: 10px; font-size: 12.5px">
+            * Số liệu Postmart theo thông tin VNPost/Postmart cung cấp.
+          </p>
+          <div class="pageno">06</div>
+        </section>
+
+        <!-- 7 MENU MODELS -->
+        <section class="slide dark">
+          <div class="eyebrow fade">Khi được phê duyệt khai thác</div>
+          <h2 class="fade d1" style="margin-top: 12px">
+            Menu mô hình khai thác
+          </h2>
+          <p class="lead fade d2" style="margin-top: 8px">
+            Mỗi mặt bằng được “may đo” theo một mô hình — VNPost hình dung rõ
+            điểm của mình sẽ thành gì.
+          </p>
+          <div
+            class="grid fade d3"
+            style="
+              grid-template-columns: repeat(3, 1fr);
+              margin-top: 22px;
+              gap: 14px;
+            "
+          >
+            <div class="card">
+              <div class="ico">
+                <svg viewBox="0 0 24 24">
+                  <path d="M4 9h16v11H4z" />
+                  <path d="M4 9l2-5h12l2 5" />
+                  <path d="M9 20v-5h6v5" />
+                </svg>
+              </div>
+              <h3>F&B · Bán lẻ · Showroom</h3>
+              <p>Khách neo tầng trệt, mặt phố.</p>
+            </div>
+            <div class="card">
+              <div class="ico">
+                <svg viewBox="0 0 24 24">
+                  <rect x="4" y="3" width="16" height="18" rx="2" />
+                  <path d="M8 7h2M8 11h2M14 7h2M14 11h2M10 21v-4h4v4" />
+                </svg>
+              </div>
+              <h3>Văn phòng · dịch vụ</h3>
+              <p>Cho thuê ở các tầng trên.</p>
+            </div>
+            <div class="card">
+              <div class="ico">
+                <svg viewBox="0 0 24 24">
+                  <rect x="3" y="6" width="13" height="12" rx="2" />
+                  <path d="M16 10l5-3v10l-5-3" />
+                </svg>
+              </div>
+              <h3>Livestream · TMĐT</h3>
+              <p>Studio + kho hoàn tất đơn. <i>vd: Cần Thơ.</i></p>
+            </div>
+            <div class="card">
+              <div class="ico">
+                <svg viewBox="0 0 24 24">
+                  <path d="M12 3c4 3 6 6 6 10a6 6 0 01-12 0c0-2 .5-3 1.5-4.5" />
+                  <path d="M12 21v-6" />
+                </svg>
+              </div>
+              <h3>Điểm bán OCOP · hàng Việt</h3>
+              <p>Bán lẻ mọi cỡ, cộng hưởng Postmart.</p>
+            </div>
+            <div class="card">
+              <div class="ico">
+                <svg viewBox="0 0 24 24">
+                  <path d="M12 2v20M2 12h20M5 5l14 14M19 5L5 19" />
+                </svg>
+              </div>
+              <h3>Kho lạnh · chuỗi lạnh</h3>
+              <p>Điểm có sân/kho · build-to-suit khi có LOI.</p>
+            </div>
+            <div class="card">
+              <div class="ico">
+                <svg viewBox="0 0 24 24">
+                  <rect x="2" y="7" width="13" height="9" rx="1" />
+                  <path d="M15 10h4l2 3v3h-6" />
+                  <circle cx="6" cy="18" r="2" />
+                  <circle cx="17" cy="18" r="2" />
+                </svg>
+              </div>
+              <h3>Logistics last-mile</h3>
+              <p>Điểm giao nhận · tủ locker, theo lô.</p>
+            </div>
+          </div>
+          <div class="spacer"></div>
+          <div class="grid fade d4" style="grid-template-columns: 1fr 1fr">
+            <span class="badge"
+              >📈 Livestream: TikTok Shop +93%, livestream ×2,3 (2025 ·
+              TikTok/báo chí)</span
+            >
+            <span class="badge"
+              >❄️ Kho lạnh: lấp đầy 85–95%, +12%/năm (Savills/BCT 2025)</span
+            >
+          </div>
+          <div class="pageno">07</div>
+        </section>
+
+        <!-- 10 IDEA: KHO LẠNH -->
+        <section class="slide haspic">
+          <div
+            class="pic"
+            style="background-image: url(&quot;deck-assets/8.png&quot;)"
+          ></div>
+          <div class="eyebrow fade">Ý tưởng cốt lõi · 1</div>
+          <h2 class="fade d1" style="margin-top: 12px">
+            Kho lạnh — đón nhu cầu đang khan cung
+          </h2>
+          <p class="lead fade d2" style="margin-top: 10px">
+            Điểm lớn có sân/kho → kho mát, kho lạnh nông sản, cho thuê 3PL —
+            triển khai build-to-suit khi có khách neo.
+          </p>
+          <div
+            class="grid fade d3"
+            style="grid-template-columns: repeat(3, 1fr); margin-top: 28px"
+          >
+            <div class="card">
+              <div
+                class="ico"
+                style="background: linear-gradient(135deg, #2e8bc0, #5fd0e0)"
+              >
+                <svg viewBox="0 0 24 24">
+                  <path d="M12 2v20M2 12h20M5 5l14 14M19 5L5 19" />
+                </svg>
+              </div>
+              <div class="statnum"><span data-count="95">0</span>%</div>
+              <div class="statlbl">
+                tỷ lệ lấp đầy kho lạnh (TP.HCM Q1/2025 · Bộ Công Thương)
+              </div>
+            </div>
+            <div class="card">
+              <div
+                class="ico"
+                style="background: linear-gradient(135deg, #2e8bc0, #5fd0e0)"
+              >
+                <svg viewBox="0 0 24 24">
+                  <path d="M3 17l5-5 4 4 8-8" />
+                  <path d="M21 8v5h-5" />
+                </svg>
+              </div>
+              <div class="statnum">+<span data-count="12">0</span>%</div>
+              <div class="statlbl">
+                tăng trưởng/năm — cung không theo kịp cầu
+              </div>
+            </div>
+            <div class="card">
+              <div
+                class="ico"
+                style="background: linear-gradient(135deg, #2e8bc0, #5fd0e0)"
+              >
+                <svg viewBox="0 0 24 24">
+                  <path d="M4 7h16v13H4z" />
+                  <path d="M4 7l2-4h12l2 4M9 12h6" />
+                </svg>
+              </div>
+              <div class="statnum"><span data-count="295">0</span></div>
+              <div class="statlbl">
+                triệu USD quy mô thị trường 2025 (Savills)
+              </div>
+            </div>
+          </div>
+          <div class="spacer"></div>
+          <div
+            class="banner fade d4"
+            style="background: linear-gradient(135deg, #10566b, #1f3864)"
+          >
+            <span class="chk" style="background: #2e8bc0"
+              ><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10" /></svg
+            ></span>
+            Mô hình: Toàn Cầu đầu tư cải tạo + mang khách 3PL/nông sản · VNPost
+            thu tiền thuê dài hạn ổn định, 0 vốn.
+          </div>
+          <span class="badge fade d5" style="margin-top: 12px"
+            >Ví dụ khảo sát: Nghĩa Ninh ~3.819 m² (sân lộ thiên) — phù hợp bãi
+            logistics/kho mát hoặc kho build-to-suit nếu có khách neo, sau khảo
+            sát nền & thoát nước</span
+          >
+          <div class="pageno">08</div>
+        </section>
+
+        <!-- 11 IDEA: LIVESTREAM -->
+        <section class="slide dark">
+          <div class="eyebrow fade">
+            Ý tưởng cốt lõi · 2 · bài học Trung Quốc
+          </div>
+          <h2 class="fade d1" style="margin-top: 10px">
+            Cho thuê phòng livestream — đón sóng đang tới
+          </h2>
+          <p
+            class="kicker fade d2"
+            style="
+              color: #9fb3d6;
+              margin-top: 14px;
+              letter-spacing: 0.12em;
+              text-transform: uppercase;
+              font-size: 13px;
+            "
+          >
+            Trung Quốc đã chứng minh (Statista)
+          </p>
+          <div
+            class="grid fade d2"
+            style="grid-template-columns: repeat(4, 1fr); margin-top: 8px"
+          >
+            <div>
+              <div class="statnum"><span data-count="690">0</span></div>
+              <div class="statlbl">tỷ USD GMV livestream (2023)</div>
+            </div>
+            <div>
+              <div class="statnum"><span data-count="10">0</span>×</div>
+              <div class="statlbl">tăng trong 4 năm (2019→2023)</div>
+            </div>
+            <div>
+              <div class="statnum">&gt;<span data-count="1000">0</span></div>
+              <div class="statlbl">tỷ USD dự báo năm 2026</div>
+            </div>
+            <div>
+              <div class="statnum"><span data-count="765">0</span></div>
+              <div class="statlbl">triệu người xem tại TQ</div>
+            </div>
+          </div>
+          <div class="banner fade d3" style="margin-top: 22px">
+            <span class="chk"
+              ><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10" /></svg
+            ></span>
+            Việt Nam đang đi lại đúng quỹ đạo đó — chỉ sau vài năm: TikTok Shop
+            +93%, livestream ×2,3 (2025 · TikTok/báo chí). Dư địa còn rất lớn.
+          </div>
+          <div class="spacer"></div>
+          <div
+            class="grid fade d4"
+            style="grid-template-columns: 1fr 1fr; gap: 16px"
+          >
+            <div class="card">
+              <div class="tag" style="color: #7fc0ff">
+                Phương án áp vào VNPost
+              </div>
+              <p style="margin-top: 6px">
+                Biến mặt bằng thành
+                <b style="color: #fff">mạng studio livestream cho thuê</b> (ánh
+                sáng · mạng tốc độ cao · kho hàng mẫu · hoàn tất đơn) cho seller
+                · KOL · MCN · thương hiệu. Toàn Cầu mang khách; VNPost thu thuê
+                + chia sẻ, 0 vốn.
+              </p>
+            </div>
+            <div
+              class="card"
+              style="
+                background: linear-gradient(135deg, #1f3864, #2e63b8);
+                border: none;
+              "
+            >
+              <div class="tag" style="color: #ffd98a">Tầm nhìn tương lai</div>
+              <p style="margin-top: 6px; color: #eaf1fd">
+                Đón sóng từ sớm: nếu livestream Việt Nam tiếp tục theo quỹ đạo
+                Trung Quốc, VNPost đã có sẵn
+                <b style="color: #fff">mạng studio toàn quốc</b> — lợi thế người
+                đi đầu & dòng thuê dài hạn.
+              </p>
+            </div>
+          </div>
+          <div class="pageno">09</div>
+        </section>
+
+        <!-- 8 CLASSIFY -->
+        <section class="slide">
+          <div class="eyebrow fade">Áp menu lên toàn danh mục</div>
+          <h2 class="fade d1" style="margin-top: 12px">
+            Phân loại 361 điểm theo quy mô
+          </h2>
+          <p class="lead fade d2" style="margin-top: 8px">
+            Không mét vuông nào bỏ phí — và biết rõ làm điểm nào trước.
+          </p>
+          <div class="bars fade d3" style="margin-top: 26px">
+            <div class="barrow">
+              <div class="k">A · ≥500 m²<small>34 mặt bằng</small></div>
+              <div class="track">
+                <div class="fill" style="--w: 22%"><span>34</span></div>
+              </div>
+            </div>
+            <div class="barnote">
+              ↳ Tòa thương mại · văn phòng · livestream · kho/kho lạnh ·
+              logistics
+            </div>
+            <div class="barrow">
+              <div class="k">B · 300–499<small>30 mặt bằng</small></div>
+              <div class="track">
+                <div class="fill" style="--w: 20%"><span>30</span></div>
+              </div>
+            </div>
+            <div class="barnote">↳ Bán lẻ · văn phòng · phân phối vùng</div>
+            <div class="barrow">
+              <div class="k">C · 150–299<small>60 mặt bằng</small></div>
+              <div class="track">
+                <div class="fill" style="--w: 40%"><span>60</span></div>
+              </div>
+            </div>
+            <div class="barnote">↳ Showroom · bán lẻ · văn phòng dịch vụ</div>
+            <div class="barrow">
+              <div class="k">D · 50–149<small>152 mặt bằng</small></div>
+              <div class="track">
+                <div
+                  class="fill"
+                  style="
+                    --w: 100%;
+                    background: linear-gradient(90deg, #1f3864, #2e63b8);
+                  "
+                >
+                  <span>152</span>
+                </div>
+              </div>
+            </div>
+            <div class="barnote">
+              ↳ Điểm giao chặng cuối · tủ locker — gói khai thác theo lô
+            </div>
+            <div class="barrow">
+              <div class="k">E · &lt;50<small>85 mặt bằng</small></div>
+              <div class="track">
+                <div
+                  class="fill"
+                  style="
+                    --w: 56%;
+                    background: linear-gradient(90deg, #1f3864, #2e63b8);
+                  "
+                >
+                  <span>85</span>
+                </div>
+              </div>
+            </div>
+            <div class="barnote">
+              ↳ Tủ giao nhận · điểm nhận hàng · quầy dịch vụ
+            </div>
+          </div>
+          <div class="spacer"></div>
+          <span class="badge fade d4"
+            >64 điểm lớn (A–B) nắm ≈ 63% diện tích → ưu tiên chào trước</span
+          >
+          <div class="pageno">10</div>
+        </section>
+
+        <!-- 9 OCOP -->
+        <section class="slide">
+          <div class="eyebrow fade">Khác biệt nguồn hàng</div>
+          <h2 class="fade d1" style="margin-top: 12px">
+            Nguồn hàng Việt chuẩn
+          </h2>
+          <p class="lead fade d2" style="margin-top: 10px">
+            Không phải hàng trôi nổi — hàng thật, có truy xuất, đúng chủ trương
+            “Người Việt dùng hàng Việt”.
+          </p>
+          <div
+            class="grid fade d3"
+            style="grid-template-columns: repeat(3, 1fr); margin-top: 30px"
+          >
+            <div class="card">
+              <div class="ico">
+                <svg viewBox="0 0 24 24">
+                  <path d="M12 3c4 3 6 6 6 10a6 6 0 01-12 0c0-2 .5-3 1.5-4.5" />
+                </svg>
+              </div>
+              <h3>Sản phẩm OCOP</h3>
+              <p>Hàng Việt chất lượng cao, cộng hưởng kho OCOP của Postmart.</p>
+            </div>
+            <div class="card">
+              <div class="ico">
+                <svg viewBox="0 0 24 24">
+                  <path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z" />
+                  <path d="M9 12l2 2 4-4" />
+                </svg>
+              </div>
+              <h3>Chống hàng giả · truy xuất</h3>
+              <p>
+                Hợp tác đối tác kiểm định/chống hàng giả — ~300 DN đăng ký (theo
+                thông tin DN cung cấp).
+              </p>
+            </div>
+            <div class="card">
+              <div class="ico">
+                <svg viewBox="0 0 24 24">
+                  <path d="M3 21h18M5 21V10l7-5 7 5v11" />
+                  <path d="M9 21v-6h6v6" />
+                </svg>
+              </div>
+              <h3>Đúng định hướng nhà nước</h3>
+              <p>Phù hợp phong trào hàng Việt & chuyển đổi số nông sản.</p>
+            </div>
+          </div>
+          <div class="spacer"></div>
+          <div
+            class="grid fade d4"
+            style="grid-template-columns: repeat(3, 1fr)"
+          >
+            <span class="badge">~300 doanh nghiệp trong mạng</span>
+            <span class="badge">Truy xuất nguồn gốc</span>
+            <span class="badge">Cộng hưởng Postmart / Bách hóa Bưu điện</span>
+          </div>
+          <div class="pageno">11</div>
+        </section>
+
+        <!-- 11 ROADMAP -->
+        <section class="slide">
+          <div class="eyebrow fade">Rủi ro thấp — có kiểm chứng</div>
+          <h2 class="fade d1" style="margin-top: 12px">
+            Pilot 90 ngày & lộ trình đến hết 2027
+          </h2>
+          <div class="timeline tlc fade d2" style="margin-top: 16px">
+            <div class="tl">
+              <div class="yr">90 ngày</div>
+              <div class="body">
+                <b>Pilot 4 điểm Lớp 1</b>
+                <p>
+                  Phan Rang · Đà Lạt · Hà Đông · Mỹ Tho — khảo sát, lấy 2
+                  LOI/điểm thương mại, chốt phương án tài chính–pháp lý.
+                </p>
+              </div>
+            </div>
+            <div class="tl">
+              <div class="yr">Q4 2026</div>
+              <div class="body">
+                <b>Nhân rộng Lớp 2</b>
+                <p>
+                  Logistics · kho lạnh · nông sản — triển khai tại điểm có
+                  sân/kho khi có khách neo/LOI.
+                </p>
+              </div>
+            </div>
+            <div class="tl">
+              <div class="yr">Q1 2027</div>
+              <div class="body">
+                <b>Chuẩn hóa & mở rộng Lớp 1</b>
+                <p>
+                  Tổng kết pilot, chuẩn hóa quy trình + bộ hợp đồng mẫu; chào
+                  trước 64 điểm lớn (A–B) còn lại.
+                </p>
+              </div>
+            </div>
+            <div class="tl">
+              <div class="yr">Q2 2027</div>
+              <div class="body">
+                <b>Lớp 2 diện rộng</b>
+                <p>
+                  Ký LOI/hợp đồng các cụm điểm có sân/kho; vận hành logistics ·
+                  kho lạnh · nông sản.
+                </p>
+              </div>
+            </div>
+            <div class="tl">
+              <div class="yr">Q3 2027</div>
+              <div class="body">
+                <b>Lớp 3 — tác động xã hội</b>
+                <p>
+                  Điểm bán OCOP · hàng Việt · dịch vụ cộng đồng; kích hoạt cộng
+                  hưởng Postmart.
+                </p>
+              </div>
+            </div>
+            <div class="tl">
+              <div class="yr">Q4 2027</div>
+              <div class="body">
+                <b>Cơ chế nâng dần & tổng kết</b>
+                <p>
+                  Thuê sàn tăng 5–10%/năm, điểm lấp đầy &gt;75% thì nâng sàn;
+                  chốt mô hình vận hành toàn danh mục.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="spacer"></div>
+          <span class="badge fade d3"
+            >VNPost giữ quyền dừng hoặc điều chỉnh từng điểm độc lập</span
+          >
+          <div class="pageno">12</div>
+        </section>
+
+        <!-- 12 CTA -->
+        <section class="slide dark">
+          <div
+            class="cover-art"
+            style="left: -120px; right: auto; opacity: 0.7"
+          ></div>
+          <div class="eyebrow fade">Bước tiếp theo</div>
+          <h1 class="fade d1" style="margin-top: 16px; max-width: 20ch">
+            Tài sản ngủ → Dòng tiền.<br /><span style="color: var(--gold)"
+              >VNPost giữ sở hữu · 0 đồng vốn.</span
+            >
+          </h1>
+          <p class="lead fade d2" style="margin-top: 18px; color: #cdd9f0">
+            Đề nghị ký MOU/biên bản cho phép khảo sát 4 điểm Lớp 1 → lập phương
+            án tài chính–pháp lý chi tiết → VNPost phê duyệt hình thức từng
+            điểm.
+          </p>
+          <div class="spacer"></div>
+          <div
+            class="grid fade d3"
+            style="grid-template-columns: repeat(3, 1fr); max-width: 760px"
+          >
+            <div>
+              <div class="kicker" style="color: #9fb3d6">Email</div>
+              <b>info@toancauadv.com</b>
+            </div>
+            <div>
+              <div class="kicker" style="color: #9fb3d6">Điện thoại</div>
+              <b>0983902424</b>
+            </div>
+            <div>
+              <div class="kicker" style="color: #9fb3d6">Website</div>
+              <b>toancauadv.com</b>
+            </div>
+          </div>
+          <div class="fade d4" style="margin-top: 24px">
+            <span class="badge"
+              >Cam kết: 0 CAPEX cho VNPost · mô hình linh hoạt · minh bạch · báo
+              cáo định kỳ</span
+            >
+          </div>
+        </section>
       </div>
-      <div class="card">
-        <div class="ico"><svg viewBox="0 0 24 24"><path d="M3 17l5-5 4 4 8-8"/><path d="M21 8v5h-5"/></svg></div>
-        <div class="tag">Phương án 2</div><h3>Chia sẻ doanh thu</h3>
-        <p>Hưởng % doanh thu/lợi nhuận — trọn tiềm năng ở điểm đắc địa.</p>
+      <!-- /stage -->
+    </div>
+    <!-- /viewport -->
+
+    <div id="ui">
+      <div class="nav">
+        <button id="prev" aria-label="Trước">‹</button>
+        <span class="count" id="count">01 / 13</span>
+        <button id="next" aria-label="Sau">›</button>
       </div>
-      <div class="card recommend">
-        <div class="ico"><svg viewBox="0 0 24 24"><path d="M12 3v18M5 8h9a3 3 0 010 6H7"/></svg></div>
-        <div class="tag">⭐ Khuyến nghị</div><h3>Hỗn hợp</h3>
-        <p>Sàn cố định + chia sẻ phần vượt ngưỡng — vừa chắc, vừa có upside.</p>
-      </div>
+      <div class="dots" id="dots"></div>
     </div>
-    <div class="spacer"></div>
-    <div class="banner fade d4"><span class="chk"><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg></span>
-      Điểm chung: VNPost giữ 100% sở hữu · 0 đồng CAPEX · quyền phê duyệt/kiểm tra/dừng. Toàn Cầu chịu rủi ro đầu tư · tìm khách · vận hành trong phạm vi hợp đồng.</div>
-    <p class="kicker fade d5" style="margin-top:12px">Giai đoạn 1 chỉ khảo sát & lập phương án (chưa chuyển giao mặt bằng). Hình thức khai thác (cho thuê / ủy thác / đấu giá quyền khai thác) theo quy định hiện hành về quản lý tài sản, vốn nhà nước — do VNPost phê duyệt sau rà soát pháp lý.</p>
-    <div class="pageno">03</div>
-  </section>
 
-  <!-- 4 WHO -->
-  <section class="slide dark">
-    <div class="eyebrow fade">Năng lực · theo hồ sơ năng lực Toàn Cầu ADV</div>
-    <h2 class="fade d1" style="margin-top:8px">Toàn Cầu ADV là ai — 20 năm khai thác tài sản quảng cáo</h2>
-    <div class="grid fade d2" style="grid-template-columns:repeat(5,1fr);gap:16px;margin-top:16px">
-      <div><div class="statnum">2003</div><div class="statlbl">thành lập · hơn 20 năm</div></div>
-      <div><div class="statnum"><span data-count="400">0</span>+</div><div class="statlbl">thương hiệu</div></div>
-      <div><div class="statnum"><span data-count="89000">0</span></div><div class="statlbl">m² quảng cáo</div></div>
-      <div><div class="statnum"><span data-count="730">0</span>+</div><div class="statlbl">điểm sân bay</div></div>
-      <div><div class="statnum"><span data-count="14000">0</span></div><div class="statlbl">màn hình LCD</div></div>
-    </div>
-    <div class="billband fade d3" style="background-image:url('deck-assets/4grid.png')"></div>
-    <p class="kicker fade d4" style="color:#9fb3d6;margin-top:12px;text-align:center">Khách hàng tiêu biểu · phủ toàn quốc: SABECO · HABECO · Acecook · Petrolimex · Techcombank · MB Bank · Hòa Phát · Castrol · Miwon · Electrolux</p>
-    <div class="pageno">04</div>
-  </section>
+    <script>
+      const slides = [...document.querySelectorAll(".slide")];
+      const stage = document.getElementById("stage");
+      const dotsWrap = document.getElementById("dots");
+      let i = 0;
+      const N = slides.length;
 
-  <!-- 5 WHY FILL -->
-  <section class="slide haspic">
-    <div class="pic" style="background-image:url('deck-assets/5.png');background-size:contain"></div>
-    <div class="eyebrow fade">Lợi thế Toàn Cầu</div>
-    <h2 class="fade d1" style="margin-top:12px">Lấp đầy bằng dòng khách có sẵn</h2>
-    <p class="lead fade d2" style="margin-top:10px">Điểm trống thiếu <b style="color:var(--ink)">dòng khách</b> — không thiếu mặt bằng. Toàn Cầu mang sẵn mạng đối tác & sức truyền thông để tạo pipeline khách thuê.</p>
-    <div class="spacer"></div>
-    <div class="flow fade d3">
-      <div class="node">Mạng đối tác<small>400+ thương hiệu · sàn TMĐT · vận chuyển</small></div>
-      <div class="arrow">＋</div>
-      <div class="node">Sức truyền thông<small>OOH · 14.000 màn hình · sự kiện</small></div>
-      <div class="arrow">→</div>
-      <div class="node target">Điểm VNPost<small>pipeline khách thuê từ đầu</small></div>
-    </div>
-    <div class="spacer"></div>
-    <div class="fade d4" style="display:flex;flex-wrap:wrap;gap:12px">
-      <span class="badge">Khách thuê & đối tác có sẵn</span>
-      <span class="badge">Mỗi điểm mở = một chiến dịch</span>
-      <span class="badge">Bộ máy vận hành đa điểm toàn quốc</span>
-    </div>
-    <div class="pageno">05</div>
-  </section>
+      // scale stage to fit the viewport area above the nav (no overlap)
+      const vp = document.getElementById("viewport");
+      function fit() {
+        const s = Math.min(vp.clientWidth / 1280, vp.clientHeight / 720);
+        const x = (vp.clientWidth - 1280 * s) / 2,
+          y = (vp.clientHeight - 720 * s) / 2;
+        stage.style.transform =
+          "translate(" + x + "px," + y + "px) scale(" + s + ")";
+      }
+      addEventListener("resize", fit);
+      fit();
 
-  <!-- 6 POSTMART -->
-  <section class="slide haspic">
-    <div class="pic" style="background-image:url('deck-assets/6.webp');background-size:100% auto"></div>
-    <div class="eyebrow fade">Cộng hưởng</div>
-    <h2 class="fade d1" style="margin-top:12px">Cùng VNPost tăng doanh thu Postmart</h2>
-    <p class="lead fade d2" style="margin-top:10px">Một mũi tên trúng hai đích — vừa khai thác mặt bằng, vừa đẩy doanh thu Postmart/OCOP.</p>
-    <div class="spacer"></div>
-    <div class="loop fade d3">
-      <div class="loopitem"><div class="loopcirc"><svg viewBox="0 0 24 24"><path d="M3 21V9l9-6 9 6v12"/><path d="M9 21v-6h6v6"/></svg></div><b>Mặt bằng trống</b><small>VNPost</small></div>
-      <div class="arrow">→</div>
-      <div class="loopitem"><div class="loopcirc"><svg viewBox="0 0 24 24"><path d="M4 7h16l-1.5 12.5a1 1 0 01-1 .9H6.5a1 1 0 01-1-.9z"/><path d="M9 7a3 3 0 016 0"/></svg></div><b>Hàng Postmart/OCOP</b><small>8.200+ SP OCOP*</small></div>
-      <div class="arrow">→</div>
-      <div class="loopitem"><div class="loopcirc"><svg viewBox="0 0 24 24"><path d="M15 10l4.5-2.5v9L15 14"/><rect x="3" y="7" width="12" height="10" rx="2"/></svg></div><b>Livestream · bán lẻ</b><small>mạng thương hiệu Toàn Cầu</small></div>
-    </div>
-    <div class="spacer"></div>
-    <div class="banner fade d4" style="background:linear-gradient(135deg,#1f3864,#2e63b8)"><span class="chk"><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg></span>
-      VNPost vừa thu tiền khai thác mặt bằng, vừa tăng doanh thu Postmart — cộng hưởng chuỗi Bách hóa Bưu điện.</div>
-    <p class="kicker fade d5" style="margin-top:10px;font-size:12.5px">* Số liệu Postmart theo thông tin VNPost/Postmart cung cấp.</p>
-    <div class="pageno">06</div>
-  </section>
+      // dots
+      slides.forEach((_, k) => {
+        const d = document.createElement("span");
+        d.className = "dot";
+        d.onclick = () => go(k);
+        dotsWrap.appendChild(d);
+      });
+      const dots = [...dotsWrap.children];
 
-  <!-- 7 MENU MODELS -->
-  <section class="slide dark">
-    <div class="eyebrow fade">Khi được phê duyệt khai thác</div>
-    <h2 class="fade d1" style="margin-top:12px">Menu mô hình khai thác</h2>
-    <p class="lead fade d2" style="margin-top:8px">Mỗi mặt bằng được “may đo” theo một mô hình — VNPost hình dung rõ điểm của mình sẽ thành gì.</p>
-    <div class="grid fade d3" style="grid-template-columns:repeat(3,1fr);margin-top:22px;gap:14px">
-      <div class="card"><div class="ico"><svg viewBox="0 0 24 24"><path d="M4 9h16v11H4z"/><path d="M4 9l2-5h12l2 5"/><path d="M9 20v-5h6v5"/></svg></div><h3>F&B · Bán lẻ · Showroom</h3><p>Khách neo tầng trệt, mặt phố.</p></div>
-      <div class="card"><div class="ico"><svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 7h2M8 11h2M14 7h2M14 11h2M10 21v-4h4v4"/></svg></div><h3>Văn phòng · dịch vụ</h3><p>Cho thuê ở các tầng trên.</p></div>
-      <div class="card"><div class="ico"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="13" height="12" rx="2"/><path d="M16 10l5-3v10l-5-3"/></svg></div><h3>Livestream · TMĐT</h3><p>Studio + kho hoàn tất đơn. <i>vd: Cần Thơ.</i></p></div>
-      <div class="card"><div class="ico"><svg viewBox="0 0 24 24"><path d="M12 3c4 3 6 6 6 10a6 6 0 01-12 0c0-2 .5-3 1.5-4.5"/><path d="M12 21v-6"/></svg></div><h3>Điểm bán OCOP · hàng Việt</h3><p>Bán lẻ mọi cỡ, cộng hưởng Postmart.</p></div>
-      <div class="card"><div class="ico"><svg viewBox="0 0 24 24"><path d="M12 2v20M2 12h20M5 5l14 14M19 5L5 19"/></svg></div><h3>Kho lạnh · chuỗi lạnh</h3><p>Điểm có sân/kho · build-to-suit khi có LOI.</p></div>
-      <div class="card"><div class="ico"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="13" height="9" rx="1"/><path d="M15 10h4l2 3v3h-6"/><circle cx="6" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg></div><h3>Logistics last-mile</h3><p>Điểm giao nhận · tủ locker, theo lô.</p></div>
-    </div>
-    <div class="spacer"></div>
-    <div class="grid fade d4" style="grid-template-columns:1fr 1fr">
-      <span class="badge">📈 Livestream: TikTok Shop +93%, livestream ×2,3 (2025 · TikTok/báo chí)</span>
-      <span class="badge">❄️ Kho lạnh: lấp đầy 85–95%, +12%/năm (Savills/BCT 2025)</span>
-    </div>
-    <div class="pageno">07</div>
-  </section>
+      function go(n) {
+        i = Math.max(0, Math.min(N - 1, n));
+        slides.forEach((s, k) => s.classList.toggle("active", k === i));
+        dots.forEach((d, k) => d.classList.toggle("on", k === i));
+        document.getElementById("count").textContent =
+          String(i + 1).padStart(2, "0") + " / " + N;
+        document.getElementById("bar").style.width = (i / (N - 1)) * 100 + "%";
+        triggerCounters(slides[i]);
+      }
+      function next() {
+        go(i + 1);
+      }
+      function prev() {
+        go(i - 1);
+      }
+      document.getElementById("next").onclick = next;
+      document.getElementById("prev").onclick = prev;
+      addEventListener("keydown", (e) => {
+        if (e.key === "ArrowRight" || e.key === "PageDown" || e.key === " ")
+          next();
+        else if (e.key === "ArrowLeft" || e.key === "PageUp") prev();
+        else if (e.key === "Home") go(0);
+        else if (e.key === "End") go(N - 1);
+        else if (e.key.toLowerCase() === "f") {
+          if (!document.fullscreenElement)
+            document.documentElement.requestFullscreen();
+          else document.exitFullscreen();
+        } else if (e.key.toLowerCase() === "o")
+          document.body.classList.toggle("overview");
+      });
+      // touch swipe
+      let x0 = null;
+      addEventListener("touchstart", (e) => (x0 = e.touches[0].clientX));
+      addEventListener("touchend", (e) => {
+        if (x0 === null) return;
+        const dx = e.changedTouches[0].clientX - x0;
+        if (Math.abs(dx) > 50) dx < 0 ? next() : prev();
+        x0 = null;
+      });
 
-  <!-- 10 IDEA: KHO LẠNH -->
-  <section class="slide haspic">
-    <div class="pic" style="background-image:url('deck-assets/8.png')"></div>
-    <div class="eyebrow fade">Ý tưởng cốt lõi · 1</div>
-    <h2 class="fade d1" style="margin-top:12px">Kho lạnh — đón nhu cầu đang khan cung</h2>
-    <p class="lead fade d2" style="margin-top:10px">Điểm lớn có sân/kho → kho mát, kho lạnh nông sản, cho thuê 3PL — triển khai build-to-suit khi có khách neo.</p>
-    <div class="grid fade d3" style="grid-template-columns:repeat(3,1fr);margin-top:28px">
-      <div class="card"><div class="ico" style="background:linear-gradient(135deg,#2e8bc0,#5fd0e0)"><svg viewBox="0 0 24 24"><path d="M12 2v20M2 12h20M5 5l14 14M19 5L5 19"/></svg></div><div class="statnum"><span data-count="95">0</span>%</div><div class="statlbl">tỷ lệ lấp đầy kho lạnh (TP.HCM Q1/2025 · Bộ Công Thương)</div></div>
-      <div class="card"><div class="ico" style="background:linear-gradient(135deg,#2e8bc0,#5fd0e0)"><svg viewBox="0 0 24 24"><path d="M3 17l5-5 4 4 8-8"/><path d="M21 8v5h-5"/></svg></div><div class="statnum">+<span data-count="12">0</span>%</div><div class="statlbl">tăng trưởng/năm — cung không theo kịp cầu</div></div>
-      <div class="card"><div class="ico" style="background:linear-gradient(135deg,#2e8bc0,#5fd0e0)"><svg viewBox="0 0 24 24"><path d="M4 7h16v13H4z"/><path d="M4 7l2-4h12l2 4M9 12h6"/></svg></div><div class="statnum"><span data-count="295">0</span></div><div class="statlbl">triệu USD quy mô thị trường 2025 (Savills)</div></div>
-    </div>
-    <div class="spacer"></div>
-    <div class="banner fade d4" style="background:linear-gradient(135deg,#10566b,#1f3864)"><span class="chk" style="background:#2e8bc0"><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg></span>
-      Mô hình: Toàn Cầu đầu tư cải tạo + mang khách 3PL/nông sản · VNPost thu tiền thuê dài hạn ổn định, 0 vốn.</div>
-    <span class="badge fade d5" style="margin-top:12px">Ví dụ khảo sát: Nghĩa Ninh ~3.819 m² (sân lộ thiên) — phù hợp bãi logistics/kho mát hoặc kho build-to-suit nếu có khách neo, sau khảo sát nền & thoát nước</span>
-    <div class="pageno">08</div>
-  </section>
+      // count-up
+      function triggerCounters(slide) {
+        slide.querySelectorAll("[data-count]").forEach((el) => {
+          if (el.dataset.done) return;
+          el.dataset.done = 1;
+          const target = +el.dataset.count,
+            plain = el.dataset.plain;
+          const dur = 1100,
+            t0 = performance.now();
+          function tick(t) {
+            const p = Math.min(1, (t - t0) / dur);
+            const e = 1 - Math.pow(1 - p, 3);
+            const v = Math.round(target * e);
+            el.textContent = plain ? v : v.toLocaleString("vi-VN");
+            if (p < 1) requestAnimationFrame(tick);
+          }
+          requestAnimationFrame(tick);
+        });
+      }
 
-  <!-- 11 IDEA: LIVESTREAM -->
-  <section class="slide dark">
-    <div class="eyebrow fade">Ý tưởng cốt lõi · 2 · bài học Trung Quốc</div>
-    <h2 class="fade d1" style="margin-top:10px">Cho thuê phòng livestream — đón sóng đang tới</h2>
-    <p class="kicker fade d2" style="color:#9fb3d6;margin-top:14px;letter-spacing:.12em;text-transform:uppercase;font-size:13px">Trung Quốc đã chứng minh (Statista)</p>
-    <div class="grid fade d2" style="grid-template-columns:repeat(4,1fr);margin-top:8px">
-      <div><div class="statnum"><span data-count="690">0</span></div><div class="statlbl">tỷ USD GMV livestream (2023)</div></div>
-      <div><div class="statnum"><span data-count="10">0</span>×</div><div class="statlbl">tăng trong 4 năm (2019→2023)</div></div>
-      <div><div class="statnum">&gt;<span data-count="1000">0</span></div><div class="statlbl">tỷ USD dự báo năm 2026</div></div>
-      <div><div class="statnum"><span data-count="765">0</span></div><div class="statlbl">triệu người xem tại TQ</div></div>
-    </div>
-    <div class="banner fade d3" style="margin-top:22px">
-      <span class="chk"><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg></span>
-      Việt Nam đang đi lại đúng quỹ đạo đó — chỉ sau vài năm: TikTok Shop +93%, livestream ×2,3 (2025 · TikTok/báo chí). Dư địa còn rất lớn.</div>
-    <div class="spacer"></div>
-    <div class="grid fade d4" style="grid-template-columns:1fr 1fr;gap:16px">
-      <div class="card"><div class="tag" style="color:#7fc0ff">Phương án áp vào VNPost</div><p style="margin-top:6px">Biến mặt bằng thành <b style="color:#fff">mạng studio livestream cho thuê</b> (ánh sáng · mạng tốc độ cao · kho hàng mẫu · hoàn tất đơn) cho seller · KOL · MCN · thương hiệu. Toàn Cầu mang khách; VNPost thu thuê + chia sẻ, 0 vốn.</p></div>
-      <div class="card" style="background:linear-gradient(135deg,#1f3864,#2e63b8);border:none"><div class="tag" style="color:#ffd98a">Tầm nhìn tương lai</div><p style="margin-top:6px;color:#eaf1fd">Đón sóng từ sớm: nếu livestream Việt Nam tiếp tục theo quỹ đạo Trung Quốc, VNPost đã có sẵn <b style="color:#fff">mạng studio toàn quốc</b> — lợi thế người đi đầu & dòng thuê dài hạn.</p></div>
-    </div>
-    <div class="pageno">09</div>
-  </section>
-
-  <!-- 8 CLASSIFY -->
-  <section class="slide">
-    <div class="eyebrow fade">Áp menu lên toàn danh mục</div>
-    <h2 class="fade d1" style="margin-top:12px">Phân loại 361 điểm theo quy mô</h2>
-    <p class="lead fade d2" style="margin-top:8px">Không mét vuông nào bỏ phí — và biết rõ làm điểm nào trước.</p>
-    <div class="bars fade d3" style="margin-top:26px">
-      <div class="barrow"><div class="k">A · ≥500 m²<small>34 mặt bằng</small></div><div class="track"><div class="fill" style="--w:22%"><span>34</span></div></div></div>
-      <div class="barnote">↳ Tòa thương mại · văn phòng · livestream · kho/kho lạnh · logistics</div>
-      <div class="barrow"><div class="k">B · 300–499<small>30 mặt bằng</small></div><div class="track"><div class="fill" style="--w:20%"><span>30</span></div></div></div>
-      <div class="barnote">↳ Bán lẻ · văn phòng · phân phối vùng</div>
-      <div class="barrow"><div class="k">C · 150–299<small>60 mặt bằng</small></div><div class="track"><div class="fill" style="--w:40%"><span>60</span></div></div></div>
-      <div class="barnote">↳ Showroom · bán lẻ · văn phòng dịch vụ</div>
-      <div class="barrow"><div class="k">D · 50–149<small>152 mặt bằng</small></div><div class="track"><div class="fill" style="--w:100%;background:linear-gradient(90deg,#1f3864,#2e63b8)"><span>152</span></div></div></div>
-      <div class="barnote">↳ Điểm giao chặng cuối · tủ locker — gói khai thác theo lô</div>
-      <div class="barrow"><div class="k">E · &lt;50<small>85 mặt bằng</small></div><div class="track"><div class="fill" style="--w:56%;background:linear-gradient(90deg,#1f3864,#2e63b8)"><span>85</span></div></div></div>
-      <div class="barnote">↳ Tủ giao nhận · điểm nhận hàng · quầy dịch vụ</div>
-    </div>
-    <div class="spacer"></div>
-    <span class="badge fade d4">64 điểm lớn (A–B) nắm ≈ 63% diện tích → ưu tiên chào trước</span>
-    <div class="pageno">10</div>
-  </section>
-
-  <!-- 9 OCOP -->
-  <section class="slide">
-    <div class="eyebrow fade">Khác biệt nguồn hàng</div>
-    <h2 class="fade d1" style="margin-top:12px">Nguồn hàng Việt chuẩn</h2>
-    <p class="lead fade d2" style="margin-top:10px">Không phải hàng trôi nổi — hàng thật, có truy xuất, đúng chủ trương “Người Việt dùng hàng Việt”.</p>
-    <div class="grid fade d3" style="grid-template-columns:repeat(3,1fr);margin-top:30px">
-      <div class="card"><div class="ico"><svg viewBox="0 0 24 24"><path d="M12 3c4 3 6 6 6 10a6 6 0 01-12 0c0-2 .5-3 1.5-4.5"/></svg></div><h3>Sản phẩm OCOP</h3><p>Hàng Việt chất lượng cao, cộng hưởng kho OCOP của Postmart.</p></div>
-      <div class="card"><div class="ico"><svg viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg></div><h3>Chống hàng giả · truy xuất</h3><p>Hợp tác đối tác kiểm định/chống hàng giả — ~300 DN đăng ký (theo thông tin DN cung cấp).</p></div>
-      <div class="card"><div class="ico"><svg viewBox="0 0 24 24"><path d="M3 21h18M5 21V10l7-5 7 5v11"/><path d="M9 21v-6h6v6"/></svg></div><h3>Đúng định hướng nhà nước</h3><p>Phù hợp phong trào hàng Việt & chuyển đổi số nông sản.</p></div>
-    </div>
-    <div class="spacer"></div>
-    <div class="grid fade d4" style="grid-template-columns:repeat(3,1fr)">
-      <span class="badge">~300 doanh nghiệp trong mạng</span>
-      <span class="badge">Truy xuất nguồn gốc</span>
-      <span class="badge">Cộng hưởng Postmart / Bách hóa Bưu điện</span>
-    </div>
-    <div class="pageno">11</div>
-  </section>
-
-  <!-- 11 ROADMAP -->
-  <section class="slide">
-    <div class="eyebrow fade">Rủi ro thấp — có kiểm chứng</div>
-    <h2 class="fade d1" style="margin-top:12px">Pilot 90 ngày & lộ trình</h2>
-    <div class="timeline fade d2" style="margin-top:22px">
-      <div class="tl"><div class="yr">90 ngày</div><div class="body"><b>Pilot 4 điểm Lớp 1</b><p>Phan Rang · Đà Lạt · Hà Đông · Mỹ Tho — khảo sát, lấy 2 LOI/điểm thương mại, chốt phương án tài chính–pháp lý.</p></div></div>
-      <div class="tl"><div class="yr">2027</div><div class="body"><b>Nhân rộng Lớp 2</b><p>Logistics · kho lạnh · nông sản — triển khai khi có khách neo/LOI.</p></div></div>
-      <div class="tl"><div class="yr">2028</div><div class="body"><b>Lớp 3 & cơ chế nâng dần</b><p>Điểm tác động xã hội; thuê sàn tăng 5–10%/năm, lấp đầy &gt;75% thì nâng sàn.</p></div></div>
-    </div>
-    <div class="spacer"></div>
-    <span class="badge fade d3">VNPost giữ quyền dừng hoặc điều chỉnh từng điểm độc lập</span>
-    <div class="pageno">12</div>
-  </section>
-
-  <!-- 12 CTA -->
-  <section class="slide dark">
-    <div class="cover-art" style="left:-120px;right:auto;opacity:.7"></div>
-    <div class="eyebrow fade">Bước tiếp theo</div>
-    <h1 class="fade d1" style="margin-top:16px;max-width:20ch">Tài sản ngủ → Dòng tiền.<br><span style="color:var(--gold)">VNPost giữ sở hữu · 0 đồng vốn.</span></h1>
-    <p class="lead fade d2" style="margin-top:18px;color:#cdd9f0">Đề nghị ký MOU/biên bản cho phép khảo sát 4 điểm Lớp 1 → lập phương án tài chính–pháp lý chi tiết → VNPost phê duyệt hình thức từng điểm.</p>
-    <div class="spacer"></div>
-    <div class="grid fade d3" style="grid-template-columns:repeat(3,1fr);max-width:760px">
-      <div><div class="kicker" style="color:#9fb3d6">Email</div><b>[email liên hệ]</b></div>
-      <div><div class="kicker" style="color:#9fb3d6">Điện thoại</div><b>[số điện thoại]</b></div>
-      <div><div class="kicker" style="color:#9fb3d6">Website</div><b>toancauadv.com</b></div>
-    </div>
-    <div class="fade d4" style="margin-top:24px"><span class="badge">Cam kết: 0 CAPEX cho VNPost · mô hình linh hoạt · minh bạch · báo cáo định kỳ</span></div>
-  </section>
-
-</div><!-- /stage -->
-</div><!-- /viewport -->
-
-<div id="ui">
-  <div class="nav">
-    <button id="prev" aria-label="Trước">‹</button>
-    <span class="count" id="count">01 / 13</span>
-    <button id="next" aria-label="Sau">›</button>
-  </div>
-  <div class="dots" id="dots"></div>
-</div>
-
-<script>
-const slides=[...document.querySelectorAll('.slide')];
-const stage=document.getElementById('stage');
-const dotsWrap=document.getElementById('dots');
-let i=0;const N=slides.length;
-
-// scale stage to fit the viewport area above the nav (no overlap)
-const vp=document.getElementById('viewport');
-function fit(){const s=Math.min(vp.clientWidth/1280,vp.clientHeight/720);
-  const x=(vp.clientWidth-1280*s)/2,y=(vp.clientHeight-720*s)/2;
-  stage.style.transform='translate('+x+'px,'+y+'px) scale('+s+')';}
-addEventListener('resize',fit);fit();
-
-// dots
-slides.forEach((_,k)=>{const d=document.createElement('span');d.className='dot';d.onclick=()=>go(k);dotsWrap.appendChild(d);});
-const dots=[...dotsWrap.children];
-
-function go(n){
-  i=Math.max(0,Math.min(N-1,n));
-  slides.forEach((s,k)=>s.classList.toggle('active',k===i));
-  dots.forEach((d,k)=>d.classList.toggle('on',k===i));
-  document.getElementById('count').textContent=String(i+1).padStart(2,'0')+' / '+N;
-  document.getElementById('bar').style.width=((i)/(N-1)*100)+'%';
-  triggerCounters(slides[i]);
-}
-function next(){go(i+1)} function prev(){go(i-1)}
-document.getElementById('next').onclick=next;
-document.getElementById('prev').onclick=prev;
-addEventListener('keydown',e=>{
-  if(e.key==='ArrowRight'||e.key==='PageDown'||e.key===' ')next();
-  else if(e.key==='ArrowLeft'||e.key==='PageUp')prev();
-  else if(e.key==='Home')go(0); else if(e.key==='End')go(N-1);
-  else if(e.key.toLowerCase()==='f'){if(!document.fullscreenElement)document.documentElement.requestFullscreen();else document.exitFullscreen();}
-  else if(e.key.toLowerCase()==='o')document.body.classList.toggle('overview');
-});
-// touch swipe
-let x0=null;addEventListener('touchstart',e=>x0=e.touches[0].clientX);
-addEventListener('touchend',e=>{if(x0===null)return;const dx=e.changedTouches[0].clientX-x0;if(Math.abs(dx)>50)dx<0?next():prev();x0=null;});
-
-// count-up
-function triggerCounters(slide){
-  slide.querySelectorAll('[data-count]').forEach(el=>{
-    if(el.dataset.done)return;el.dataset.done=1;
-    const target=+el.dataset.count,plain=el.dataset.plain;const dur=1100,t0=performance.now();
-    function tick(t){const p=Math.min(1,(t-t0)/dur);const e=1-Math.pow(1-p,3);
-      const v=Math.round(target*e);el.textContent=plain?v:v.toLocaleString('vi-VN');
-      if(p<1)requestAnimationFrame(tick);}
-    requestAnimationFrame(tick);
-  });
-}
-
-window.addEventListener('beforeprint',function(){document.querySelectorAll('[data-count]').forEach(function(el){el.textContent=el.dataset.plain?(+el.dataset.count):(+el.dataset.count).toLocaleString('vi-VN');});});
-go(0);
-</script>
-</body>
+      window.addEventListener("beforeprint", function () {
+        document.querySelectorAll("[data-count]").forEach(function (el) {
+          el.textContent = el.dataset.plain
+            ? +el.dataset.count
+            : (+el.dataset.count).toLocaleString("vi-VN");
+        });
+      });
+      go(0);
+    </script>
+  </body>
 </html>
