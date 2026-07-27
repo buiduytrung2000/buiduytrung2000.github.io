@@ -1,0 +1,764 @@
+<title>Dr.Natro × Toàn Cầu — Kế hoạch 12 tháng</title>
+
+<style>
+/* ═══════════════════════════════ tokens ═══════════════════════════════ */
+:root{
+  --ink:#0C1830; --ink2:#3A4F6E; --ink3:#4F6386;
+  --ground:#E4EFFB; --surface:#FFFFFF; --sunk:#D3E4F7;
+  --line:#BED5EE; --line2:#9FBEDF;
+  --brand:#14508F; --brand-fill:#1F6ACB; --brand-soft:#CCE1FA; --on-brand:#FFFFFF;
+  --strong:#0C1830; --on-strong:#E4EFFB;
+  --warn:#A81F17; --warn-soft:#FADFDC;
+  --mute-fill:#64809F;
+  --ramp1:#0F4787; --ramp2:#1F6ACB; --ramp3:#5AA0EE; --ramp4:#A8CDF5;
+  --shadow:0 1px 2px rgba(12,24,48,.07),0 10px 28px -16px rgba(12,24,48,.32);
+}
+@media (prefers-color-scheme:dark){
+  :root{
+  --ink:#EEF4FA; --ink2:#BFD1E5; --ink3:#95AECB;
+  --ground:#071A33; --surface:#0F2947; --sunk:#0B2140;
+  --line:#1B3E66; --line2:#2A5285;
+  --brand:#8CC2FF; --brand-fill:#57A3FF; --brand-soft:#12325A; --on-brand:#06121F;
+  --strong:#1B4271; --on-strong:#EEF4FA;
+  --warn:#FF9E93; --warn-soft:#3C1916;
+  --mute-fill:#5C7EA6;
+  --ramp1:#A8CDF5; --ramp2:#57A3FF; --ramp3:#2A639F; --ramp4:#1B3D63;
+  --shadow:0 1px 2px rgba(0,0,0,.5),0 12px 32px -18px rgba(0,0,0,.85);
+  }
+}
+:root[data-theme="dark"]{
+  --ink:#EEF4FA; --ink2:#BFD1E5; --ink3:#95AECB;
+  --ground:#071A33; --surface:#0F2947; --sunk:#0B2140;
+  --line:#1B3E66; --line2:#2A5285;
+  --brand:#8CC2FF; --brand-fill:#57A3FF; --brand-soft:#12325A; --on-brand:#06121F;
+  --strong:#1B4271; --on-strong:#EEF4FA;
+  --warn:#FF9E93; --warn-soft:#3C1916;
+  --mute-fill:#5C7EA6;
+  --ramp1:#A8CDF5; --ramp2:#57A3FF; --ramp3:#2A639F; --ramp4:#1B3D63;
+  --shadow:0 1px 2px rgba(0,0,0,.5),0 12px 32px -18px rgba(0,0,0,.85);
+}
+:root[data-theme="light"]{
+  --ink:#0C1830; --ink2:#3A4F6E; --ink3:#4F6386;
+  --ground:#E4EFFB; --surface:#FFFFFF; --sunk:#D3E4F7;
+  --line:#BED5EE; --line2:#9FBEDF;
+  --brand:#14508F; --brand-fill:#1F6ACB; --brand-soft:#CCE1FA; --on-brand:#FFFFFF;
+  --strong:#0C1830; --on-strong:#E4EFFB;
+  --warn:#A81F17; --warn-soft:#FADFDC;
+  --mute-fill:#64809F;
+  --ramp1:#0F4787; --ramp2:#1F6ACB; --ramp3:#5AA0EE; --ramp4:#A8CDF5;
+  --shadow:0 1px 2px rgba(12,24,48,.07),0 10px 28px -16px rgba(12,24,48,.32);
+}
+
+:root{
+  --sans:system-ui,"Segoe UI",-apple-system,"Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono","Cascadia Mono","Roboto Mono",Consolas,monospace;
+}
+
+/* ═══════════════════════════════ base ═══════════════════════════════ */
+*{box-sizing:border-box}
+button,input{color:var(--ink);font-family:inherit}
+body{
+  margin:0;background:var(--ground);color:var(--ink);
+  font-family:var(--sans);font-size:16px;line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3{margin:0;text-wrap:balance;letter-spacing:-.018em;font-weight:660}
+p{margin:0}
+strong{font-weight:660;color:var(--ink)}
+
+/* ═══════════════════════════════ deck shell ═══════════════════════════════ */
+.deck{position:relative;min-height:100svh}
+.slide{
+  display:none;min-height:100svh;
+  padding:clamp(3.4rem,6vh,5rem) clamp(1.1rem,5vw,3.5rem) clamp(4.6rem,9vh,6rem);
+  align-content:center;
+}
+.slide.is-on{display:grid}
+.wrap{width:100%;max-width:66rem;margin:0 auto;display:flex;flex-direction:column;gap:clamp(1.1rem,2.4vh,1.9rem)}
+
+.eyebrow{
+  font-family:var(--mono);font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--ink3);display:flex;align-items:center;gap:.7rem;
+}
+.eyebrow::after{content:"";flex:1;height:1px;background:var(--line);max-width:9rem}
+.eyebrow.key{color:var(--brand)}
+
+h2{font-size:clamp(1.55rem,3.5vw,2.6rem);line-height:1.12}
+.lead{font-size:clamp(1rem,1.55vw,1.2rem);color:var(--ink2);max-width:56ch;line-height:1.6}
+.note{font-family:var(--mono);font-size:.72rem;color:var(--ink3);letter-spacing:.02em;line-height:1.5}
+
+/* ═══════════════════════════════ progress + nav ═══════════════════════════════ */
+.rail{position:fixed;inset:0 0 auto 0;height:2px;background:var(--line);z-index:40}
+.rail i{display:block;height:100%;background:var(--brand-fill);transition:width .35s cubic-bezier(.4,0,.2,1)}
+
+.pager{
+  position:fixed;right:clamp(1rem,4vw,2.4rem);bottom:clamp(1rem,3vh,1.8rem);
+  display:flex;align-items:center;gap:.55rem;z-index:40;
+}
+.pager button{
+  width:2.3rem;height:2.3rem;display:grid;place-items:center;cursor:pointer;
+  background:var(--surface);color:var(--ink);border:1px solid var(--line2);border-radius:50%;
+  font-size:.95rem;line-height:1;transition:background .15s,border-color .15s,color .15s;
+}
+.pager button:hover:not(:disabled){background:var(--brand-fill);border-color:var(--brand-fill);color:var(--on-brand)}
+.pager button:disabled{opacity:.32;cursor:default}
+.pager button:focus-visible,.tab:focus-visible,.pkg:focus-visible,#freq:focus-visible{
+  outline:2px solid var(--brand-fill);outline-offset:2px}
+.count{font-family:var(--mono);font-size:.72rem;color:var(--ink3);letter-spacing:.09em;
+  font-variant-numeric:tabular-nums;margin-right:.3rem}
+
+.brandmark{
+  position:fixed;left:clamp(1rem,4vw,2.4rem);bottom:clamp(1rem,3vh,1.8rem);z-index:40;
+  font-family:var(--mono);font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ink3);
+}
+
+/* ═══════════════════════════════ cover ═══════════════════════════════ */
+.cover{gap:clamp(1.4rem,3vh,2.2rem)}
+.cover h1{font-size:clamp(2.1rem,6.4vw,4.4rem);line-height:1.04;font-weight:700;letter-spacing:-.03em}
+.cover h1 em{font-style:normal;color:var(--brand-fill)}
+.handshake{
+  display:flex;align-items:center;gap:clamp(.7rem,2vw,1.4rem);flex-wrap:wrap;
+  font-family:var(--mono);font-size:clamp(.74rem,1.5vw,.92rem);letter-spacing:.1em;text-transform:uppercase;
+}
+.handshake span{color:var(--ink)}
+.handshake i{color:var(--brand-fill);font-style:normal}
+.coverbar{height:3px;background:var(--brand-fill);width:clamp(3.5rem,9vw,6rem)}
+.covermeta{display:flex;gap:clamp(1.4rem,5vw,3.5rem);flex-wrap:wrap;margin-top:.4rem}
+.covermeta div{display:flex;flex-direction:column;gap:.2rem}
+.covermeta dt{font-family:var(--mono);font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3)}
+.covermeta dd{margin:0;font-size:1.02rem;font-weight:620}
+
+/* ═══════════════════════════════ stat tiles ═══════════════════════════════ */
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(11rem,1fr));gap:.85rem}
+.tile{
+  background:var(--surface);border:1px solid var(--line);border-radius:3px;
+  padding:1.05rem 1.15rem;display:flex;flex-direction:column;gap:.32rem;box-shadow:var(--shadow);
+}
+.tile dt{font-family:var(--mono);font-size:.66rem;letter-spacing:.13em;text-transform:uppercase;color:var(--ink3)}
+.tile dd{margin:0;font-size:clamp(1.5rem,3.6vw,2.3rem);font-weight:700;letter-spacing:-.025em;
+  font-variant-numeric:tabular-nums;line-height:1.05}
+.tile small{font-size:.8rem;color:var(--ink2);line-height:1.45}
+.tile.warn{border-color:var(--warn);background:var(--warn-soft)}
+.tile.warn dd{color:var(--warn)}
+.tile.warn dt{color:var(--warn)}
+
+/* ═══════════════════════════════ before / after ═══════════════════════════════ */
+.split{
+  display:grid;grid-template-columns:1fr auto 1fr;gap:clamp(1rem,3vw,2.2rem);align-items:stretch;
+}
+.split .rule{width:1px;background:var(--line2)}
+.side{display:flex;flex-direction:column;gap:.5rem;justify-content:center}
+.side .tag{font-family:var(--mono);font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3)}
+.side .big{font-size:clamp(1.7rem,4.6vw,3rem);font-weight:700;letter-spacing:-.03em;
+  font-variant-numeric:tabular-nums;line-height:1.05}
+.side.now .big{color:var(--warn)}
+.side.then .big{color:var(--ink2)}
+.side p{font-size:.88rem;color:var(--ink2)}
+@media (max-width:640px){
+  .split{grid-template-columns:1fr}
+  .split .rule{width:auto;height:1px}
+}
+
+/* ═══════════════════════════════ lists ═══════════════════════════════ */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(13.5rem,1fr));gap:.85rem}
+.card{
+  background:var(--surface);border:1px solid var(--line);border-radius:3px;padding:1rem 1.1rem;
+  display:flex;flex-direction:column;gap:.42rem;box-shadow:var(--shadow);
+}
+.card h3{font-size:.98rem;font-weight:660;line-height:1.3}
+.card p{font-size:.86rem;color:var(--ink2);line-height:1.5}
+.card .mark{font-family:var(--mono);font-size:.66rem;letter-spacing:.13em;color:var(--brand);text-transform:uppercase}
+.card.mute{background:var(--sunk);box-shadow:none}
+.card.mute h3{color:var(--ink2)}
+
+.pull{
+  border-left:3px solid var(--brand-fill);padding:.75rem 0 .75rem 1.1rem;
+  font-size:clamp(1.05rem,2.1vw,1.45rem);font-weight:620;line-height:1.35;letter-spacing:-.012em;
+}
+.pull small{display:block;font-size:.84rem;font-weight:400;color:var(--ink2);margin-top:.45rem;letter-spacing:0}
+
+/* ═══════════════════════════════ bar chart ═══════════════════════════════ */
+.bars{display:flex;flex-direction:column;gap:.6rem}
+.bar{display:grid;grid-template-columns:minmax(5.5rem,8rem) 1fr;gap:.9rem;align-items:center}
+.bar .who{font-size:.87rem;color:var(--ink2);text-align:right}
+.bar.hero .who{color:var(--ink);font-weight:660}
+.bar .track{display:flex;align-items:center;gap:.6rem;min-width:0}
+.bar .fill{
+  height:20px;border-radius:0 3px 3px 0;background:var(--mute-fill);
+  transition:width .6s cubic-bezier(.4,0,.2,1);
+}
+.bar.hero .fill{background:var(--brand-fill)}
+.bar .val{font-family:var(--mono);font-size:.8rem;color:var(--ink2);white-space:nowrap;
+  font-variant-numeric:tabular-nums}
+.bar.hero .val{color:var(--brand);font-weight:700}
+
+/* ═══════════════════════════════ tabs (phương án) ═══════════════════════════════ */
+.tabs{display:flex;gap:.4rem;flex-wrap:wrap}
+.tab{
+  font-family:var(--mono);font-size:.72rem;letter-spacing:.09em;text-transform:uppercase;
+  padding:.5rem .9rem;cursor:pointer;border-radius:2px;
+  background:transparent;color:var(--ink2);border:1px solid var(--line2);
+  transition:background .15s,color .15s,border-color .15s;
+}
+.tab:hover{border-color:var(--brand-fill);color:var(--brand)}
+.tab[aria-selected="true"]{background:var(--strong);color:var(--on-strong);border-color:var(--strong)}
+.panel{display:none;gap:.85rem;flex-direction:column}
+.panel.is-on{display:flex}
+.rec{
+  display:inline-flex;align-items:center;gap:.4rem;align-self:flex-start;
+  font-family:var(--mono);font-size:.64rem;letter-spacing:.13em;text-transform:uppercase;
+  background:var(--brand-soft);color:var(--brand);padding:.32rem .6rem;border-radius:2px;
+}
+.pro-con{display:grid;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr));gap:.85rem}
+.pc{border:1px solid var(--line);border-radius:3px;padding:.9rem 1rem;background:var(--surface)}
+.pc dt{font-family:var(--mono);font-size:.64rem;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--ink3);margin-bottom:.35rem}
+.pc dd{margin:0;font-size:.87rem;color:var(--ink2);line-height:1.5}
+.pc.good{border-left:2px solid var(--brand)}
+.pc.bad{border-left:2px solid var(--warn)}
+
+/* ═══════════════════════════════ frequency dial ═══════════════════════════════ */
+.dial{
+  background:var(--surface);border:1px solid var(--line);border-radius:3px;
+  padding:clamp(1.1rem,3vw,1.7rem);display:flex;flex-direction:column;gap:1rem;box-shadow:var(--shadow);
+}
+.dial .row{display:flex;align-items:baseline;gap:.7rem;flex-wrap:wrap}
+.dial .out{font-size:clamp(2rem,6vw,3.4rem);font-weight:700;letter-spacing:-.03em;
+  color:var(--brand-fill);font-variant-numeric:tabular-nums;line-height:1}
+.dial .unit{font-size:.95rem;color:var(--ink2)}
+#freq{width:100%;accent-color:var(--brand-fill);cursor:pointer;height:1.4rem}
+.ticks{display:flex;justify-content:space-between;font-family:var(--mono);font-size:.66rem;color:var(--ink3);
+  font-variant-numeric:tabular-nums}
+.dial .said{font-size:.9rem;color:var(--ink2);line-height:1.55;border-top:1px solid var(--line);padding-top:.85rem}
+
+/* ═══════════════════════════════ packages ═══════════════════════════════ */
+.pkgs{display:grid;grid-template-columns:repeat(auto-fit,minmax(12.5rem,1fr));gap:.75rem}
+.pkg{
+  text-align:left;cursor:pointer;font-family:inherit;color:var(--ink);
+  background:var(--surface);border:1px solid var(--line2);border-radius:3px;
+  padding:1rem 1.05rem;display:flex;flex-direction:column;gap:.4rem;
+  transition:border-color .15s,background .15s,transform .15s;
+}
+.pkg:hover{border-color:var(--brand-fill);transform:translateY(-2px)}
+.pkg[aria-pressed="true"]{border-color:var(--brand-fill);border-width:1px;
+  box-shadow:inset 0 0 0 1px var(--brand-fill),var(--shadow);background:var(--surface)}
+.pkg .name{font-family:var(--mono);font-size:.68rem;letter-spacing:.13em;text-transform:uppercase;color:var(--ink3)}
+.pkg[aria-pressed="true"] .name{color:var(--brand)}
+.pkg .fee{color:var(--ink);font-size:clamp(1.35rem,3.2vw,1.9rem);font-weight:700;letter-spacing:-.028em;
+  font-variant-numeric:tabular-nums;line-height:1.05}
+.pkg .per{font-family:var(--mono);font-size:.68rem;color:var(--ink3)}
+.pkg .year{font-size:.83rem;color:var(--ink2)}
+.pkg[aria-pressed="true"] .fee{color:var(--brand)}
+
+.specs{display:grid;grid-template-columns:repeat(auto-fit,minmax(9rem,1fr));gap:.75rem;
+  border-top:1px solid var(--line);padding-top:1rem}
+.spec{display:flex;flex-direction:column;gap:.22rem}
+.spec dt{font-family:var(--mono);font-size:.64rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3)}
+.spec dd{margin:0;font-size:1.12rem;font-weight:660;font-variant-numeric:tabular-nums;letter-spacing:-.015em}
+
+/* ═══════════════════════════════ table ═══════════════════════════════ */
+.scroller{overflow-x:auto;border:1px solid var(--line);border-radius:3px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:.87rem;min-width:34rem}
+th,td{padding:.62rem .85rem;text-align:right;border-bottom:1px solid var(--line);white-space:nowrap}
+th:first-child,td:first-child{text-align:left;white-space:normal}
+thead th{background:var(--strong);color:var(--on-strong);font-family:var(--mono);font-size:.66rem;
+  letter-spacing:.11em;text-transform:uppercase;font-weight:600;border-bottom:none}
+tbody tr:last-child td{border-bottom:none}
+td{font-variant-numeric:tabular-nums;color:var(--ink2)}
+td:first-child{color:var(--ink)}
+.col-hi{background:var(--brand-soft)}
+td.col-hi{color:var(--brand);font-weight:660}
+th.col-hi{background:var(--brand-fill);color:var(--on-brand)}
+
+/* ═══════════════════════════════ roadmap ═══════════════════════════════ */
+.road{display:grid;grid-template-columns:repeat(auto-fit,minmax(12rem,1fr));gap:0}
+.leg{border-top:2px solid var(--line2);padding:.9rem 1rem .9rem 0;display:flex;flex-direction:column;gap:.35rem}
+.leg:nth-child(1){border-top-color:var(--brand-fill)}
+.leg .when{font-family:var(--mono);font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3)}
+.leg h3{font-size:.95rem}
+.leg p{font-size:.83rem;color:var(--ink2);line-height:1.5}
+.leg .gate{font-family:var(--mono);font-size:.7rem;color:var(--brand);line-height:1.45}
+
+/* ═══════════════════════════════ funnel ═══════════════════════════════ */
+.funnel{display:flex;flex-direction:column;gap:.4rem}
+.step{display:grid;grid-template-columns:auto 1fr;gap:.9rem;align-items:center;
+  background:var(--surface);border:1px solid var(--line);border-radius:3px;padding:.7rem .9rem}
+.step .n{font-family:var(--mono);font-size:.7rem;color:var(--ink3);width:1.2rem}
+.step b{font-weight:620;font-size:.92rem}
+.step span{color:var(--ink2);font-size:.86rem}
+@media (max-width:520px){.step{grid-template-columns:1fr}.step .n{display:none}}
+
+/* ═══════════════════════════════ mix ═══════════════════════════════ */
+.mix{display:flex;height:2.4rem;border-radius:2px;overflow:hidden;border:1px solid var(--line)}
+.mix div{height:100%}
+.mix .m1{background:var(--ramp1)}.mix .m2{background:var(--ramp2)}
+.mix .m3{background:var(--ramp3)}.mix .m4{background:var(--ramp4)}
+.mixkey{display:grid;grid-template-columns:repeat(auto-fit,minmax(10rem,1fr));gap:.6rem}
+.mixkey div{display:flex;gap:.55rem;align-items:baseline;font-size:.85rem;color:var(--ink2)}
+.mixkey b{margin-left:auto;color:var(--ink);font-family:var(--mono);font-size:.78rem;
+  font-variant-numeric:tabular-nums}
+.mixkey i{width:.62rem;height:.62rem;border-radius:1px;flex:none;position:relative;top:.06rem;display:block}
+
+/* ═══════════════════════════════ close ═══════════════════════════════ */
+.asks{display:grid;grid-template-columns:repeat(auto-fit,minmax(14rem,1fr));gap:.85rem}
+.ask{border:1px solid var(--line);border-left:3px solid var(--brand);border-radius:3px;
+  padding:.9rem 1rem;background:var(--surface)}
+.ask h3{font-size:.92rem;margin-bottom:.3rem}
+.ask p{font-size:.85rem;color:var(--ink2);line-height:1.5}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
+}
+</style>
+
+<div class="rail"><i id="railfill" style="width:6%"></i></div>
+
+<div class="deck" id="deck">
+
+<!-- ══════════════ 1 · bìa ══════════════ -->
+<section class="slide is-on">
+  <div class="wrap cover">
+    <div class="coverbar"></div>
+    <div class="handshake"><span>Toàn Cầu</span><i>→</i><span>Dr.Natro</span></div>
+    <h1>Từ sản phẩm bán chạy<br>thành <em>thương hiệu mặc định</em></h1>
+    <p class="lead">Kế hoạch vận hành hệ thống truyền thông số, giai đoạn 12 tháng tiếp theo.</p>
+    <div class="covermeta">
+      <div><dt>Đơn vị đề xuất</dt><dd>Tập đoàn Quảng cáo Toàn Cầu</dd></div>
+      <div><dt>Nền tảng chính</dt><dd>TikTok</dd></div>
+      <div><dt>Ngày lập</dt><dd>27 · 07 · 2026</dd></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ 2 · điểm xuất phát ══════════════ -->
+<section class="slide">
+  <div class="wrap">
+    <div class="eyebrow">Điểm xuất phát</div>
+    <h2>Kênh đã từng chạy tốt. Hiện tại thì không.</h2>
+    <div class="tiles">
+      <dl class="tile"><dt>Người theo dõi</dt><dd>24.700</dd><small>Kênh Ông chú thích làm sạch</small></dl>
+      <dl class="tile"><dt>Lượt thích tích lũy</dt><dd>729.900</dd><small>Tạo ra trong giai đoạn Toàn Cầu vận hành</small></dl>
+      <dl class="tile warn"><dt>20 video gần nhất</dt><dd>~500</dd><small>lượt xem mỗi video</small></dl>
+    </div>
+    <p class="lead">Một kênh 24.700 người theo dõi khỏe mạnh thường đạt tối thiểu vài nghìn lượt xem mỗi video. Mức vài trăm nghĩa là thuật toán gần như đã ngừng đề xuất kênh ra ngoài.</p>
+  </div>
+</section>
+
+<!-- ══════════════ 3 · đọc số liệu ══════════════ -->
+<section class="slide">
+  <div class="wrap">
+    <div class="eyebrow">Đọc số liệu</div>
+    <h2>Vì sao lượt xem lớn nhưng đơn hàng về ít</h2>
+    <div class="split">
+      <div class="side then">
+        <span class="tag">Đã đạt được</span>
+        <span class="big">29,5</span>
+        <p>lượt thích trên mỗi người theo dõi. Ở kênh khỏe mạnh, tỷ lệ này thấp hơn nhiều.</p>
+      </div>
+      <div class="rule"></div>
+      <div class="side now">
+        <span class="tag">Nhưng nghĩa là</span>
+        <span class="big">Xem ≠ Mua</span>
+        <p>Người ta thích từng video nhưng không đủ gắn bó để theo dõi kênh.</p>
+      </div>
+    </div>
+    <div class="pull">Người xem một video dọn dẹp thú vị trên trang đề xuất đang giải trí, không phải đang mua sắm.
+      <small>Họ không tìm giải pháp làm sạch tại thời điểm đó. Đây là hệ quả của tiêu chí đặt ra ban đầu, không phải của khâu thực thi.</small></div>
+  </div>
+</section>
+
+<!-- ══════════════ 4 · bốn áp lực ══════════════ -->
+<section class="slide">
+  <div class="wrap">
+    <div class="eyebrow">Bài toán giai đoạn tới</div>
+    <h2>Bốn áp lực đang bào mòn vị thế</h2>
+    <div class="cards">
+      <div class="card"><span class="mark">Sản phẩm</span><h3>Bị sao chép nhanh</h3>
+        <p>Khi sản phẩm giống nhau, thứ duy nhất không sao chép được là thương hiệu trong tâm trí khách hàng.</p></div>
+      <div class="card"><span class="mark">Nội dung</span><h3>Bị đạo nhái</h3>
+        <p>Ý tưởng tốt bị dùng lại trong vài ngày. Phòng vệ bền vững là một nhân vật đại diện — thứ không sao chép được.</p></div>
+      <div class="card mute"><span class="mark">Ngoài phạm vi</span><h3>Bị bán phá giá</h3>
+        <p>Hệ quả của cấu trúc giá, không phải của truyền thông. Cần chính sách quản trị kênh phân phối song song.</p></div>
+      <div class="card"><span class="mark">Quảng cáo</span><h3>Dừng ads là tụt doanh thu</h3>
+        <p>Biểu hiện của thương hiệu chưa có nhu cầu tự thân. Khách mua vì thấy quảng cáo, không phải vì nhớ tên.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ 5 · giá ══════════════ -->
+<section class="slide">
+  <div class="wrap">
+    <div class="eyebrow key">Bối cảnh cạnh tranh</div>
+    <h2>Dr.Natro không cùng kệ với Cif hay Sunlight</h2>
+    <div class="bars" id="bars">
+      <div class="bar hero"><span class="who">Dr.Natro</span><span class="track">
+        <span class="fill" data-w="96"></span><span class="val">144.000đ</span></span></div>
+      <div class="bar"><span class="who">Vim</span><span class="track">
+        <span class="fill" data-w="23"></span><span class="val">35.000đ</span></span></div>
+      <div class="bar"><span class="who">Cif</span><span class="track">
+        <span class="fill" data-w="22"></span><span class="val">34.000đ</span></span></div>
+      <div class="bar"><span class="who">Sunlight</span><span class="track">
+        <span class="fill" data-w="9"></span><span class="val">14.000đ</span></span></div>
+    </div>
+    <p class="note">Giá chai 500ml, riêng Sunlight là túi 700g · Nguồn: Lotte Mart, Shopee, BigGo — khảo sát 7/2026</p>
+    <p class="lead">Cách biệt 4 đến 10 lần đặt Dr.Natro vào một vai trò khác hẳn trong gia đình. Không nên nói “tiết kiệm hơn” — ba chai phổ thông cộng lại vẫn rẻ hơn một chai Dr.Natro.</p>
+  </div>
+</section>
+
+<!-- ══════════════ 6 · hành vi mua ══════════════ -->
+<section class="slide">
+  <div class="wrap">
+    <div class="eyebrow">Khách hàng mục tiêu</div>
+    <h2>Bà nội trợ không mua Dr.Natro để lau hằng ngày</h2>
+    <p class="lead">Họ mua khi gặp một vấn đề mà sản phẩm thông thường đã không xử lý được. Đây là hành vi mua <strong>theo tình huống</strong>, không phải theo thói quen.</p>
+    <div class="cards">
+      <div class="card"><h3>Vết ố vàng lâu năm</h3><p>Nhà tắm, mảng bám, vòi sen</p></div>
+      <div class="card"><h3>Dầu mỡ đóng cặn</h3><p>Máy hút mùi, bếp ga, xoong nồi cháy</p></div>
+      <div class="card"><h3>Rỉ sét, mảng cứng đầu</h3><p>Đồ inox, đồ nhựa ngả màu</p></div>
+      <div class="card"><h3>Đồ tưởng đã phải bỏ</h3><p>Giày, xe cộ, đồ cũ</p></div>
+    </div>
+    <div class="pull">Ở mức giá gấp 4 lần mặt bằng, khách hàng cần bằng chứng trước khi chi tiền.
+      <small>Không lời quảng cáo nào thay được hình ảnh một vết bẩn tưởng chừng không thể xử lý biến mất trong 15 giây. Định dạng trước/sau không phải lựa chọn sáng tạo — nó là cơ chế biện minh cho mức giá.</small></div>
+  </div>
+</section>
+
+<!-- ══════════════ 7 · tần suất ══════════════ -->
+<section class="slide">
+  <div class="wrap">
+    <div class="eyebrow key">Đòn bẩy tăng trưởng</div>
+    <h2>Tăng trưởng không đến từ thêm người biết tên</h2>
+    <p class="lead">Nó đến từ việc mỗi khách hàng nghĩ đến Dr.Natro trong nhiều tình huống hơn. Kéo thanh trượt để thấy tác động.</p>
+    <div class="dial">
+      <div class="row"><span class="out" id="freqOut">3</span><span class="unit">lần mua mỗi năm của một khách hàng</span></div>
+      <input type="range" id="freq" min="2" max="8" step="1" value="3" aria-label="Số lần mua mỗi năm">
+      <div class="ticks"><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span></div>
+      <p class="said" id="freqSay"></p>
+    </div>
+    <p class="note">Chỉ tiêu đề xuất: khai thác tối thiểu 15 tình huống sử dụng riêng biệt trong 12 tháng.</p>
+  </div>
+</section>
+
+<!-- ══════════════ 8 · mâu thuẫn view ══════════════ -->
+<section class="slide">
+  <div class="wrap">
+    <div class="eyebrow">Điều cần thống nhất trước</div>
+    <h2>Không thể cùng lúc tối đa “nhiều view” và “đúng tệp”</h2>
+    <div class="split">
+      <div class="side then">
+        <span class="tag">Giai đoạn trước</span>
+        <span class="big">Viral rộng</span>
+        <p>Lượt xem quy mô lớn, nhắm mọi người. Đã chứng minh: không tự động chuyển thành đơn hàng.</p>
+      </div>
+      <div class="rule"></div>
+      <div class="side">
+        <span class="tag">Giai đoạn tới</span>
+        <span class="big" style="color:var(--brand-fill)">Đúng tệp</span>
+        <p>Nội dung nhắm một nhóm cụ thể có trần lan tỏa thấp hơn — nhưng mỗi lượt xem có giá trị thương mại cao hơn nhiều lần.</p>
+      </div>
+    </div>
+    <div class="pull">Toàn Cầu đề xuất hạ mục tiêu lượt xem, đổi lại nâng chuẩn chất lượng tệp.
+      <small>30 triệu lượt xem đúng tệp bà nội trợ có giá trị thương mại cao hơn 100 triệu lượt xem đại chúng. Một con số đạt được thật tốt hơn một con số đẹp trên giấy.</small></div>
+  </div>
+</section>
+
+<!-- ══════════════ 9 · định nghĩa ══════════════ -->
+<section class="slide">
+  <div class="wrap">
+    <div class="eyebrow key">Định nghĩa nghiệm thu</div>
+    <h2>“Lượt xem đúng tệp” được đo thế nào</h2>
+    <p class="lead">Giai đoạn trước không đặt chỉ tiêu về tệp người xem. Giai đoạn này có, kèm cách đo rõ ràng để hai bên nghiệm thu chung.</p>
+    <div class="tiles">
+      <dl class="tile"><dt>Tỷ lệ nữ</dt><dd>≥ 60%</dd><small>trên tổng người xem của video</small></dl>
+      <dl class="tile"><dt>Độ tuổi 25 – 45</dt><dd>≥ 55%</dd><small>trên tổng người xem của video</small></dl>
+      <dl class="tile"><dt>Đối chiếu</dt><dd>Hằng tháng</dd><small>Số liệu từ công cụ phân tích chính thức của nền tảng</small></dl>
+    </div>
+    <div class="cards">
+      <div class="card"><span class="mark">Tầng 1 · Kênh</span><h3>Toàn Cầu chịu trách nhiệm trực tiếp</h3>
+        <p>Lượt xem đúng tệp · người theo dõi · số video đăng đúng lịch · số tình huống khai thác</p></div>
+      <div class="card"><span class="mark">Tầng 2 · Thương hiệu</span><h3>Hai bên cùng theo dõi</h3>
+        <p>Lượng tìm kiếm tên thương hiệu · tỷ lệ bình luận nhắc tên · thành viên cộng đồng</p></div>
+      <div class="card mute"><span class="mark">Tầng 3 · Kinh doanh</span><h3>Phụ thuộc yếu tố ngoài phạm vi</h3>
+        <p>Đơn hàng qua mã riêng · doanh thu quy đổi. Chịu ảnh hưởng của giá bán, tồn kho, tình trạng phá giá.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ 10 · ba phương án ══════════════ -->
+<section class="slide">
+  <div class="wrap">
+    <div class="eyebrow">Kiến trúc kênh</div>
+    <h2>Kênh tên “Ông chú”, tệp mới là bà nội trợ</h2>
+    <p class="lead">Giữa tên kênh, nhân vật và tệp người xem đang có mâu thuẫn cần xử lý dứt điểm. Cộng thêm việc kênh đã mất nhịp phân phối, giá trị của việc tận dụng kênh sẵn có giảm đáng kể.</p>
+    <div class="tabs" role="tablist" id="tabs">
+      <button class="tab" role="tab" aria-selected="false" data-p="A">Phương án A</button>
+      <button class="tab" role="tab" aria-selected="true"  data-p="B">Phương án B</button>
+      <button class="tab" role="tab" aria-selected="false" data-p="C">Phương án C</button>
+    </div>
+
+    <div class="panel" data-panel="A">
+      <h3>Chuyển đổi kênh hiện tại</h3>
+      <div class="pro-con">
+        <dl class="pc good"><dt>Ưu điểm</dt><dd>Chi phí thấp nhất. Giữ được lịch sử kênh và người theo dõi sẵn có.</dd></dl>
+        <dl class="pc bad"><dt>Rủi ro</dt><dd>Cộng dồn hai bất lợi. Người theo dõi cũ đến vì nhân vật ông chú, khó tương tác với nội dung mới → thuật toán ghi nhận tín hiệu tiêu cực, trong khi kênh vốn đã ngừng được đề xuất.</dd></dl>
+      </div>
+    </div>
+
+    <div class="panel is-on" data-panel="B">
+      <span class="rec">Toàn Cầu khuyến nghị</span>
+      <h3>Kênh mới cho tệp nội trợ, duy trì kênh cũ</h3>
+      <div class="pro-con">
+        <dl class="pc good"><dt>Ưu điểm</dt><dd>Kênh chính xây đúng ngay từ đầu, không mang di sản bất lợi. Kênh cũ chuyển về vai trò kênh phụ, vẫn có cơ hội hồi phục nhưng không bị đặt gánh nặng chỉ tiêu. Cùng một buổi quay tạo nội dung cho cả hai.</dd></dl>
+        <dl class="pc bad"><dt>Rủi ro</dt><dd>Chi phí cao hơn phương án A. Kênh mới cần 2 đến 3 tháng đầu để định hình.</dd></dl>
+      </div>
+      <p class="note">Lập luận then chốt · 24.700 người theo dõi trên một kênh đã ngừng được đề xuất chỉ tương đương vài chục triệu tiền quảng cáo. Chi phí khôi phục và chi phí xây mới gần tương đương — nếu đằng nào cũng tốn ngần ấy công, nên bỏ vào kênh được thiết kế đúng.</p>
+    </div>
+
+    <div class="panel" data-panel="C">
+      <h3>Giữ nhân vật cũ, bổ sung nhân vật nữ</h3>
+      <div class="pro-con">
+        <dl class="pc good"><dt>Ưu điểm</dt><dd>Chuyển tệp từ từ, không mất nền cũ. Tiết kiệm hơn phương án B.</dd></dl>
+        <dl class="pc bad"><dt>Rủi ro</dt><dd>Tên kênh vẫn lệch với tệp mục tiêu. Định vị nửa vời khó thuyết phục cả hai nhóm khán giả, và vẫn phải giải bài toán khôi phục nhịp phân phối.</dd></dl>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ 11 · nội dung ══════════════ -->
+<section class="slide">
+  <div class="wrap">
+    <div class="eyebrow">Chiến lược nội dung</div>
+    <h2>Bốn tuyến nội dung, một phễu</h2>
+    <div class="mix">
+      <div class="m1" style="width:40%"></div>
+      <div class="m2" style="width:25%"></div>
+      <div class="m3" style="width:20%"></div>
+      <div class="m4" style="width:15%"></div>
+    </div>
+    <div class="mixkey">
+      <div><i class="m1"></i><span><strong>Trước và sau</strong> — bằng chứng, biện minh mức giá</span><b>40%</b></div>
+      <div><i class="m2"></i><span><strong>Mẹo làm sạch</strong> — lý do theo dõi kênh</span><b>25%</b></div>
+      <div><i class="m3"></i><span><strong>Thử thách</strong> — mở rộng tiếp cận</span><b>20%</b></div>
+      <div><i class="m4"></i><span><strong>Câu chuyện gia đình</strong> — tích cực, truyền cảm hứng</span><b>15%</b></div>
+    </div>
+    <div class="funnel">
+      <div class="step"><span class="n">01</span><span><b>Video trước/sau, không nhắc giá</b> · <span>thu hút người xem mới</span></span></div>
+      <div class="step"><span class="n">02</span><span><b>Video mẹo, nhắc sản phẩm tự nhiên</b> · <span>chuyển thành người theo dõi</span></span></div>
+      <div class="step"><span class="n">03</span><span><b>Nội dung trong nhóm cộng đồng</b> · <span>tạo nhu cầu</span></span></div>
+      <div class="step"><span class="n">04</span><span><b>Phát trực tiếp và giỏ hàng</b> · <span>chốt đơn</span></span></div>
+    </div>
+    <p class="note">Nguyên tắc · Không chốt đơn ở đầu phễu. Giai đoạn trước cho thấy video bán hàng trực tiếp gần như không có người xem — đó là quy luật của nền tảng, không phải vấn đề riêng của Dr.Natro.</p>
+  </div>
+</section>
+
+<!-- ══════════════ 12 · lộ trình ══════════════ -->
+<section class="slide">
+  <div class="wrap">
+    <div class="eyebrow">Lộ trình</div>
+    <h2>Bốn giai đoạn, mỗi giai đoạn một mốc đánh giá</h2>
+    <div class="road">
+      <div class="leg"><span class="when">Tháng 1 – 2</span><h3>Thiết lập &amp; thử nghiệm</h3>
+        <p>Tuyển chọn và huấn luyện VJ. Thử 5–7 định dạng. Xây thư viện tình huống. Gắn hệ thống đo lường.</p>
+        <span class="gate">↳ Mốc 1 · Tìm được ≥2 định dạng đạt chuẩn tệp</span></div>
+      <div class="leg"><span class="when">Tháng 3 – 5</span><h3>Định hình</h3>
+        <p>Dồn lực vào định dạng đã kiểm chứng. Ổn định nhịp đăng. Khởi động cộng đồng và phát trực tiếp.</p>
+        <span class="gate">↳ Mốc 2 · Người theo dõi tăng ổn định, chuẩn tệp đạt</span></div>
+      <div class="leg"><span class="when">Tháng 6 – 9</span><h3>Mở rộng</h3>
+        <p>Nhân rộng toàn bộ hệ kênh phụ. Tăng quy mô cộng đồng. Triển khai mạng lưới KOC.</p>
+        <span class="gate">↳ Mốc 3 · Đạt 60% chỉ tiêu lượt xem cả năm</span></div>
+      <div class="leg"><span class="when">Tháng 10 – 12</span><h3>Tăng tốc &amp; bàn giao</h3>
+        <p>Chiến dịch cao điểm mùa dọn nhà cuối năm. Tổng kết và bàn giao tài liệu vận hành.</p>
+        <span class="gate">↳ Mốc 4 · Nghiệm thu toàn bộ chỉ tiêu</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ 13 · ba gói ══════════════ -->
+<section class="slide">
+  <div class="wrap">
+    <div class="eyebrow key">Ngân sách</div>
+    <h2>Ba mức đầu tư, ba bộ chỉ tiêu</h2>
+    <div class="pkgs" id="pkgs">
+      <button class="pkg" aria-pressed="false" data-k="0">
+        <span class="name">Gói 1 · Nền tảng</span><span class="fee">120tr</span>
+        <span class="per">mỗi tháng</span><span class="year">1,44 tỷ cho 12 tháng</span></button>
+      <button class="pkg" aria-pressed="true" data-k="1">
+        <span class="name">Gói 2 · Tăng tốc</span><span class="fee">165tr</span>
+        <span class="per">mỗi tháng</span><span class="year">1,98 tỷ cho 12 tháng</span></button>
+      <button class="pkg" aria-pressed="false" data-k="2">
+        <span class="name">Gói 3 · Toàn diện</span><span class="fee">235tr</span>
+        <span class="per">mỗi tháng</span><span class="year">2,82 tỷ cho 12 tháng</span></button>
+    </div>
+    <dl class="specs" id="specs"></dl>
+    <p class="note">Phí dịch vụ đã gồm nhân sự, sản xuất, vận hành, thiết bị, báo cáo · Ngân sách quảng cáo và booking KOC tách riêng, Dr.Natro duyệt và chi theo từng đợt</p>
+  </div>
+</section>
+
+<!-- ══════════════ 14 · đối chiếu ══════════════ -->
+<section class="slide">
+  <div class="wrap">
+    <div class="eyebrow">Đối chiếu</div>
+    <h2>Gói 1 rẻ hơn hợp đồng trước 28%, vận hành gấp 10 lần số kênh</h2>
+    <div class="scroller">
+      <table>
+        <thead><tr><th>Tiêu chí</th><th>Giai đoạn trước</th><th class="col-hi">Gói 1</th><th>Gói 2</th><th>Gói 3</th></tr></thead>
+        <tbody>
+          <tr><td>Phí mỗi tháng</td><td>167 triệu</td><td class="col-hi">120 triệu</td><td>165 triệu</td><td>235 triệu</td></tr>
+          <tr><td>Số kênh vận hành</td><td>1</td><td class="col-hi">10</td><td>20</td><td>32</td></tr><tr><td>Quy mô đội ngũ</td><td>—</td><td class="col-hi">6 người</td><td>7 người</td><td>8 người</td></tr>
+          <tr><td>Phát trực tiếp</td><td>Không</td><td class="col-hi">3 phiên/tuần</td><td>4 phiên/tuần</td><td>6 phiên/tuần</td></tr>
+          <tr><td>Cộng đồng</td><td>Không</td><td class="col-hi">Không</td><td>Có</td><td>Có</td></tr>
+          <tr><td>KOC, quảng cáo, gian hàng</td><td>Không</td><td class="col-hi">Không</td><td>Không</td><td>Có</td></tr>
+          <tr><td>Cam kết chỉ tiêu</td><td>Không</td><td class="col-hi">Có</td><td>Có</td><td>Có</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="pull">Hợp đồng trước 500 triệu cho 3 tháng dự kiến — tương đương 167 triệu mỗi tháng, cho một kênh, không cam kết chỉ tiêu.
+      <small>Giai đoạn này Toàn Cầu đề xuất thời hạn 12 tháng cố định. Một kênh cần tối thiểu 4 đến 6 tháng vận hành liên tục để thuật toán nhận diện ổn định tệp người xem — hệ quả của việc chạy từng đợt ngắn đang thể hiện trên số liệu kênh hiện tại.</small></div>
+  </div>
+</section>
+
+<!-- ══════════════ 15 · thương mại ══════════════ -->
+<section class="slide">
+  <div class="wrap">
+    <div class="eyebrow">Mô hình thương mại</div>
+    <h2>Phí cố định, cộng 10% trên đơn Toàn Cầu tạo ra</h2>
+    <div class="cards">
+      <div class="card"><span class="mark">Khoản 1</span><h3>Phí dịch vụ</h3>
+        <p>Cố định hằng tháng theo gói đã chọn. Bao gồm toàn bộ nhân sự, sản xuất, vận hành và báo cáo.</p></div>
+      <div class="card"><span class="mark">Khoản 2</span><h3>Hoa hồng 10%</h3>
+        <p>Trên doanh thu các đơn phát sinh qua mã giảm giá và liên kết riêng của Toàn Cầu. Dưới mặt bằng ngành hàng chăm sóc nhà cửa, vốn phổ biến 10–18%.</p></div>
+      <div class="card mute"><span class="mark">Khoản 3</span><h3>Ngân sách truyền thông</h3>
+        <p>Quảng cáo và booking KOC — Dr.Natro chi trực tiếp theo từng đợt. Toàn Cầu lập kế hoạch, vận hành và báo cáo hiệu quả.</p></div>
+    </div>
+    <p class="lead">Tách bạch hai khoản giúp Dr.Natro kiểm soát dòng tiền, đồng thời để hiệu quả truyền thông được đánh giá độc lập với chi phí vận hành.</p>
+  </div>
+</section>
+
+<!-- ══════════════ 16 · điều kiện ══════════════ -->
+<section class="slide">
+  <div class="wrap">
+    <div class="eyebrow key">Đề nghị Dr.Natro xác nhận</div>
+    <h2>Ba điều kiện nằm ngoài phạm vi Toàn Cầu</h2>
+    <p class="lead">Nêu rõ ngay từ đầu để hai bên thống nhất trách nhiệm, tránh tranh luận ở kỳ nghiệm thu.</p>
+    <div class="asks">
+      <div class="ask"><h3>Quản trị giá và kênh phân phối</h3>
+        <p>Truyền thông làm tăng nhu cầu. Nếu giá thị trường không được kiểm soát, phần nhu cầu tăng thêm sẽ chảy về các điểm bán phá giá và hàng nhái.</p></div>
+      <div class="ask"><h3>Mã riêng và quyền xem số liệu</h3>
+        <p>Bộ mã giảm giá, liên kết affiliate riêng, và quyền truy cập số liệu đơn hàng phát sinh từ các mã đó. Không có ba thứ này thì cơ chế hoa hồng không vận hành được.</p></div>
+      <div class="ask"><h3>Hàng mẫu và tồn kho</h3>
+        <p>Cung cấp hàng mẫu kịp thời cho sản xuất nội dung, đảm bảo tồn kho trong các đợt cao điểm, và một đầu mối liên hệ cố định.</p></div>
+    </div>
+    <div class="pull">Không tối đa hóa lượt xem. Tối đa hóa lượt xem của đúng tệp bà nội trợ.
+      <small>Đây là mục tiêu khó hơn và tốn kém hơn mục tiêu cũ — đổi lại, mỗi lượt xem có giá trị thương mại cao hơn nhiều lần.</small></div>
+  </div>
+</section>
+
+</div>
+
+<div class="brandmark">Toàn Cầu · Dr.Natro</div>
+<nav class="pager" aria-label="Điều hướng slide">
+  <span class="count" id="count">01 / 16</span>
+  <button id="prev" aria-label="Slide trước">←</button>
+  <button id="next" aria-label="Slide tiếp">→</button>
+</nav>
+
+<script>
+(() => {
+  const slides = [...document.querySelectorAll('.slide')];
+  const railfill = document.getElementById('railfill');
+  const count = document.getElementById('count');
+  const prev = document.getElementById('prev');
+  const next = document.getElementById('next');
+  const pad = n => String(n).padStart(2, '0');
+  let i = 0;
+
+  function show(n) {
+    i = Math.max(0, Math.min(slides.length - 1, n));
+    slides.forEach((s, k) => s.classList.toggle('is-on', k === i));
+    railfill.style.width = ((i + 1) / slides.length * 100) + '%';
+    count.textContent = pad(i + 1) + ' / ' + pad(slides.length);
+    prev.disabled = i === 0;
+    next.disabled = i === slides.length - 1;
+    window.scrollTo(0, 0);
+    if (slides[i].querySelector('#bars')) drawBars();
+  }
+  prev.onclick = () => show(i - 1);
+  next.onclick = () => show(i + 1);
+
+  addEventListener('keydown', e => {
+    if (e.target.id === 'freq') return;
+    if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') { e.preventDefault(); show(i + 1); }
+    if (e.key === 'ArrowLeft'  || e.key === 'PageUp')  { e.preventDefault(); show(i - 1); }
+    if (e.key === 'Home') show(0);
+    if (e.key === 'End')  show(slides.length - 1);
+  });
+
+  let x0 = null;
+  addEventListener('touchstart', e => x0 = e.changedTouches[0].clientX, {passive:true});
+  addEventListener('touchend', e => {
+    if (x0 === null) return;
+    const dx = e.changedTouches[0].clientX - x0;
+    if (Math.abs(dx) > 60) show(dx < 0 ? i + 1 : i - 1);
+    x0 = null;
+  }, {passive:true});
+
+  /* ── biểu đồ giá: chỉ chạy khi slide hiện ra ── */
+  let barsDrawn = false;
+  function drawBars() {
+    if (barsDrawn) return;
+    barsDrawn = true;
+    document.querySelectorAll('#bars .fill').forEach((f, k) => {
+      f.style.width = '0';
+      setTimeout(() => f.style.width = f.dataset.w + '%', 60 + k * 70);
+    });
+  }
+
+  /* ── tần suất mua ── */
+  const freq = document.getElementById('freq');
+  const freqOut = document.getElementById('freqOut');
+  const freqSay = document.getElementById('freqSay');
+  function sayFreq() {
+    const n = +freq.value, base = 2, mult = (n / base).toFixed(1).replace('.', ',');
+    freqOut.textContent = n;
+    freqSay.innerHTML = n === base
+      ? '<strong>Điểm xuất phát.</strong> Khách chỉ nghĩ đến Dr.Natro khi cọ nhà tắm — mua 2 lần mỗi năm.'
+      : `Khách nghĩ đến Dr.Natro ở <strong>${n}</strong> tình huống khác nhau thay vì 2 → doanh thu trên mỗi khách hàng <strong>gấp ${mult} lần</strong>, mà không cần thêm một khách hàng mới nào.`;
+  }
+  freq.addEventListener('input', sayFreq);
+  sayFreq();
+
+  /* ── phương án kênh ── */
+  document.getElementById('tabs').addEventListener('click', e => {
+    const b = e.target.closest('.tab');
+    if (!b) return;
+    document.querySelectorAll('#tabs .tab').forEach(t => t.setAttribute('aria-selected', String(t === b)));
+    document.querySelectorAll('.panel').forEach(p => p.classList.toggle('is-on', p.dataset.panel === b.dataset.p));
+  });
+
+  /* ── ba gói ── */
+  const PKG = [
+    {phu:'8 kênh',  live:'3 phiên/tuần', doi:'6 người', view:'25 – 30 triệu',  fol:'50.000',  cd:'—',      th:'15'},
+    {phu:'18 kênh', live:'4 phiên/tuần', doi:'7 người', view:'50 – 60 triệu',  fol:'80.000',  cd:'50.000', th:'20'},
+    {phu:'30 kênh', live:'6 phiên/tuần', doi:'8 người', view:'80 – 100 triệu', fol:'100.000', cd:'50.000', th:'25'}
+  ];
+  const specs = document.getElementById('specs');
+  function renderPkg(k) {
+    const p = PKG[k];
+    specs.innerHTML = [
+      ['Lượt xem đúng tệp', p.view], ['Người theo dõi kênh chính', p.fol],
+      ['Hệ kênh phụ', p.phu], ['Phát trực tiếp', p.live],
+      ['Quy mô đội ngũ', p.doi], ['Thành viên cộng đồng', p.cd],
+      ['Tình huống khai thác', p.th]
+    ].map(([t, v]) => `<div class="spec"><dt>${t}</dt><dd>${v}</dd></div>`).join('');
+  }
+  document.getElementById('pkgs').addEventListener('click', e => {
+    const b = e.target.closest('.pkg');
+    if (!b) return;
+    document.querySelectorAll('.pkg').forEach(p => p.setAttribute('aria-pressed', String(p === b)));
+    renderPkg(+b.dataset.k);
+  });
+  renderPkg(1);
+
+  show(0);
+})();
+</script>
