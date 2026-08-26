@@ -1,0 +1,1251 @@
+<title>Hành Trình 60 Ngày</title>
+<style>
+  :root {
+    color-scheme: light;
+    --bg: #ffffff;
+    --surface: #ffffff;
+    --surface-2: #f6f7f9;
+    --ink: #12151a;
+    --ink-soft: #565c66;
+    --muted: #8b909b;
+    --line: rgba(18, 21, 26, 0.15);
+    --line-strong: rgba(18, 21, 26, 0.24);
+
+    --content: #2a78d6;
+    --content-soft: #e9f1fc;
+    --ooh: #eb6834;
+    --ooh-soft: #fdeee6;
+    --tech: #1baf7a;
+    --tech-soft: #e6f7f0;
+    --warn: #fab219;
+    --warn-ink: #7a5400;
+    --warn-soft: #fff3da;
+
+    --font-display:
+      "Be Vietnam Pro", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --font-body:
+      "Be Vietnam Pro", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --font-mono:
+      "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  }
+
+  /* Trang cam kết giao diện sáng (nền trắng) cố định — không đổi theo theme hệ thống. */
+
+  * {
+    box-sizing: border-box;
+  }
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+  }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-size: 15px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    height: 100vh;
+    overflow: hidden;
+  }
+  h1 {
+    font-family: var(--font-display);
+    text-wrap: balance;
+    margin: 0;
+  }
+
+  /* Layout dạng dashboard cố định 1 màn hình: phần tiêu đề đứng yên, chỉ riêng
+     bảng timeline (.gantt-scroll) cuộn — nhờ vậy dòng tiêu đề tuần luôn "đông cứng". */
+  .page {
+    width: calc(100% - 28px);
+    max-width: 2200px;
+    margin: 0 auto;
+    padding: 16px 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .panel-head {
+    flex: none;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 12px;
+  }
+  .panel-head .titles {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--content);
+  }
+  h1.title {
+    font-size: 21px;
+    font-weight: 700;
+  }
+  .subrange {
+    font-size: 12.5px;
+    color: var(--muted);
+    font-family: var(--font-mono);
+  }
+
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    align-items: center;
+    font-size: 12.5px;
+    color: var(--ink-soft);
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    flex: none;
+  }
+  .swatch {
+    width: 14px;
+    height: 9px;
+    border-radius: 3px;
+    flex: none;
+  }
+  .tag-new {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    border: 1px solid var(--line-strong);
+    border-radius: 999px;
+    padding: 1px 6px;
+  }
+
+  /* ---------- detail box ---------- */
+  .detail-box {
+    flex: none;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border: 1px dashed var(--line-strong);
+    border-radius: 10px;
+    padding: 11px 16px;
+    margin: 0 0 12px;
+    min-height: 22px;
+    font-size: 13.5px;
+    color: var(--muted);
+  }
+  .detail-box .dbdot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex: none;
+    background: var(--muted);
+  }
+  .detail-box .dbtext {
+    color: var(--ink);
+  }
+  .detail-box .dbtext b {
+    font-weight: 600;
+  }
+  .detail-box code {
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    background: var(--surface-2);
+    border-radius: 5px;
+    padding: 1px 6px;
+    margin-right: 8px;
+    color: var(--ink-soft);
+  }
+  .detail-box .dbflag {
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    font-weight: 600;
+    color: var(--warn-ink);
+    background: var(--warn-soft);
+    border-radius: 999px;
+    padding: 2px 9px;
+    margin-left: 8px;
+    white-space: nowrap;
+  }
+
+  /* ---------- gantt ---------- */
+  .gantt-frame {
+    flex: 1 1 auto;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--line-strong);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .gantt-scroll {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow: auto;
+  }
+  .gantt-grid {
+    position: relative;
+    display: grid;
+    grid-template-columns: 270px repeat(8, minmax(120px, 1fr)) minmax(
+        72px,
+        0.62fr
+      );
+    grid-auto-rows: minmax(18px, auto);
+    row-gap: 0;
+    column-gap: 0;
+    min-width: 1150px;
+  }
+
+  .gridline {
+    pointer-events: none;
+    border-left: 1px solid var(--line);
+  }
+  .row-gap-line {
+    grid-column: 1 / -1;
+    align-self: center;
+    border-top: 1px solid var(--line);
+    pointer-events: none;
+  }
+
+  .gh-cell {
+    position: sticky;
+    top: 0;
+    z-index: 3;
+    background: var(--surface);
+    padding: 8px 10px 12px;
+    border-bottom: 2px solid var(--line-strong);
+    font-family: var(--font-mono);
+  }
+  .gh-label {
+    left: 0;
+    z-index: 4;
+    grid-column: 1;
+    border-right: 1px solid var(--line-strong);
+  }
+  .gh-week {
+    grid-row: 1;
+    text-align: center;
+    padding-left: 4px;
+    padding-right: 4px;
+  }
+  .gh-week .wk {
+    font-size: 12.5px;
+    font-weight: 700;
+    color: var(--ink);
+  }
+  .gh-week .rng {
+    font-size: 10px;
+    color: var(--muted);
+    display: block;
+    margin-top: 1px;
+  }
+  .gh-week .note {
+    font-size: 9px;
+    color: var(--warn-ink);
+    display: block;
+  }
+
+  .item-label {
+    position: sticky;
+    left: 0;
+    z-index: 2;
+    grid-column: 1;
+    background: var(--surface);
+    padding: 8px 12px 8px 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 3px;
+    border-right: 1px solid var(--line-strong);
+  }
+  .item-label .title-line {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .item-label .code {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--group-color, var(--content));
+  }
+  .item-label .name {
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--ink);
+    line-height: 1.3;
+  }
+
+  .bar {
+    position: relative;
+    align-self: center;
+    min-height: 32px;
+    margin: 3px 5px;
+    border-radius: 7px;
+    border-left: 3px solid var(--group-color, var(--content));
+    background: var(--group-soft, var(--content-soft));
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
+    padding: 6px 9px;
+    font-size: 11.5px;
+    font-weight: 500;
+    color: var(--ink);
+    line-height: 1.32;
+    white-space: normal;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+    cursor: pointer;
+    outline-offset: 2px;
+  }
+  .bar:hover,
+  .bar:focus-visible {
+    filter: brightness(1.05);
+    box-shadow: 0 0 0 1px var(--group-color, var(--content)) inset;
+  }
+  .bar.is-active {
+    box-shadow: 0 0 0 2px var(--group-color, var(--content));
+  }
+  .bar .flag-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--warn);
+    flex: none;
+    margin-top: 4px;
+  }
+  .bar .btext {
+    flex: 1;
+  }
+
+  /* ---------- mobile: "theo tuần" thay cho lịch ngang ---------- */
+  .mobile-weeks {
+    display: none;
+    gap: 8px;
+  }
+  details.week {
+    background: var(--surface);
+    border: 1px solid var(--line-strong);
+    border-radius: 10px;
+    padding: 2px 4px;
+  }
+  details.week summary {
+    list-style: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 12px 14px;
+  }
+  details.week summary::-webkit-details-marker {
+    display: none;
+  }
+  details.week summary .sl {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+  }
+  details.week summary .wk-tag {
+    font-family: var(--font-mono);
+    font-weight: 700;
+    font-size: 14px;
+  }
+  details.week summary .wk-range {
+    font-size: 12px;
+    color: var(--muted);
+  }
+  details.week summary .wk-count {
+    font-size: 11.5px;
+    color: var(--ink-soft);
+    font-family: var(--font-mono);
+  }
+  details.week summary .chevron {
+    color: var(--muted);
+    transition: transform 0.15s ease;
+    flex: none;
+  }
+  details.week[open] summary .chevron {
+    transform: rotate(90deg);
+  }
+  .week-body {
+    padding: 2px 12px 14px;
+    display: grid;
+    gap: 8px;
+  }
+  .week-task {
+    padding: 10px 12px;
+    border-radius: 9px;
+    background: var(--surface-2);
+    border-left: 3px solid var(--task-color, var(--content));
+  }
+  .week-task .wt-item {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--ink-soft);
+  }
+  .week-task .wt-name {
+    font-size: 14px;
+    color: var(--ink);
+    margin-top: 2px;
+    line-height: 1.4;
+  }
+  .week-task .wt-flag {
+    display: inline-block;
+    margin-top: 7px;
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    font-weight: 600;
+    color: var(--warn-ink);
+    background: var(--warn-soft);
+    border-radius: 999px;
+    padding: 2px 9px;
+  }
+
+  @media (max-width: 560px) {
+    html,
+    body {
+      height: auto;
+      overflow: visible;
+    }
+    .page {
+      height: auto;
+      padding: 14px 0 32px;
+    }
+    .panel-head {
+      align-items: flex-start;
+    }
+    h1.title {
+      font-size: 18px;
+    }
+    .legend {
+      gap: 10px 14px;
+      font-size: 12px;
+    }
+    .detail-box,
+    .gantt-frame {
+      display: none;
+    }
+    .mobile-weeks {
+      display: grid;
+    }
+  }
+</style>
+
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap"
+/>
+
+<div class="page">
+  <div class="panel-head">
+    <div class="titles">
+      <div class="eyebrow">Kế hoạch 453/KH-BCA-C06</div>
+      <h1 class="title">Hành trình 60 ngày — Toàn cảnh 12 hạng mục</h1>
+      <div class="subrange">
+        31/8 – 29/10/2026 · 8 hạng mục gốc (#1–#8) + 4 gói bổ sung đã duyệt (A ·
+        C · D · F)
+      </div>
+    </div>
+    <div class="legend">
+      <span class="legend-item"
+        ><span class="swatch" style="background: var(--content)"></span>Nội dung
+        — đội Content</span
+      >
+      <span class="legend-item"
+        ><span class="swatch" style="background: var(--ooh)"></span>Ngoài trời —
+        Toàn Cầu ADV</span
+      >
+      <span class="legend-item"
+        ><span class="swatch" style="background: var(--tech)"></span>Cầu nối
+        công nghệ (Gói A)</span
+      >
+      <span class="legend-item"
+        ><span class="dot" style="background: var(--warn)"></span>Cần input từ
+        C06</span
+      >
+      <span class="legend-item"
+        ><span class="tag-new">mới</span>Gói bổ sung đã duyệt</span
+      >
+    </div>
+  </div>
+
+  <div id="detailBox" class="detail-box">
+    <span class="dbdot"></span>
+    <span class="dbtext"
+      >Di chuột hoặc chạm vào một đầu việc trong lịch bên dưới để xem tên đầy
+      đủ, tuần thực hiện và tình trạng phụ thuộc C06.</span
+    >
+  </div>
+
+  <div class="gantt-frame">
+    <div class="gantt-scroll">
+      <div id="ganttGrid" class="gantt-grid"></div>
+    </div>
+  </div>
+
+  <div id="weekList" class="mobile-weeks"></div>
+</div>
+
+<script>
+  (function () {
+    "use strict";
+
+    var WEEKS = [
+      { n: 1, label: "T1", range: "31/8–6/9" },
+      { n: 2, label: "T2", range: "7–13/9" },
+      { n: 3, label: "T3", range: "14–20/9" },
+      { n: 4, label: "T4", range: "21–27/9" },
+      { n: 5, label: "T5", range: "28/9–4/10" },
+      { n: 6, label: "T6", range: "5–11/10" },
+      { n: 7, label: "T7", range: "12–18/10" },
+      { n: 8, label: "T8", range: "19–25/10" },
+      { n: 9, label: "T9", range: "26–29/10", note: "4 ngày · báo cáo" },
+    ];
+
+    var OWNERS = {
+      content: { colorVar: "--content", softVar: "--content-soft" },
+      ooh: { colorVar: "--ooh", softVar: "--ooh-soft" },
+      tech: { colorVar: "--tech", softVar: "--tech-soft" },
+    };
+
+    /* Thứ tự giữ đúng thứ tự gốc: #1 → #8, rồi 4 gói bổ sung theo đúng thứ tự đã trình duyệt (A · C · D · F). */
+    var ITEMS = [
+      {
+        code: "M1",
+        owner: "content",
+        title: "#1 Chuỗi phóng sự TV 8 tập — tiền kỳ + quay tại các điểm",
+        isNew: false,
+        tasks: [
+          {
+            code: "1.1",
+            name: "Gửi C06 gói xác nhận case + xin tư liệu nội bộ (8 case ưu tiên)",
+            w1: 1,
+            w2: 1,
+            flag: true,
+          },
+          {
+            code: "1.2",
+            name: "Nhận phản hồi xác nhận case + tư liệu từ C06 ",
+            w1: 1,
+            w2: 1,
+            flag: true,
+          },
+          {
+            code: "1.3",
+            name: "C06 làm cầu nối xin phép 8 gia đình ",
+            w1: 2,
+            w2: 3,
+            flag: true,
+          },
+          {
+            code: "1.4",
+            name: "Viết kịch bản/outline 8 tập (song song theo case được duyệt)",
+            w1: 2,
+            w2: 5,
+          },
+          { code: "1.5", name: "Duyệt kịch bản với C06/VTV", w1: 4, w2: 6 },
+          {
+            code: "1.6",
+            name: "Khảo sát địa điểm quay (case đã được duyệt)",
+            w1: 4,
+            w2: 6,
+          },
+          {
+            code: "1.7",
+            name: "Lên lịch trình quay + phân công 5 tổ công tác theo 8 điểm",
+            w1: 5,
+            w2: 6,
+          },
+          {
+            code: "1.8",
+            name: "Đi quay tại các điểm (8 case, chia đợt song song theo 5 tổ công tác)",
+            w1: 6,
+            w2: 8,
+          },
+          {
+            code: "1.9",
+            name: "Bàn giao tư liệu quay (rush footage) cho VTV để hậu kỳ + phát sóng",
+            w1: 9,
+            w2: 9,
+          },
+        ],
+      },
+      {
+        code: "M2",
+        owner: "content",
+        title: "#2 Clip số",
+        isNew: false,
+        tasks: [
+          {
+            code: "2.1",
+            name: "Sản xuất clip định kỳ (chạy xuyên suốt)",
+            w1: 1,
+            w2: 9,
+          },
+          {
+            code: "2.2",
+            name: "Đăng tải + theo dõi hiệu quả (chạy xuyên suốt)",
+            w1: 1,
+            w2: 9,
+          },
+        ],
+      },
+      {
+        code: "M3",
+        owner: "content",
+        title: "#3 Bộ nhận diện truyền thông",
+        isNew: false,
+        tasks: [
+          {
+            code: "3.1",
+            name: "Dựng bộ nhận diện (logo, màu, template dùng chung)",
+            w1: 1,
+            w2: 1,
+          },
+          { code: "3.2", name: "Duyệt bộ nhận diện với C06", w1: 2, w2: 2 },
+          { code: "3.3", name: "Bàn giao cho các nhóm sản xuất", w1: 2, w2: 2 },
+        ],
+      },
+      {
+        code: "M4",
+        owner: "content",
+        title: "#4 Infographic quy trình ADN",
+        isNew: false,
+        tasks: [
+          {
+            code: "4.1",
+            name: "Nhận nội dung chuyên môn quy trình ADN từ C06",
+            w1: 1,
+            w2: 1,
+            flag: true,
+          },
+          {
+            code: "4.2",
+            name: "Thiết kế infographic (theo bộ nhận diện #3)",
+            w1: 2,
+            w2: 3,
+          },
+          {
+            code: "4.3",
+            name: "Duyệt nội dung chuyên môn với C06",
+            w1: 3,
+            w2: 3,
+          },
+          { code: "4.4", name: "Đăng tải/in ấn phân phối", w1: 3, w2: 4 },
+        ],
+      },
+      {
+        code: "M5",
+        owner: "ooh",
+        title: "#5 In pano 34 địa phương — 680 pano",
+        isNew: false,
+        tasks: [
+          {
+            code: "5.1",
+            name: "C06 xác nhận mạng lưới thi công 34 tỉnh + timeline khả thi",
+            w1: 1,
+            w2: 1,
+            flag: true,
+          },
+          {
+            code: "5.2",
+            name: "Hoàn thiện artwork pano (bộ nhận diện #3 + QR gói A)",
+            w1: 2,
+            w2: 3,
+          },
+          { code: "5.3", name: "Duyệt artwork với C06", w1: 3, w2: 3 },
+          {
+            code: "5.4",
+            name: "In pano theo đợt (chia 4 đợt tỉnh)",
+            w1: 4,
+            w2: 8,
+          },
+          { code: "5.5", name: "Thi công lắp đặt theo đợt tỉnh", w1: 4, w2: 8 },
+          {
+            code: "5.6",
+            name: "Nghiệm thu + báo cáo tiến độ theo tỉnh",
+            w1: 8,
+            w2: 9,
+          },
+        ],
+      },
+      {
+        code: "M6",
+        owner: "ooh",
+        title: "#6 Pano LED 5 thành phố lớn",
+        isNew: false,
+        tasks: [
+          {
+            code: "6.1",
+            name: "Chốt số lượng LED thực tế tại 5 thành phố",
+            w1: 1,
+            w2: 1,
+            flag: true,
+          },
+          {
+            code: "6.2",
+            name: "Thiết kế nội dung slide LED (bộ nhận diện #3 + QR gói A)",
+            w1: 2,
+            w2: 3,
+          },
+          { code: "6.3", name: "Duyệt nội dung với C06", w1: 3, w2: 3 },
+          { code: "6.4", name: "Đặt lịch phát tại 5 thành phố", w1: 3, w2: 4 },
+          {
+            code: "6.5",
+            name: "Phát sóng LED theo lịch (chạy suốt)",
+            w1: 4,
+            w2: 9,
+          },
+          {
+            code: "6.6",
+            name: "Báo cáo hiệu quả theo thành phố",
+            w1: 8,
+            w2: 9,
+          },
+        ],
+      },
+      {
+        code: "M7",
+        owner: "content",
+        title: "#7 Social Media 39 bài",
+        isNew: false,
+        tasks: [
+          {
+            code: "7.1",
+            name: "Lên kế hoạch nội dung 39 bài, phân bổ theo tuần",
+            w1: 1,
+            w2: 1,
+          },
+          {
+            code: "7.2",
+            name: "Sản xuất + đăng bài định kỳ (chạy xuyên suốt)",
+            w1: 1,
+            w2: 9,
+          },
+          {
+            code: "7.3",
+            name: "Theo dõi tương tác, báo cáo hiệu quả",
+            w1: 8,
+            w2: 9,
+          },
+        ],
+      },
+      {
+        code: "M8",
+        owner: "content",
+        title: "#8 Tọa đàm chia sẻ câu chuyện",
+        isNew: false,
+        tasks: [
+          {
+            code: "8.1",
+            name: "Lên ý tưởng chủ đề + đề xuất khách mời",
+            w1: 1,
+            w2: 2,
+          },
+          {
+            code: "8.2",
+            name: "Gửi C06 đề nghị hỗ trợ khách mời nhân chứng",
+            w1: 1,
+            w2: 1,
+            flag: true,
+          },
+          {
+            code: "8.3",
+            name: "Chốt địa điểm, thời gian, kịch bản chương trình",
+            w1: 3,
+            w2: 5,
+          },
+          { code: "8.4", name: "Truyền thông trước sự kiện", w1: 5, w2: 7 },
+          { code: "8.5", name: "Tổ chức tọa đàm", w1: 7, w2: 8 },
+          {
+            code: "8.6",
+            name: "Hậu kỳ — bài viết/video tổng kết sự kiện",
+            w1: 8,
+            w2: 9,
+          },
+        ],
+      },
+      {
+        code: "GA",
+        owner: "tech",
+        title: "Gói A — QR trên biển quảng cáo dẫn vào VNeID",
+        isNew: true,
+        tasks: [
+          {
+            code: "A.1",
+            name: "Xin C06 xác nhận link/deep-link chính thức VNeID",
+            w1: 1,
+            w2: 1,
+            flag: true,
+          },
+          {
+            code: "A.2",
+            name: "Dựng trang đích hướng dẫn, gắn mã tracking theo điểm",
+            w1: 1,
+            w2: 2,
+          },
+          {
+            code: "A.3",
+            name: "Thiết kế QR + vị trí gắn trên artwork pano/LED",
+            w1: 2,
+            w2: 2,
+          },
+          {
+            code: "A.4",
+            name: "Test đường dẫn + tracking từng điểm",
+            w1: 2,
+            w2: 3,
+          },
+          {
+            code: "A.5",
+            name: "Bàn giao QR cho in pano (#5) và slide LED (#6)",
+            w1: 3,
+            w2: 3,
+          },
+          {
+            code: "A.6",
+            name: "Theo dõi số liệu quét theo điểm/tỉnh (chạy suốt)",
+            w1: 4,
+            w2: 9,
+          },
+          {
+            code: "A.7",
+            name: "Báo cáo ROI — điểm/tỉnh hiệu quả nhất",
+            w1: 8,
+            w2: 9,
+          },
+        ],
+      },
+      {
+        code: "GC",
+        owner: "content",
+        title: "Gói C — Đồng hành cùng gia đình đang chờ tin",
+        isNew: true,
+        tasks: [
+          {
+            code: "C.1",
+            name: "Kết nối chuyên gia tâm lý/tổ chức liên quan",
+            w1: 1,
+            w2: 2,
+            flag: true,
+          },
+          {
+            code: "C.2",
+            name: "Lên kịch bản nội dung FAQ/giải thích quy trình chờ",
+            w1: 2,
+            w2: 3,
+          },
+          {
+            code: "C.3",
+            name: "Duyệt nội dung với chuyên gia tâm lý",
+            w1: 3,
+            w2: 4,
+          },
+          {
+            code: "C.4",
+            name: "Sản xuất nội dung (video/hỏi-đáp)",
+            w1: 3,
+            w2: 5,
+          },
+          {
+            code: "C.5",
+            name: "Đăng tải định kỳ (chạy xuyên suốt)",
+            w1: 5,
+            w2: 9,
+          },
+        ],
+      },
+      {
+        code: "GD",
+        owner: "content",
+        title: "Gói D — Creator lịch sử - quân sự",
+        isNew: true,
+        tasks: [
+          {
+            code: "D.1",
+            name: "Thẩm định lại uy tín/follower thật/lịch sử phát ngôn ứng viên đã research",
+            w1: 1,
+            w2: 2,
+          },
+          {
+            code: "D.2",
+            name: "Gửi C06 duyệt danh sách creator rút gọn",
+            w1: 2,
+            w2: 2,
+            flag: true,
+          },
+          {
+            code: "D.3",
+            name: "Tiếp cận, đàm phán, ký thỏa thuận 1–2 creator pilot",
+            w1: 3,
+            w2: 4,
+          },
+          {
+            code: "D.4",
+            name: "Cung cấp tư liệu đã duyệt cho creator",
+            w1: 4,
+            w2: 5,
+          },
+          {
+            code: "D.5",
+            name: "Duyệt kịch bản/outline creator trước khi đăng",
+            w1: 5,
+            w2: 6,
+          },
+          {
+            code: "D.6",
+            name: "Creator sản xuất + đăng nội dung",
+            w1: 6,
+            w2: 7,
+          },
+          {
+            code: "D.7",
+            name: "Đánh giá kết quả pilot, đề xuất nhân rộng/dừng",
+            w1: 7,
+            w2: 8,
+          },
+        ],
+      },
+      {
+        code: "GF",
+        owner: "content",
+        title: "Gói F — Vùng sâu vùng xa (2–3 tỉnh thí điểm)",
+        isNew: true,
+        tasks: [
+          {
+            code: "F.1",
+            name: "Gửi C06 đề nghị danh sách tỉnh trọng điểm",
+            w1: 1,
+            w2: 1,
+            flag: true,
+          },
+          {
+            code: "F.2",
+            name: "Chọn 2–3 tỉnh thí điểm + ngôn ngữ dân tộc ưu tiên",
+            w1: 2,
+            w2: 2,
+          },
+          {
+            code: "F.3",
+            name: "Tìm/hợp tác người dịch, phát thanh viên bản địa",
+            w1: 2,
+            w2: 3,
+          },
+          { code: "F.4", name: "Sản xuất audio/clip song ngữ", w1: 3, w2: 5 },
+          {
+            code: "F.5",
+            name: "Kết nối già làng/trưởng bản tại tỉnh thí điểm (qua C06)",
+            w1: 3,
+            w2: 5,
+            flag: true,
+          },
+          {
+            code: "F.6",
+            name: "Phát hành nội dung tại các tỉnh thí điểm (qua loa xã/kênh địa phương, già làng/trưởng bản)",
+            w1: 5,
+            w2: 8,
+          },
+          {
+            code: "F.7",
+            name: "Đo hiệu quả thí điểm, đề xuất nhân rộng",
+            w1: 8,
+            w2: 9,
+          },
+        ],
+      },
+    ];
+
+    function assignLanes(tasks) {
+      var sorted = tasks.slice().sort(function (a, b) {
+        return a.w1 - b.w1;
+      });
+      var laneEnds = [];
+      var out = [];
+      sorted.forEach(function (t) {
+        var lane = -1;
+        for (var i = 0; i < laneEnds.length; i++) {
+          if (laneEnds[i] < t.w1) {
+            lane = i;
+            break;
+          }
+        }
+        if (lane === -1) {
+          lane = laneEnds.length;
+          laneEnds.push(t.w2);
+        } else {
+          laneEnds[lane] = t.w2;
+        }
+        out.push(Object.assign({}, t, { lane: lane }));
+      });
+      return { tasks: out, laneCount: laneEnds.length || 1 };
+    }
+
+    function weekRangeLabel(w1, w2) {
+      var a = WEEKS[w1 - 1],
+        b = WEEKS[w2 - 1];
+      return w1 === w2
+        ? a.label + " (" + a.range + ")"
+        : a.label + "–" + b.label + " (" + a.range + " → " + b.range + ")";
+    }
+
+    function renderGantt() {
+      var grid = document.getElementById("ganttGrid");
+      var frag = document.createDocumentFragment();
+
+      /* Pass 1 — tính layout (hàng/lane) cho từng hạng mục trước, chèn 1 hàng đệm giữa các
+       hạng mục để tăng khoảng cách, để biết tổng số hàng và vẽ đường kẻ dọc xuyên suốt. */
+      var layouts = [];
+      var gapRows = [];
+      var row = 2;
+      ITEMS.forEach(function (item, idx) {
+        var owner = OWNERS[item.owner];
+        var laned = assignLanes(item.tasks);
+        var startRow = row;
+        var endRow = row + laned.laneCount;
+        layouts.push({
+          item: item,
+          owner: owner,
+          laned: laned,
+          startRow: startRow,
+          endRow: endRow,
+        });
+        row = endRow;
+        if (idx < ITEMS.length - 1) {
+          gapRows.push(row);
+          row += 1;
+        }
+      });
+      var totalRowEnd = row;
+
+      /* Đường kẻ dọc theo từng cột tuần — vẽ trước để nằm dưới nhãn/thanh, giúp gióng cột dễ hơn. */
+      WEEKS.forEach(function (w) {
+        var gl = document.createElement("div");
+        gl.className = "gridline";
+        gl.style.gridColumn = String(w.n + 1);
+        gl.style.gridRow = "1 / " + totalRowEnd;
+        frag.appendChild(gl);
+      });
+
+      /* Đường kẻ ngang phân tách giữa các hạng mục — cùng phong cách với đường kẻ cột. */
+      gapRows.forEach(function (r) {
+        var hl = document.createElement("div");
+        hl.className = "row-gap-line";
+        hl.style.gridRow = String(r);
+        frag.appendChild(hl);
+      });
+
+      var labelHead = document.createElement("div");
+      labelHead.className = "gh-cell gh-label";
+      labelHead.textContent = "Hạng mục";
+      frag.appendChild(labelHead);
+
+      WEEKS.forEach(function (w) {
+        var c = document.createElement("div");
+        c.className = "gh-cell gh-week";
+        c.style.gridColumn = String(w.n + 1);
+        c.innerHTML =
+          '<span class="wk">' +
+          w.label +
+          '</span><span class="rng">' +
+          w.range +
+          "</span>" +
+          (w.note ? '<span class="note">' + w.note + "</span>" : "");
+        frag.appendChild(c);
+      });
+
+      layouts.forEach(function (L, idx) {
+        var item = L.item,
+          owner = L.owner,
+          laned = L.laned,
+          startRow = L.startRow,
+          endRow = L.endRow;
+
+        var label = document.createElement("div");
+        label.className = "item-label";
+        label.style.gridRow = startRow + " / " + endRow;
+        label.style.setProperty("--group-color", "var(" + owner.colorVar + ")");
+        label.innerHTML =
+          '<span class="title-line"><span class="code">' +
+          item.code.replace(/^M/, "") +
+          "</span>" +
+          (item.isNew ? '<span class="tag-new">mới</span>' : "") +
+          "</span>" +
+          '<span class="name">' +
+          item.title +
+          "</span>";
+        frag.appendChild(label);
+
+        laned.tasks.forEach(function (t) {
+          var bar = document.createElement("div");
+          bar.className = "bar";
+          bar.tabIndex = 0;
+          bar.setAttribute("role", "button");
+          bar.style.gridRow = String(startRow + t.lane);
+          bar.style.gridColumn = t.w1 + 1 + " / " + (t.w2 + 2);
+          bar.style.setProperty("--group-color", "var(" + owner.colorVar + ")");
+          bar.style.setProperty("--group-soft", "var(" + owner.softVar + ")");
+          bar.title =
+            item.code +
+            " " +
+            t.code +
+            " — " +
+            t.name +
+            " (" +
+            weekRangeLabel(t.w1, t.w2) +
+            ")" +
+            (t.flag ? " · cần input C06" : "");
+          bar.setAttribute("aria-label", bar.title);
+          bar.innerHTML =
+            (t.flag ? '<span class="flag-dot"></span>' : "") +
+            '<span class="btext">' +
+            t.name +
+            "</span>";
+
+          var payload = {
+            groupColorVar: owner.colorVar,
+            itemCode: item.code,
+            itemTitle: item.title,
+            taskCode: t.code,
+            taskName: t.name,
+            w1: t.w1,
+            w2: t.w2,
+            flag: !!t.flag,
+          };
+          bar.addEventListener("mouseenter", function () {
+            showDetail(payload);
+          });
+          bar.addEventListener("focus", function () {
+            showDetail(payload);
+          });
+          bar.addEventListener("click", function () {
+            setActive(bar);
+            showDetail(payload);
+          });
+          bar.addEventListener("keydown", function (e) {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              setActive(bar);
+              showDetail(payload);
+            }
+          });
+
+          frag.appendChild(bar);
+        });
+      });
+
+      grid.appendChild(frag);
+    }
+
+    var activeBar = null;
+    function setActive(bar) {
+      if (activeBar) activeBar.classList.remove("is-active");
+      bar.classList.add("is-active");
+      activeBar = bar;
+    }
+
+    function showDetail(p) {
+      var box = document.getElementById("detailBox");
+      box.querySelector(".dbdot").style.background =
+        "var(" + p.groupColorVar + ")";
+      box.querySelector(".dbtext").innerHTML =
+        "<code>" +
+        p.itemCode +
+        " " +
+        p.taskCode +
+        "</code>" +
+        "<b>" +
+        p.taskName +
+        "</b>" +
+        " — " +
+        p.itemTitle +
+        " · " +
+        weekRangeLabel(p.w1, p.w2) +
+        (p.flag ? '<span class="dbflag">🔶 cần input C06</span>' : "");
+    }
+
+    /* ---------- mobile: theo tuần (thay lịch ngang trên màn hình hẹp) ---------- */
+    function renderWeeks() {
+      var list = document.getElementById("weekList");
+      var frag = document.createDocumentFragment();
+
+      WEEKS.forEach(function (w) {
+        var entries = [];
+        ITEMS.forEach(function (item) {
+          var owner = OWNERS[item.owner];
+          item.tasks.forEach(function (t) {
+            if (t.w1 <= w.n && w.n <= t.w2)
+              entries.push({ owner: owner, item: item, task: t });
+          });
+        });
+
+        var det = document.createElement("details");
+        det.className = "week";
+
+        var summary = document.createElement("summary");
+        summary.innerHTML =
+          '<span class="sl"><span class="wk-tag">' +
+          w.label +
+          "</span>" +
+          '<span class="wk-range">' +
+          w.range +
+          (w.note ? " · " + w.note : "") +
+          "</span></span>" +
+          '<span class="sl"><span class="wk-count">' +
+          entries.length +
+          ' đầu việc</span><span class="chevron">›</span></span>';
+        det.appendChild(summary);
+
+        var body = document.createElement("div");
+        body.className = "week-body";
+        entries.forEach(function (e) {
+          var row = document.createElement("div");
+          row.className = "week-task";
+          row.style.setProperty(
+            "--task-color",
+            "var(" + e.owner.colorVar + ")",
+          );
+          row.innerHTML =
+            '<span class="wt-item">' +
+            e.item.code.replace(/^M/, "#") +
+            " · " +
+            e.item.title +
+            "</span>" +
+            '<div class="wt-name">' +
+            e.task.name +
+            "</div>" +
+            (e.task.flag ? '<span class="wt-flag">🔶 chờ C06</span>' : "");
+          body.appendChild(row);
+        });
+        det.appendChild(body);
+        frag.appendChild(det);
+      });
+
+      list.appendChild(frag);
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+      renderGantt();
+      renderWeeks();
+    });
+  })();
+</script>
